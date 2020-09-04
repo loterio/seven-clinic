@@ -10,4 +10,8 @@ Henrique Borges dos Santos - _henrique.10agr@gmail.com_
 Paula Emanuele dos Santos Carvalho - _paulaemanueledossantoscarvalho@gmail.com_  
 Uelinton Teske - _uelinton.teske09@gmail.com_
 
+-----
 
+## Projeto
+
+Os wireframes(protótipos de tela) estão disponíveis [aqui](https://www.figma.com/file/v1p57pgL1jjkWmead1wtX0/Cl%C3%ADnica-M%C3%A9dica?node-id=0%3A1)
