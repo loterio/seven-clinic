@@ -2,12 +2,12 @@
 Projeto destinado à matéria de programação do Instituto Federal Catarinense
 
 ## Integrantes
-Camily Schvetcher - __cami.sch75@gmail.com__  
-Eduarda Martini - __martiniduda2002@gmail.com__  
-Fabio Vitor Loterio - __vitorloterio@gmail.com__  
-Felipe André Leonhardt - __cabanha.fl@gmail.com__  
-Henrique Borges dos Santos - __henrique.10agr@gmail.com__  
-Paula Emanuele dos Santos Carvalho - __paulaemanueledossantoscarvalho@gmail.com__  
-Uelinton Teske - __uelinton.teske09@gmail.com__
+Camily Schvetcher - _cami.sch75@gmail.com_  
+Eduarda Martini - _martiniduda2002@gmail.com_  
+Fabio Vitor Loterio - _vitorloterio@gmail.com_  
+Felipe André Leonhardt - _cabanha.fl@gmail.com_  
+Henrique Borges dos Santos - _henrique.10agr@gmail.com_  
+Paula Emanuele dos Santos Carvalho - _paulaemanueledossantoscarvalho@gmail.com_  
+Uelinton Teske - _uelinton.teske09@gmail.com_
 
 
