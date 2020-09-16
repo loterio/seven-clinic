@@ -1,5 +1,5 @@
 # seven-clinic
-Projeto destinado à matéria de programação do Instituto Federal Catarinense
+Projeto destinado à matéria de programação e engenharia de software do Instituto Federal Catarinense
 
 ## Integrantes
 Camily Schvetcher - _cami.sch75@gmail.com_  
