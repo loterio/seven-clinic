@@ -1,0 +1,13 @@
+/* url("assets/img/captura-tela-inicial.PNG") */
+
+body {
+    margin: 0;
+}
+        
+#container-imagem {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background: url("../img/captura-tela-inicial.PNG");
+    background-size: cover;
+}
