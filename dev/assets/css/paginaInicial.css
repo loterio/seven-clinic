@@ -1,7 +1,7 @@
 .pagina {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(180deg, rgba(123, 6, 173, 0.85) 0%, rgb(208, 98, 255) 100%);
+  background: linear-gradient(180deg, rgba(123, 6, 173, 0.85) 0%, rgb(232, 180, 255) 100%);
   display: grid;
   grid-template-rows: 12vh 88vh;
 }
