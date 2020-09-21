@@ -1,12 +1,32 @@
 <?php
-
     require_once('../assets/funcoes.php');
+    iniciaSession();
+
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $pagina = file_get_contents('cadastro.html');
-        if (isset($_GET['msg'])) {
-            $pagina = str_replace('{msg}', '<div>'.$_GET['msg'].'</div>',$pagina);
+        if (isset($_GET['status']) and $_GET['status'] == 'ERRO') {
+            // Recebe o 'msg', pega os valores do session e substitui
+            if (isset($_SESSION['nome'])) {
+                $pagina = str_replace('{nome}', $_SESSION['nome'], $pagina);
+            }else {
+                $pagina = str_replace('{nome}', '', $pagina);
+            }
+            if (isset($_SESSION['email'])) {
+                $pagina = str_replace('{email}', $_SESSION['email'], $pagina);
+            }else {
+                $pagina = str_replace('{email}', '', $pagina);
+            }
+            if (isset($_SESSION['msg'])) {
+                $pagina = str_replace('{msg}', '<div>'.$_SESSION['msg'].'</div>', $pagina);
+            }else {
+                $pagina = str_replace('{msg}', '', $pagina);
+            }
         }else {
+            // Não recebe 'msg', limpa o {msg} e os valores dos inputs
+
             $pagina = str_replace('{msg}', '', $pagina);
+            $pagina = str_replace('{nome}', '', $pagina);
+            $pagina = str_replace('{email}', '', $pagina);
         }
         print($pagina);
     }elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -25,7 +45,7 @@
             $stmt = bindExecute($stmt, $bind);
             while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $count++;
-              }
+            }
 
             if ($count==0) {
                 $verifEmail=true;
@@ -52,21 +72,63 @@
                 );
                 $stmt = bindExecute($stmt, $bind);
                 
-                $msg = "Cadastro realizado!<br>".$nome." ".$email." ".$senha." ".$confSenha;
-                header('location:home.php?msg='.$msg);
+                $sql = 'SELECT COUNT(*) as qtd FROM usuarios WHERE email = :email';
+                $comando = preparaComando($sql);
+                $bind = array(
+                    ':email' => $email
+                );
+                $comando = bindExecute($comando, $bind);
+                $linha = $comando->fetch(PDO::FETCH_ASSOC);
+                // var_dump($linha);
+                if ($linha['qtd'] == 1) {
+                    $sql = 'SELECT * FROM usuarios WHERE email = :email';
+                    $exec = preparaComando($sql);
+                    $bind = array(
+                        ':email' => $email
+                    );
+                    $exec = bindExecute($exec, $bind);
+                    $linha = $exec->fetch(PDO::FETCH_ASSOC);
+                    limpaSession();
+                    iniciaSession();
+                    $_SESSION['status'] = 'LOGADO';
+                    $_SESSION['msg'] = 'Cadastro realizado com sucesso!';
+                    $_SESSION['id'] = $linha['id'];
+                    $_SESSION['nome'] = $linha['nome'];
+                    $_SESSION['email'] = $linha['email'];
+                    header('location:home.php?status=OK&nome='.$_SESSION['nome']);
+                }else {
+                    $_SESSION['msg'] = "Erro ao cadastrar. Tente novamente!";
+                    $_SESSION['nome'] = $nome;
+                    $_SESSION['email'] = $email;
+                    header('location:cadastro.php?status=ERRO');
+                }
+
+            
+
+                
+                // $msg = "Cadastro realizado!<br>".$nome." ".$email." ".$senha." ".$confSenha;
+                // header('location:home.php?msg='.$msg);
             }elseif ($verifEmail==true and $verifSenha==false) {
-                $msg = "As senhas não coincidem!";
-                header('location:cadastro.php?msg='.$msg);
+                $_SESSION['msg'] = "As senhas não coincidem!";
+                $_SESSION['nome'] = $nome;
+                $_SESSION['email'] = $email;
+                header('location:cadastro.php?status=ERRO');
             }elseif ($verifEmail==false and $verifSenha==true) {
-                $msg = "Este email já está cadastrado!";
-                header('location:cadastro.php?msg='.$msg);
+                $_SESSION['msg'] = "Este email já está cadastrado!";
+                $_SESSION['nome'] = $nome;
+                $_SESSION['email'] = $email;
+                header('location:cadastro.php?status=ERRO');
             }else {
-                $msg = "Este email já está cadastrado e as senhas não coincidem!";
-                header('location:cadastro.php?msg='.$msg);
+                $_SESSION['msg'] = "Este email já está cadastrado e as senhas não coincidem!";
+                $_SESSION['nome'] = $nome;
+                $_SESSION['email'] = $email;
+                header('location:cadastro.php?status=ERRO');
             }
         }else {
-            $msg = "Preencha todos os campos!";
-            header('location:cadastro.php?msg='.$msg);
+            $_SESSION['msg'] = "Preencha todos os campos!";
+            $_SESSION['nome'] = $nome;
+            $_SESSION['email'] = $email;
+            header('location:cadastro.php?status=ERRO');
         }
     }
 

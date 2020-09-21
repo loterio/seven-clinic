@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<!-- 
+    PARA FUNCIONAR A PAGINA CADASTRO.HTML TEM QUE TER:
+        - UM LOCAL COM '{msg}', ONDE SERÁ RETORNADO AS MENSAGENS DE ERRO NO CADASTO, AO USUARIO
+        - METÓDO POST NO FORMULÁRIO
+        - VALUE = "{nome}" NO CAMPO NOME E VALUE = "{email}" NO CAMPO EMAIL
+        - OS NOMES DOS CAMPOS DEVEM SER 
+                nome
+                email
+                senha
+                confSenha
+ -->
+
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -7,11 +20,11 @@
 </head>
 <body>
     <div>{msg}</div>
-    <form action="cadastro.php" method="post" enctype="multipart/form-data">
-        <input type="text" name="nome"><br>
-        <input type="text" name="email"><br>
-        <input type="text" name="senha"><br>
-        <input type="text" name="confSenha"><br>
+    <form action="cadastro.php" method="post">
+        <input type="text" name="nome" value="{nome}"><br>
+        <input type="text" name="email" value="{email}"><br>
+        <input type="text" name="senha" value=""><br>
+        <input type="text" name="confSenha" value=""><br>
         <button type="submit">cadastrar</button>
     </form>
 </body>
