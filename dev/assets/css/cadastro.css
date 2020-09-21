@@ -1,0 +1,102 @@
+.pagina {
+  display: grid;
+  grid-template-rows: 20vh 80vh;
+}
+
+.logo-bloco, .formulario-bloco {
+  display: flex;
+  justify-content: center;
+}
+
+.logo-imagem {
+  width: 425px;
+  height: 100px;
+  background-image: url('../img/logoRoxa.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+}
+
+.formulario {
+  margin-top: 20px;
+  width: 400px;
+  height: 450px;
+  border: 3px solid #9E3DC7;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario-nav {
+  height: 50px;
+  display: flex;
+}
+
+.formulario-nav a:link, 
+.formulario-nav a:visited, 
+.formulario-nav a:hover, 
+.formulario-nav a:active {
+  text-decoration: none;
+}
+
+.btn-nav-atv {
+  width: 200px;
+  height: 50px;
+  background-color: #9E3DC7;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  padding-top: 7px;
+}
+
+.btn-nav{
+  width: 200px;
+  height: 50px;
+  color: #9E3DC7;
+  border-bottom: 3px solid #9E3DC7;
+  font-size: 24px;
+  text-align: center;
+  padding-top: 7px;
+}
+
+.formulario-dados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.dado-input {
+  height: 45px;
+  width: 350px;
+  margin-bottom: 30px;
+  font-size: 20px;
+  text-align: 20px;
+  border: 2px solid #9E3DC7;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px #80808042;
+  outline: none;
+  color: rgb(75, 75, 75);
+}
+
+.dado-input::placeholder{
+  color: #e4e4e4;
+}
+
+.dado-input:focus{
+  box-shadow: 0px 6px 5px #80808075;
+}
+
+.dado-btn {
+  height: 40px;
+  width: 150px;
+  background-color: #9E3DC7;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+

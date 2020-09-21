@@ -10,22 +10,37 @@
                 senha
                 confSenha
  -->
-
-
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/cadastro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+    <title>SevenClinic</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 </head>
 <body>
-    <div>{msg}</div>
-    <form action="cadastro.php" method="post">
-        <input type="text" name="nome" value="{nome}"><br>
-        <input type="text" name="email" value="{email}"><br>
-        <input type="text" name="senha" value=""><br>
-        <input type="text" name="confSenha" value=""><br>
-        <button type="submit">cadastrar</button>
-    </form>
+  {msg}
+  <div class="pagina">
+    <div class="logo-bloco">
+      <div class="logo-imagem"></div>
+    </div>
+    <div class="formulario-bloco">
+      <form class="formulario" action="cadastro.php" method="post" autocomplete="off">
+        <div class="formulario-nav">
+          <a class="btn-nav" href="login.php">Login</a>
+          <a class="btn-nav-atv" href="cadastro.php">Cadastro</a>
+        </div>
+        <div class="formulario-dados">
+          <input class="dado-input" type="text" placeholder="Nome" name="nome" value="{nome}">
+          <input class="dado-input" type="text" placeholder="Email" name="email" value="{email}">
+          <input class="dado-input" type="password" placeholder="Senha" name="senha" value="">
+          <input class="dado-input" type="text" placeholder="Confirme a Senha" name="confSenha" value="">
+
+          <input class="dado-btn" type="submit" value="Cadastrar">
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
-</html>
