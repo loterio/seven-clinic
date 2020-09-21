@@ -8,8 +8,11 @@
         if (isset($_GET['status']) and $_GET['status'] == 'OK') {
             $pagina = str_replace('{msg}', 'Bem-vindo(a) '.$_SESSION['nome'].'!', $pagina);
             // var_dump($_SESSION);
+            print($pagina);
         }else {
-            $pagina = str_replace('{msg}', '', $pagina);
+            // $pagina = str_replace('{msg}', '', $pagina);
+            header('location:sair.php');
         }
-        print($pagina);
+    }else{
+        header('location:sair.php');
     }
