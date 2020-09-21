@@ -9,12 +9,13 @@
 }
 
 .logo-imagem {
-  width: 30vw;
-  height: 15vh;
+  width: 425px;
+  height: 100px;
   background-image: url('../img/logoRoxa.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  margin-top: 20px;
 }
 
 .formulario {

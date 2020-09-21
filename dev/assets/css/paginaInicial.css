@@ -20,12 +20,13 @@
 }
 
 .logo-img {
-  width: 400px;
-  height: 12vh;
-  background-image: url("../img/logoBranca.png");
-  background-size: 500px;
+  width: 46.75vh;
+  height: 11vh;
+  background-image: url('../img/logoBranca.png');
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: 70% 55%;
+  background-position: center;
+  margin-left: 20px;
 }
 
 .login-bloco a:link, 
