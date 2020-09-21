@@ -102,12 +102,6 @@
                     $_SESSION['email'] = $email;
                     header('location:cadastro.php?status=ERRO');
                 }
-
-            
-
-                
-                // $msg = "Cadastro realizado!<br>".$nome." ".$email." ".$senha." ".$confSenha;
-                // header('location:home.php?msg='.$msg);
             }elseif ($verifEmail==true and $verifSenha==false) {
                 $_SESSION['msg'] = "As senhas não coincidem!";
                 $_SESSION['nome'] = $nome;
@@ -125,6 +119,9 @@
                 header('location:cadastro.php?status=ERRO');
             }
         }else {
+            // FALTA VERIFICAÇÃO SE UM DELES JA FOI INSERIDO
+            $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
+            $email = isset($_POST['email']) ? $_POST['email'] : '';
             $_SESSION['msg'] = "Preencha todos os campos!";
             $_SESSION['nome'] = $nome;
             $_SESSION['email'] = $email;
