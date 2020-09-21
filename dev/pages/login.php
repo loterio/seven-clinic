@@ -62,7 +62,7 @@
                 $_SESSION['email'] = $linha['email'];
                 header('location:home.php?status=OK&nome='.$_SESSION['nome']);
             }else {
-                $_SESSION['msg'] = "Email e/ou senha incorretos!";
+                $_SESSION['msg'] = "Email e/ou senha inválidos!";
                 $_SESSION['nome'] = $nome;
                 $_SESSION['email'] = $email;
                 header('location:login.php?status=ERRO');
