@@ -1,6 +1,8 @@
 <?php
 
     // Banco de Dados
+
+    // DEIXAR HOST = LOCALHOST NO SERVIDOR TAMBÉM
     define('HOST', 'localhost');
     define('DBNAME', 'SevenClinic');
     define('USER', 'root');
