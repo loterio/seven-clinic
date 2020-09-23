@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- 
+    PARA FUNCIONAR A PAGINA CADASTRO.HTML TEM QUE TER:
+        - UM LOCAL COM '{msg}', ONDE SERÁ RETORNADO AS MENSAGENS DE ERRO NO CADASTO, AO USUARIO
+        - METÓDO POST NO FORMULÁRIO
+        - VALUE = "{nome}" NO CAMPO NOME E VALUE = "{email}" NO CAMPO EMAIL
+        - OS NOMES DOS CAMPOS DEVEM SER 
+                nome
+                email
+                senha
+                confSenha
+ -->
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/cadastro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+    <title>SevenClinic</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script src="../assets/js/funçoes.js"></script>
+</head>
+<body>
+  {msg}
+  <div class="pagina">
+    <div class="logo-bloco">
+      <div class="logo-imagem"></div>
+    </div>
+    <div class="formulario-bloco">
+      <form class="formulario" action="cadastro.php" method="post" autocomplete="off">
+        <div class="formulario-nav">
+          <a class="btn-nav" href="login.php">Login</a>
+          <a class="btn-nav-atv" href="cadastro.php">Cadastro</a>
+        </div>
+        <div class="formulario-dados">
+          <input class="dado-input" type="text" placeholder="Nome" name="nome" onkeypress="return ApenasLetras(event,this);" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{nome}">
+          <input class="dado-input" type="email" placeholder="Email" name="email" value="{email}">
+          <input class="dado-input" type="password" placeholder="Senha" name="senha" minlength="6" value="">
+          <input class="dado-input" type="password" placeholder="Confirme a Senha" name="confSenha" minlength="6" value="">
+
+          <input class="dado-btn" type="submit" value="Cadastrar">
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,67 @@
+.pagina {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(123, 6, 173, 0.85) 0%, rgb(255, 255, 255) 85%);
+  display: grid;
+  grid-template-rows: 12vh 88vh;
+}
+
+.navegacao {
+  background-color: #9E3DC7;
+  display: flex;
+  flex-direction: row;
+}
+
+.logo-bloco, .login-bloco {
+  width: 50vw;
+  height: 12vh;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  width: 46.75vh;
+  height: 11vh;
+  background-image: url('../img/logoBranca.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 20px;
+}
+
+.login-bloco a:link, 
+.login-bloco a:visited, 
+.login-bloco a:hover, 
+.login-bloco a:active {
+  text-decoration: none;
+  color: white;
+}
+
+.login-botao {
+  font-size: 24px;
+  border: 2px solid white;
+  padding: 5px 40px;
+  border-radius: 10px;
+  margin-left: 35vw;
+}
+
+.conteudo {
+  background-image: url("../img/medica.png");
+  background-repeat: no-repeat;
+  background-size: 60vw;
+  background-position: 75% bottom;
+}
+
+.texto {
+  width: 600px;
+  height: 200px;
+  /* background-color: rgba(0, 0, 0, 0.24); */
+  color: white;
+  font-size: 28px;
+  margin-left: 20vw;
+  margin-top: 15vh;
+}
+
+.destaque {
+  font-size: 48px;
+}

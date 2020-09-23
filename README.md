@@ -1,5 +1,5 @@
 # seven-clinic
-Projeto destinado à matéria de programação do Instituto Federal Catarinense
+Projeto destinado à matéria de programação e engenharia de software do Instituto Federal Catarinense
 
 ## Integrantes
 Camily Schvetcher - _cami.sch75@gmail.com_  
@@ -12,4 +12,4 @@ Uelinton Teske - _uelinton.teske09@gmail.com_
 
 ## Projeto
 
-Os wireframes(protótipos de tela) estão disponíveis [aqui](https://www.figma.com/file/v1p57pgL1jjkWmead1wtX0/Cl%C3%ADnica-M%C3%A9dica?node-id=0%3A1)
+Os wireframes (protótipos de tela) estão disponíveis [aqui](https://www.figma.com/file/v1p57pgL1jjkWmead1wtX0/Cl%C3%ADnica-M%C3%A9dica?node-id=0%3A1)
