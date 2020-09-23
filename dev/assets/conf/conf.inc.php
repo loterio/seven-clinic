@@ -4,7 +4,7 @@
 
     // DEIXAR HOST = LOCALHOST NO SERVIDOR TAMBÉM
     define('HOST', 'localhost');
-    define('DBNAME', 'SevenClinic');
+    define('DBNAME', 'equipe1');
     define('USER', 'root');
     define('PASSWORD', '');
     define('PORT', '3306');

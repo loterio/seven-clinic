@@ -1,6 +1,5 @@
-CREATE DATABASE SevenClinic;
-
-USE SevenClinic;
+CREATE DATABASE equipe1;
+use equipe1;
 
 CREATE TABLE usuarios (
 id INT NOT NULL AUTO_INCREMENT,

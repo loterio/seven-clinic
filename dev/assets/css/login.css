@@ -81,7 +81,7 @@
 }
 
 .dado-input::placeholder{
-  color: #e4e4e4;
+  color: #7e7e7e !important;
 }
 
 .dado-input:focus{
