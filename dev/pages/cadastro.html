@@ -27,21 +27,24 @@
     <div class="logo-bloco">
       <div class="logo-imagem"></div>
     </div>
-    <div class="formulario-bloco">
-      <form class="formulario" action="cadastro.php" method="post" autocomplete="off">
+    <div class="conteudo">
+      <div class="formulario-bloco">
         <div class="formulario-nav">
           <a class="btn-nav" href="login.php">Login</a>
           <a class="btn-nav-atv" href="cadastro.php">Cadastro</a>
         </div>
-        <div class="formulario-dados">
-          <input class="dado-input" type="text" placeholder="Nome" name="nome" onkeypress="return ApenasLetras(event,this);" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{nome}">
-          <input class="dado-input" type="email" placeholder="Email" name="email" value="{email}">
-          <input class="dado-input" type="password" placeholder="Senha" name="senha" minlength="6" value="">
-          <input class="dado-input" type="password" placeholder="Confirme a Senha" name="confSenha" minlength="6" value="">
-
-          <input class="dado-btn" type="submit" value="Cadastrar">
-        </div>
-      </form>
+        <form class="formulario" action="login.php" method="post" autocomplete="off">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" onkeypress="return ApenasLetras(event,this);" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{nome}">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" value="{email}">
+          <label for="senha">Senha</label>
+          <input type="password" name="senha" name="senha" value="">
+          <label for="senha">Confirmar Senha</label>
+          <input class="dado-input" type="password" name="confSenha" minlength="6" value="">
+          <input class="dado-btn" type="submit" value="Entrar">
+        </form>
+      </div>
     </div>
   </div>
 </body>

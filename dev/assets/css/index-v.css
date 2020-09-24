@@ -5,7 +5,7 @@
 .pagina-v {
   width: 100vw;
   height: 100vh;
-  background-color: #F9F9F9;
+  background-color: #FAFAFA;
   display: grid;
   grid-template-rows: 10vh 90vh;
 }

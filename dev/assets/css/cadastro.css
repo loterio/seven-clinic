@@ -1,0 +1,125 @@
+body {
+  background-color: #FAFAFA;
+}
+
+.pagina {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 15vh 75vh;
+}
+
+.logo-bloco {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-imagem {
+  width: 42.5vh;
+  height: 10vh;
+  background-image: url('../img/logoRoxa.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.conteudo {
+  display: flex;
+  justify-content: center;
+}
+
+.formulario-bloco {
+  width: 350px;
+  height: 470px;
+  background-color: white;
+  border: 2px solid #9E3DC7;
+  border-radius: 10px;
+}
+
+.formulario-nav {
+  height: 50px;
+  display: flex;
+}
+
+.formulario-nav a:link, 
+.formulario-nav a:visited, 
+.formulario-nav a:hover, 
+.formulario-nav a:active {
+  text-decoration: none;
+}
+
+.btn-nav-atv {
+  width: 175px;
+  height: 50px;
+  background-color: #9E3DC7;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  padding-top: 7px;
+}
+
+.btn-nav{
+  width: 175px;
+  height: 50px;
+  color: #9E3DC7;
+  border-bottom: 2px solid #9E3DC7;
+  font-size: 24px;
+  text-align: center;
+  padding-top: 7px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.formulario input {
+  width: 300px;
+  height: 45px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-align: 20px;
+  border: 2px solid #E7e7e7;
+  border-radius: 5px;
+  outline: none;
+  color: rgb(75, 75, 75);
+  transition: 0.3s;
+}
+
+.formulario input:focus{
+  border: 2px solid #9E3DC7;
+}
+
+.formulario label {
+  align-self: flex-start;
+  margin-left: 25px;
+  font-size: 24px;
+  margin-bottom: 5px;
+  color: #9E3DC7;
+}
+
+
+.formulario .dado-btn {
+  height: 40px;
+  width: 150px;
+  margin-top: 5px;
+  background-color: #9E3DC7;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+@media (max-width: 355px) {
+
+  .formulario-bloco {
+    width: 300px;
+  }
+
+  .formulario input {
+    width: 250px;
+  }
+}
