@@ -1,0 +1,127 @@
+.pagina-v {
+  display: none;
+}
+
+.pagina-h {
+  width: 100vw;
+  height: 100vh;
+  background-color: #F9F9F9;
+  display: grid;
+  grid-template-rows: 10vh 90vh;
+}
+
+.navegacao {
+  background-color: #9E3DC7;
+  display: flex;
+  flex-direction: row;
+}
+
+.logo-bloco, .entrar-bloco {
+  width: 50vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+}
+
+.entrar-bloco {
+  justify-content: flex-end;
+}
+
+.logo-img {
+  width: 42.50vh;
+  height: 10vh;
+  background-image: url('../img/logoBranca.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 2vw;
+}
+
+.entrar-bloco a:link, 
+.entrar-bloco a:visited, 
+.entrar-bloco a:hover, 
+.entrar-bloco a:active {
+  text-decoration: none;
+  color: white;
+}
+
+.entrar-botao {
+  font-size: 1.75vw;
+  border: 0.15vw solid white;
+  margin-right: 5vw;
+  padding: 0.5vh 50px;
+  border-radius: 5px;
+}
+
+.conteudo {
+  background-image: url('../img/fundoIndex.png');
+  background-repeat: no-repeat;
+  background-size: 60vw;
+  background-position: right bottom;
+}
+
+.texto {
+  margin-left: 5.5vw;
+  margin-top: 5vh;
+  font-size: 2.2vw;
+  color: #989898;
+}
+
+.destaque {
+  color: #9E3DC7;
+  font-size: 3.35vw;
+}
+
+@media (max-width: 1024px) and (min-width: 801px) {
+  .texto {
+    margin-left: 5.5vw;
+    margin-top: 5vh;
+    font-size: 3vw;
+    color: #989898;
+  }
+  
+  .destaque {
+    color: #9E3DC7;
+    font-size: 4vw;
+  }
+}
+
+@media (max-width: 800px) {
+  .pagina-h {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F9F9F9;
+    display: grid;
+    grid-template-rows: 15vh 85vh;
+  }
+
+  .logo-bloco, .entrar-bloco {
+    height: 15vh;
+  }
+
+  .logo-img{
+    width: 63.75vh;
+    height: 15vh;
+    margin-left: 10vw;
+  }
+
+  .entrar-botao {
+    font-size: 3vw;
+    border: 0.2vw solid white;
+    margin-right: 5vw;
+    padding: 1vh 50px;
+    margin-right: 10vw;
+  }
+
+  .texto {
+    margin-left: 5.5vw;
+    margin-top: 5vh;
+    font-size: 3vw;
+    color: #989898;
+  }
+  
+  .destaque {
+    color: #9E3DC7;
+    font-size: 4vw;
+  }
+}
