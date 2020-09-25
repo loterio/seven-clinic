@@ -17,7 +17,7 @@
                 $pagina = str_replace('{email}', '', $pagina);
             }
             if (isset($_SESSION['msg'])) {
-                $pagina = str_replace('{msg}', '<div>'.$_SESSION['msg'].'</div>', $pagina);
+                $pagina = str_replace('{msg}', 'alert("'.$_SESSION['msg'].'");', $pagina);
             }else {
                 $pagina = str_replace('{msg}', '', $pagina);
             }

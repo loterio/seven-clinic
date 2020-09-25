@@ -1,5 +1,4 @@
 <?php
-error_reporting(E_ALL);
 
     require_once('../assets/funcoes.php');
     iniciaSession();
@@ -14,7 +13,7 @@ error_reporting(E_ALL);
                 $pagina = str_replace('{email}', '', $pagina);
             }
             if (isset($_SESSION['msg'])) {
-                $pagina = str_replace('{msg}', '<div>'.$_SESSION['msg'].'</div>', $pagina);
+                $pagina = str_replace('{msg}', 'alert("'.$_SESSION['msg'].'");', $pagina);
             }else {
                 $pagina = str_replace('{msg}', '', $pagina);
             }
