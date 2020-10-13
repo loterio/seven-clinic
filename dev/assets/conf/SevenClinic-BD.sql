@@ -13,6 +13,7 @@ PRIMARY KEY (id)
 
 CREATE TABLE pacientes (
 id_user INT NOT NULL,
+id_paciente INT NOT NULL AUTO_INCREMENT,
 nome VARCHAR(45) NOT NULL,
 CPF VARCHAR(14) NOT NULL,
 altura FLOAT NOT NULL,
@@ -23,29 +24,35 @@ telefone VARCHAR(14) NOT NULL,
 endereco VARCHAR(100) NOT NULL,
 cidade VARCHAR(100) NOT NULL,
 observacoes VARCHAR(200),
-PRIMARY KEY (CPF)
+PRIMARY KEY (id_paciente),
+FOREIGN KEY (id_user) REFERENCES usuarios(id)
 );
 
 CREATE TABLE medicos (
 id_user INT NOT NULL,
+id_medico INT NOT NULL AUTO_INCREMENT,
 CRM INT NOT NULL,
 nome VARCHAR(45) NOT NULL,
 telefone INT NOT NULL,
 especializacao VARCHAR(45) NOT NULL,
-PRIMARY KEY (CRM)
+PRIMARY KEY (id_medico),
+FOREIGN KEY (id_user) REFERENCES usuarios(id)
 );
 
 CREATE TABLE consultas (
 id_user INT NOT NULL,
+id_consulta INT NOT NULL AUTO_INCREMENT,
 data_consulta DATE NOT NULL,
-hora TIME NOT NULL,
+hora_inicio TIME NOT NULL,
+hora_fim TIME NOT NULL,
 valor FLOAT NOT NULL,
 descricao VARCHAR(100) NOT NULL,
-CPF VARCHAR(14) NOT NULL,
-CRM INT NOT NULL,
-PRIMARY KEY (CPF, CRM),
-FOREIGN KEY (CPF) REFERENCES pacientes(CPF),
-FOREIGN KEY (CRM) REFERENCES medicos(CRM)
+id_paciente INT NOT NULL,
+id_medico INT NOT NULL,
+PRIMARY KEY (id_consulta),
+FOREIGN KEY (id_user) REFERENCES usuarios(id),
+FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
+FOREIGN KEY (id_medico) REFERENCES medicos(id_medico)
 );
 
 

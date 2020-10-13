@@ -27,7 +27,7 @@
           </li>
           <li>
             <img src="../assets/img/back.svg" alt="">
-            <a href="#">Sair</a>
+            <a href="sair.php">Sair</a>
           </li>
         </ul>
       </nav>
@@ -49,7 +49,8 @@
       <input type="text" placeholder="Pesquisar ...">
     </form>
     <div class="datas">
-      <div class="eventos-data">
+      {msg}
+      <!-- <div class="eventos-data">
         <div class="card-data">
           <span class="data">Hoje</span>
           <img src="../assets/img/setaBaixo.svg" alt="">
@@ -72,7 +73,7 @@
               <span class="medico">Maicon Silva</span>
             </div>
           </div>
-          <span class="horario">08:00 - 09:00</span>
+          <span class="horario">{08:00 - 09:00}</span>
         </div>
         <div class="evento">
           <div class="dados-paciente">
@@ -84,13 +85,24 @@
           </div>
           <span class="horario">08:00 - 09:00</span>
         </div>
-      </div>
-      <div class="eventos-data">
+      </div> -->
+
+      <!-- <div class="eventos-data">
         <div class="card-data">
-          <span class="data">Hoje</span>
+          <span class="data">{data}</span>
           <img src="../assets/img/setaBaixo.svg" alt="">
-        </div>
-        <div class="evento">
+        </div> -->
+        <!-- <div class="evento">
+          <div class="dados-paciente">
+            <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
+            <div class="medico-paciente">
+              <span class="paciente">{paciente}</span>
+              <span class="medico">{medico}</span>
+            </div>
+          </div>
+          <span class="horario">{hora}</span>
+        </div> -->
+        <!-- <div class="evento">
           <div class="dados-paciente">
             <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
             <div class="medico-paciente">
@@ -109,18 +121,9 @@
             </div>
           </div>
           <span class="horario">08:00 - 09:00</span>
-        </div>
-        <div class="evento">
-          <div class="dados-paciente">
-            <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
-            <div class="medico-paciente">
-              <span class="paciente">Paula Carvalho</span>
-              <span class="medico">Maicon Silva</span>
-            </div>
-          </div>
-          <span class="horario">08:00 - 09:00</span>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
+    </div>
     <div class="add">
       <button class="botao-add"><img src="../assets/img/mais.svg" alt=""></button>
       <div class="opcoes-add ativo">
@@ -131,7 +134,6 @@
           <li><a href="#">Médico</a></li>
         </ul>
       </div>
-    </div> 
     </div>
   </main>
   <div class="fundo-escuro"></div>
