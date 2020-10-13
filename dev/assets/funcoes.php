@@ -1,4 +1,5 @@
 <?php
+require_once('conf/default.inc.php');
 function criarConexao(){
     require_once('conf/conf.inc.php');
     try {
@@ -66,10 +67,12 @@ function limpaSession(){
 function apresentaAgenda(){
     $dados = "";
     $id = $_SESSION['id'];
-    $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user ORDER BY data_consulta';
+    $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
     $stmtDatas = preparaComando($sqlDatas);
+    $dataHoje = date('Y-m-d');
     $bindDatas = array(
-        ':id_user' => $id
+        ':id_user' => $id,
+        ':data_hoje' => $dataHoje
     );
     $stmtDatas = bindExecute($stmtDatas, $bindDatas);
     while ($linhaDatas = $stmtDatas->fetch(PDO::FETCH_ASSOC)) {
@@ -78,7 +81,25 @@ function apresentaAgenda(){
         <div class="eventos-data">
             <div class="card-data">
                 <span class="data">';
-                $dados .= formataData($linhaDatas['data_consulta']);
+
+                $dataCard = explode("-", $linhaDatas['data_consulta']);
+                $vetDataHoje = explode("-", $dataHoje);
+                
+                if ($dataCard[0] == $vetDataHoje[0]) {
+                    if ($dataCard[1] == $vetDataHoje[1]) {
+                        if ($dataCard[2] == $vetDataHoje[2]) {
+                            $dados .= "Hoje";
+                        }elseif ($dataCard[2] == ($vetDataHoje[2]+1)) {
+                            $dados .= "Amanhã";
+                        }else {
+                            $dados .= formataData($linhaDatas['data_consulta']);
+                        }
+                    }else {
+                        $dados .= formataData($linhaDatas['data_consulta']);
+                    }
+                }else {
+                    $dados .= formataData($linhaDatas['data_consulta']);
+                }
                 $dados .= '</span>
                 <img src="../assets/img/setaBaixo.svg" alt="">
             </div>
@@ -117,6 +138,7 @@ function apresentaAgenda(){
         }
         // ------- FECHA CARD "DATA" --------
         $dados .= '</div>';
+        // $dados .= date('Y-m-d H:i:s');
     }
     return $dados;
 }
