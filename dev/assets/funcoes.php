@@ -157,7 +157,7 @@ function apresentaAgenda(){
         // $dados .= date('Y-m-d H:i:s');
     }
     if ($count==0) {
-        $dados = "<div style='font-size: 2.4rem;padding-top: 2.4rem;'>Não existem consultas a partir da data de hoje!</div>";
+        $dados = "<div style='font-size: 2.4rem;padding-top: 2.4rem;text-align: center;'>Não existem consultas a partir da data de hoje!</div>";
     }
     return $dados;
 }
