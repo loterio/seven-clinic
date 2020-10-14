@@ -207,6 +207,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 
@@ -308,10 +309,14 @@ main {
   margin-top: 2rem;
 }
 
-.opcoes-add ul li a{
+.opcoes-add ul li button {
   color: #ffffffcc;
+  background-color: transparent;
+  border: none;
   font-size: 2.2rem;
   text-decoration: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .fundo-escuro {
@@ -322,6 +327,103 @@ main {
   background-color: rgba(0, 0, 0, 0.349);
   display: none;
 }
+
+.formularios {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.espaco-formulario {
+  width: 70vw;
+  max-height: 95vh;
+  background-color: #F9F9F9;
+  position: relative;
+  padding: 2rem 15rem;
+  overflow-y: scroll;
+  display: none;
+}
+.formularios .fechar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.fechar img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.formularios .titulo {
+  text-align: center;
+  color: #9E3DC7;
+  font-size: 3.2rem;
+}
+
+.formularios form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+.input label {
+  color: #9E3DC7;
+  font-size: 2.6rem;
+}
+
+.input input, .input select, .input textarea {
+  height: 4rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  background-color: #FFF;
+  border: 0.2rem solid #E7e7e7;
+  outline: none;
+  font-size: 2rem;
+}
+
+.input textarea {
+  height: 8rem;
+}
+
+.input-grande {
+  width: 100%;
+}
+
+.input-pequeno {
+  width: 48%;
+}
+
+.botao-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.botao-submit input {
+  margin-top: 2rem;
+  width: 25rem;
+  height: 4rem;
+  background-color: #9E3DC7;
+  border: none;
+  border-radius: 5px;
+  font-size: 2.4rem;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
 
 @media (min-width: 2560px) {
   html {
@@ -339,11 +441,17 @@ main {
   html {
     font-size: 62.5%;
   }
+  .espaco-formulario {
+    padding: 1rem 5rem;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   html {
     font-size: 50%;
+  }
+  .espaco-formulario {
+    padding: 1rem 5rem;
   }
 }
 
@@ -431,6 +539,15 @@ main {
     width: 20rem;
     height: 20rem;
   }
+
+  .input-pequeno {
+    width: 100%;
+  }
+
+  .espaco-formulario {
+    padding: 1rem 5rem;
+  }
+
 }
 
 @media (orientation: portrait) and (max-width: 768px) {
@@ -543,5 +660,26 @@ main {
   .add .opcoes-add {
     width: 20rem;
     height: 20rem;
+  }
+
+  .espaco-formulario {
+    width: 90vw; 
+    padding: 1rem 2rem;
+  }
+
+  .input-pequeno {
+    width: 100%;
+  }
+
+  .formularios .titulo {
+    font-size: 2.8rem;
+  }
+  
+  .input {
+    margin-top: 0.2rem;
+  }
+  
+  .input label {
+    font-size: 2rem;
   }
 }
