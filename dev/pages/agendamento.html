@@ -46,7 +46,15 @@
   </sidenav>
   <main>
     <form action="" class="pesquisar">
-      <input type="text" placeholder="Pesquisar ...">
+      <select name="filtro" id="filtro" required>
+        <option value="" disabled selected>Filtrar por:</option>
+        <option value="">Tudo</option>
+        <option value="">Paciente</option>
+        <option value="">Médico</option>
+        <option value="">Data</option>
+      </select>
+      <input type="text" name="busca" placeholder="Pesquisar ...">
+      <button type="submit" name="pesquisa" value="buscar">Pesquisar</button>
     </form>
     <div class="datas">
       {msg}

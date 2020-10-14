@@ -67,15 +67,31 @@ function limpaSession(){
 function apresentaAgenda(){
     $dados = "";
     $id = $_SESSION['id'];
+    $dataHoje = date('Y-m-d');
+    $count = 0;
+
+    // $sqlQntConsulta = 'SELECT COUNT(DISTINCT data_consulta) FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
+    // $stmtQntConsulta = preparaComando($sqlQntConsulta);
+    // $bindQntConsulta = array(
+    //     ':id_user' => $id,
+    //     ':data_hoje' => $dataHoje
+    // );
+    // $stmtQntConsulta = bindExecute($stmtQntConsulta, $bindQntConsulta);
+    // while ($linhaDatas = $stmtDatas->fetch(PDO::FETCH_ASSOC)) {
+    //     $count++;
+    // }
+
+
+
     $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
     $stmtDatas = preparaComando($sqlDatas);
-    $dataHoje = date('Y-m-d');
     $bindDatas = array(
         ':id_user' => $id,
         ':data_hoje' => $dataHoje
     );
     $stmtDatas = bindExecute($stmtDatas, $bindDatas);
     while ($linhaDatas = $stmtDatas->fetch(PDO::FETCH_ASSOC)) {
+        $count++;
         // ------- ABRE CARD "DATA" --------
         $dados .= '
         <div class="eventos-data">
@@ -139,6 +155,9 @@ function apresentaAgenda(){
         // ------- FECHA CARD "DATA" --------
         $dados .= '</div>';
         // $dados .= date('Y-m-d H:i:s');
+    }
+    if ($count==0) {
+        $dados = "<div style='font-size: 2.4rem;padding-top: 2.4rem;'>Não existem consultas marcadas apartir da data de hoje!</div>";
     }
     return $dados;
 }

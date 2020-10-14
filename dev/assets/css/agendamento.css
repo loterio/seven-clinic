@@ -144,8 +144,8 @@ main {
 .pesquisar {
   margin: 1rem 0;
 }
-.pesquisar input {
-  width: 70vw;
+.pesquisar input{
+  width: 50vw;
   height: 4rem;
   border-radius: 0.5rem;
   border: 0.2rem solid #9E3DC7;
@@ -156,6 +156,42 @@ main {
 
 .pesquisar input::-webkit-input-placeholder{
   color:#979797;
+}
+
+.pesquisar select{
+  width: 10vw;
+  height: 4rem;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #9E3DC7;
+  outline: none;
+  color:#000;
+  /* padding-left: 1rem; */
+  font-size: 2.4rem;
+}
+.pesquisar select option{
+  color:  #000;
+}
+.pesquisar select option:disabled{
+  color:  #979797;
+}
+
+.pesquisar button{
+  width: 10vw;
+  height: 4rem;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #9E3DC7;
+  background-color: #9E3DC7;
+  color: white;
+  outline: none;
+  /* padding-left: 1rem; */
+  font-size: 2.4rem;
+}
+.pesquisar button:hover, .pesquisar input:hover, .pesquisar select:hover{
+  /* border: 0.2rem solid #fff; */
+  /* background-color: #fff;
+  color: #9E3DC7; */
+  transition: 0.2s;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .eventos-data {
@@ -419,7 +455,7 @@ main {
     background-color: #9E3DC7;
   }
 
-  .pesquisar input, .card-data {
+  .pesquisar input, .pesquisar select, .pesquisar button, .card-data {
     width: 90vw;
   }
 
@@ -503,7 +539,7 @@ main {
     background-color: #9E3DC7;
   }
 
-  .pesquisar input, .card-data {
+  .pesquisar input, .pesquisar select, .pesquisar button, .card-data{
     width: 90vw;
   }
   .evento {
