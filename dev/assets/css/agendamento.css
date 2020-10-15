@@ -165,7 +165,7 @@ main {
   border: 0.2rem solid #9E3DC7;
   outline: none;
   color:#000;
-  padding-left: 1rem;
+  /* padding-left: 1rem; */
   font-size: 2.4rem;
 }
 .pesquisar select option{
@@ -183,7 +183,7 @@ main {
   background-color: #9E3DC7;
   color: white;
   outline: none;
-  padding-left: 1rem;
+  /* padding-left: 1rem; */
   font-size: 2.4rem;
 }
 .pesquisar button:hover, .pesquisar input:hover, .pesquisar select:hover{
@@ -369,17 +369,29 @@ main {
   html {
     font-size: 80%;
   }
+
+  .pesquisar input {
+    width: 49vw;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
   html {
     font-size: 62.5%;
   }
+
+  .pesquisar input {
+    width: 48vw;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   html {
     font-size: 50%;
+  }
+
+  .pesquisar input {
+    width: 47vw;
   }
 }
 

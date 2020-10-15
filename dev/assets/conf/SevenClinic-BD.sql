@@ -55,4 +55,6 @@ FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
 FOREIGN KEY (id_medico) REFERENCES medicos(id_medico)
 );
 
+SELECT DISTINCT data_consulta FROM consultas WHERE id_user = 1 AND data_consulta >= '2020-10-15' AND () ORDER BY data_consulta;
 
+SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND data_consulta = :data_consulta ORDER BY hora_inicio;
