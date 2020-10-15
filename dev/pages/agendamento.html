@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/agendamento.css">
+  <script src="../assets/js/jQuery.js"></script>
+  <script src="../assets/js/funcoes.js"></script>
   <title>Seven Clinic</title>
 </head>
 
@@ -52,7 +54,9 @@
         <option value="M" {opM}>Médico</option>
         <option value="D" {opD}>Data</option>
       </select>
-      <input type="text" name="busca" placeholder="Pesquisar ..." value="{busca}" required>
+      <input type="text" id="hidden" name="hidden" placeholder="Escolha um filtro..." value="" disabled {display_hidden}>
+      <input type="text" id="busca" name="busca" placeholder="Pesquisar ..." value="{busca}" {display_busca}>
+      <input type="date" id="data" name="data" placeholder="Pesquisar ..." value="{data}" {display_data}>
       <button type="submit" name="pesquisa" value="buscar">Pesquisar</button>
       <button class="limpar" type="submit" id="exclui" name="exclui" value="exclui" {display}>Limpar filtros</button>
     </form>
@@ -147,4 +151,5 @@
   <div class="fundo-escuro"></div>
 </body>
 <script src="../assets/js/agendamento-eventos.js"></script>
+<script src="../assets/js/init.js"></script>
 </html>

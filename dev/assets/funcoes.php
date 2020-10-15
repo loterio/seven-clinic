@@ -64,13 +64,13 @@ function limpaSession(){
     // session_regenerate_id(true);
 }
 
-function apresentaAgenda($busca, $filtro, $pesquisa){
+function apresentaAgenda($busca, $data, $filtro, $pesquisa){
     $dados = "";
     $id = $_SESSION['id'];
     $dataHoje = date('Y-m-d');
     $count = 0;
     // ------ INICIO BUSCA --------
-    if ($busca != '' AND $filtro != '' AND $pesquisa != '') {
+    if (($busca != '' OR $data != '') AND $filtro != '' AND $pesquisa != '') {
         switch ($filtro) {
             // case 'T':
             //     $sqlDatas = "SELECT DISTINCT C.data_consulta FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta >= :data_hoje AND (M.nome LIKE :busca OR P.nome LIKE :busca) ORDER BY C.data_consulta";
@@ -109,7 +109,7 @@ function apresentaAgenda($busca, $filtro, $pesquisa){
                 $bindDatas = array(
                     ':id_user' => $id,
                     ':data_hoje' => $dataHoje,
-                    ':data_busca' => $busca
+                    ':data_busca' => $data
                 );
             break;  
             default:
