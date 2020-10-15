@@ -186,6 +186,20 @@ main {
   /* padding-left: 1rem; */
   font-size: 2.4rem;
 }
+
+button#exclui{
+  width: 70vw;
+  height: 4rem;
+  border-radius: 0.5rem;
+  border: 0.2rem solid #9E3DC7;
+  background-color: #fff;
+  color: #9E3DC7;
+  outline: none;
+  margin-top: 1rem;
+  /* padding-left: 1rem; */
+  font-size: 2.4rem;
+}
+
 .pesquisar button:hover, .pesquisar input:hover, .pesquisar select:hover{
   /* border: 0.2rem solid #fff; */
   /* background-color: #fff;
@@ -467,7 +481,7 @@ main {
     background-color: #9E3DC7;
   }
 
-  .pesquisar input, .pesquisar select, .pesquisar button, .card-data {
+  .pesquisar input, .pesquisar select, .pesquisar button, .card-data, button#exclui {
     width: 90vw;
   }
 
@@ -551,7 +565,7 @@ main {
     background-color: #9E3DC7;
   }
 
-  .pesquisar input, .pesquisar select, .pesquisar button, .card-data{
+  .pesquisar input, .pesquisar select, .pesquisar button, .card-data, button#exclui {
     width: 90vw;
   }
   .evento {
