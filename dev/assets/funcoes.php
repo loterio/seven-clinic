@@ -64,31 +64,51 @@ function limpaSession(){
     // session_regenerate_id(true);
 }
 
-function apresentaAgenda(){
+function apresentaAgenda($busca, $filtro, $pesquisa){
     $dados = "";
     $id = $_SESSION['id'];
     $dataHoje = date('Y-m-d');
     $count = 0;
-
-    // $sqlQntConsulta = 'SELECT COUNT(DISTINCT data_consulta) FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
-    // $stmtQntConsulta = preparaComando($sqlQntConsulta);
-    // $bindQntConsulta = array(
-    //     ':id_user' => $id,
-    //     ':data_hoje' => $dataHoje
-    // );
-    // $stmtQntConsulta = bindExecute($stmtQntConsulta, $bindQntConsulta);
-    // while ($linhaDatas = $stmtDatas->fetch(PDO::FETCH_ASSOC)) {
-    //     $count++;
-    // }
-
-
-
-    $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
-    $stmtDatas = preparaComando($sqlDatas);
-    $bindDatas = array(
-        ':id_user' => $id,
-        ':data_hoje' => $dataHoje
-    );
+    // ------ INICIO BUSCA --------
+    if ($busca != NULL AND $filtro != NULL AND $pesquisa != NULL) {
+        switch ($filtro) {
+            case 'T':
+                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
+                break;
+            case 'P':
+                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
+                break;
+            case 'M':
+                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
+                break;
+            case 'D':
+                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje AND data_consulta = :data_busca ORDER BY data_consulta';
+                $stmtDatas = preparaComando($sqlDatas);
+                $bindDatas = array(
+                    ':id_user' => $id,
+                    ':data_hoje' => $dataHoje,
+                    ':data_busca' => $busca
+                );
+            break;  
+            default:
+                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
+                $stmtDatas = preparaComando($sqlDatas);
+                $bindDatas = array(
+                    ':id_user' => $id,
+                    ':data_hoje' => $dataHoje
+                );
+            break;
+        }
+    }else {
+        $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
+        $stmtDatas = preparaComando($sqlDatas);
+        $bindDatas = array(
+            ':id_user' => $id,
+            ':data_hoje' => $dataHoje
+        );
+    }
+    // ------- FIM BUSCA ----------
+    
     $stmtDatas = bindExecute($stmtDatas, $bindDatas);
     while ($linhaDatas = $stmtDatas->fetch(PDO::FETCH_ASSOC)) {
         $count++;
