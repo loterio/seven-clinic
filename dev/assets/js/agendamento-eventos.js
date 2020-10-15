@@ -72,7 +72,6 @@ fundoEscuro.addEventListener("click", () => {
     fundoEscuro.style.display = 'none';
     mostrarMenu = true;
   }
-  console.log("Fundo escuro apertado")
 });
 
 //============Formularios=============

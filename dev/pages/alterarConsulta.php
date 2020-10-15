@@ -1,6 +1,6 @@
 <button class="fechar" onclick="fechaFormulario()"><img src="../assets/img/fechar.svg" alt=""></button>
 <h2 class="titulo">Agendamento</h2>
-<form action="" autocomplete="off">
+<form method="GET" action="" autocomplete="off">
   <div class="input input-grande">
     <label for="paciente">Paciente</label>
     <select name="paciente" id="paciente">
