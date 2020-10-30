@@ -66,7 +66,8 @@ function limpaSession(){
 
 function apresentaAgenda($busca, $data, $filtro, $pesquisa){
     $dados = "";
-    $id = $_SESSION['id'];
+    // $id = $_SESSION['id']; ----- TIRAR DO COMENTARIO E APAGAR A LINHA DEBAIXO PARA O PROGRAMA FINAL ----------------------
+    $id = 1;
     $dataHoje = date('Y-m-d');
     $count = 0;
     // ------ INICIO BUSCA --------
