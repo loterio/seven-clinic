@@ -3,7 +3,7 @@
 <form method="POST" action="agendamento.php" autocomplete="off">
   <div class="input input-grande">
     <label for="nome">Nome</label>
-    <input type="text" id="nome" name="nome" maxlength="45" required>
+    <input type="text" id="nome" name="nome" onkeypress="return ApenasLetras(event,this);" title="Não é permitido números e/ou caracteres especiais." pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" maxlength="45" required>
   </div>
 
   <div class="input input-pequeno">
