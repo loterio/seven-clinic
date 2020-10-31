@@ -105,11 +105,11 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
                 );
             break;
             case 'D':
-                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje AND data_consulta = :data_busca ORDER BY data_consulta';
+                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta = :data_busca ORDER BY data_consulta';
                 $stmtDatas = preparaComando($sqlDatas);
                 $bindDatas = array(
                     ':id_user' => $id,
-                    ':data_hoje' => $dataHoje,
+                    // ':data_hoje' => $dataHoje,
                     ':data_busca' => $data
                 );
             break;  
