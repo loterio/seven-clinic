@@ -26,7 +26,7 @@
         print($pagina);
     }elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($_POST['email'] and $_POST['senha']) {
-            $email = $_POST['email'];
+            $email = mb_strtolower($_POST['email'],'UTF-8');
             $senha = $_POST['senha'];
 
             $sql = 'SELECT COUNT(*) as qtd FROM usuarios WHERE email = :email AND senha = :senha';

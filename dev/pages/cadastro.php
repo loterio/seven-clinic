@@ -31,10 +31,10 @@
         print($pagina);
     }elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($_POST['nome'] and $_POST['email'] and $_POST['senha'] and $_POST['confSenha']) {
-            $nome = $_POST['nome'];
-            $email = $_POST['email'];
-            $senha = strtolower($_POST['senha']);
-            $confSenha = strtolower($_POST['confSenha']);
+            $nome = mb_strtoupper($_POST['nome'],'UTF-8');
+            $email = mb_strtolower($_POST['email'],'UTF-8');
+            $senha = $_POST['senha'];
+            $confSenha = $_POST['confSenha'];
             $count=0;
             
             $sql = 'SELECT * FROM usuarios WHERE email = :email';
