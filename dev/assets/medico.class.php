@@ -20,21 +20,7 @@ class Medico
         $this->especializacao = $especializacao;
     }
 
-    public function getQntMedicos(){
-        $countMedicos = 0;
-
-        $sql = 'SELECT COUNT(*) AS countId FROM medicos WHERE id_user = :id_user;';
-        $stmt = preparaComando($sql);
-        $bind = array(
-            ':id_user' => $this->id_user
-        );
-        $stmt = bindExecute($stmt, $bind);
-        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $countMedicos = $linha['countId'];
-        }
-        return $countMedicos;
-    }
-
+    
     public function getVerificaMedicosCRM(){
         $countMedicosCrm = 0;
 
@@ -86,7 +72,22 @@ class Medico
     }
 }   
 
+// public function getQntMedicos(){
+//     $countMedicos = 0;
+
+//     $sql = 'SELECT COUNT(*) AS countId FROM medicos WHERE id_user = :id_user;';
+//     $stmt = preparaComando($sql);
+//     $bind = array(
+//         ':id_user' => $this->id_user
+//     );
+//     $stmt = bindExecute($stmt, $bind);
+//     while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+//         $countMedicos = $linha['countId'];
+//     }
+//     return $countMedicos;
+// }
+
 // $medico = new Medico(1, 1, 'Felipe', '34343434', 'Geral');
 // var_dump($medico);
 // $medico->teste();
-    ?>
+?>
