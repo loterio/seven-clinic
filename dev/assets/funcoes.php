@@ -306,4 +306,20 @@ function formataHora($horaInicio){
     return $hora;
 }
 
+function getQnt($tabela, $id_user){
+    $count = 0;
+
+    $sql = 'SELECT COUNT(*) AS countId FROM '.$tabela.' WHERE id_user = :id_user;';
+    $stmt = preparaComando($sql);
+    $bind = array(
+        // ':tabela' => strval($tabela),
+        ':id_user' => $id_user
+    );
+    $stmt = bindExecute($stmt, $bind);
+    while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $count = $linha['countId'];
+    }
+    return $count;
+}
+
 ?>

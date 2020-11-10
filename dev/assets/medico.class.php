@@ -1,5 +1,8 @@
 <?php
 
+require_once('funcoes.php');
+iniciaSession();
+
 class Medico
 {
     private $id_user;
@@ -49,7 +52,7 @@ class Medico
     }
     
     public function setAddMedico(){
-        $countMedicosIdInicio= $this->getQntMedicos($this->id_user);
+        $countMedicosIdInicio= getQnt('medicos', $this->id_user);
         $countMedicosCrm= $this->getVerificaMedicosCRM($this->id_user, $this->CRM);
 
         if ($countMedicosCrm == 0) {  
@@ -64,7 +67,9 @@ class Medico
             );
             $stmt = bindExecute($stmt, $bind);
 
-            $countMedicosIdFim= $this->getQntMedicos($this->id_user);
+            $countMedicosIdFim= getQnt('medicos', $this->id_user);
+            echo $countMedicosIdInicio;
+            echo $countMedicosIdFim;
             
             if ($countMedicosIdInicio < $countMedicosIdFim) {
                 echo ('Médico cadastrado com sucesso!');
