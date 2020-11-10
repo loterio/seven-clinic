@@ -11,19 +11,31 @@ class Medico
     private $nome; 
     private $telefone;
     private $especializacao;
-
+    
     public function __construct($id_user, $CRM, $nome, $telefone, $especializacao){
         $this->id_user = $id_user;
-        $this->CRM = $CRM;
-        $this->nome = $nome;
+        setCRM($CRM);
+        setNome($nome);
         $this->telefone = $telefone;
-        $this->especializacao = $especializacao;
+        setEspecializacao($especializacao);
     }
-
+    
+    public function setEspecializacao($especializacao){
+        $this->especializacao = mb_strtoupper($especializacao,'UTF-8');
+    }
+    
+    public function setNome($nome){
+        $this->nome = mb_strtoupper($nome,'UTF-8');
+    }
+    
+    public function setCRM($CRM){
+        $this->CRM = mb_strtoupper($CRM,'UTF-8');
+    }
+    
     
     public function getVerificaMedicosCRM(){
         $countMedicosCrm = 0;
-
+        
         $sql = 'SELECT COUNT(*) AS medicosCrm FROM medicos WHERE id_user = :id_user AND CRM = :CRM;';
         $stmt = preparaComando($sql);
         $bind = array(
@@ -40,7 +52,7 @@ class Medico
     public function setAddMedico(){
         $countMedicosIdInicio= getQnt('medicos', $this->id_user);
         $countMedicosCrm= $this->getVerificaMedicosCRM();
-
+        
         if ($countMedicosCrm == 0) {  
             $sql = 'INSERT INTO medicos(id_user, nome, CRM, telefone, especializacao) values(:id_user, :nome, :CRM, :telefone, :especializacao);';
             $stmt = preparaComando($sql);
@@ -52,10 +64,8 @@ class Medico
                 ':especializacao' => $this->especializacao
             );
             $stmt = bindExecute($stmt, $bind);
-
+            
             $countMedicosIdFim= getQnt('medicos', $this->id_user);
-            // echo $countMedicosIdInicio;
-            // echo $countMedicosIdFim;
             
             if ($countMedicosIdInicio < $countMedicosIdFim) {
                 echo ('Médico cadastrado com sucesso!');
@@ -70,28 +80,7 @@ class Medico
             echo ('Este CRM já está cadastrado!');
             // $_SESSION['msg'] = "Este CRM já está cadastrado!";
             // header('location:agendamento.php?status=ERRO'); // CRM ja existe
-        }
-        
-        
+        }   
     }
 }   
-
-// public function getQntMedicos(){
-//     $countMedicos = 0;
-
-//     $sql = 'SELECT COUNT(*) AS countId FROM medicos WHERE id_user = :id_user;';
-//     $stmt = preparaComando($sql);
-//     $bind = array(
-//         ':id_user' => $this->id_user
-//     );
-//     $stmt = bindExecute($stmt, $bind);
-//     while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//         $countMedicos = $linha['countId'];
-//     }
-//     return $countMedicos;
-// }
-
-// $medico = new Medico(1, 1, 'Felipe', '34343434', 'Geral');
-// var_dump($medico);
-// $medico->teste();
-?>
+    ?>

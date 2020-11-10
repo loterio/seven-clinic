@@ -18,19 +18,35 @@ class Paciente
     private $endereco;
     private $cidade;
     private $observacoes;
-
+    
     public function __construct($id_user, $nome, $CPF, $altura, $peso, $data_nascimento, $email, $telefone, $endereco, $cidade, $observacoes){
         $this->id_user = $id_user;
-        $this->nome = mb_strtoupper($nome,'UTF-8');
+        setNome($nome);
         $this->CPF = $CPF;
         $this->altura = $altura;
         $this->peso = $peso;
         $this->data_nascimento = $data_nascimento;
-        $this->email = mb_strtolower($email,'UTF-8');
+        setEmail($email);
         $this->telefone = $telefone;
-        $this->endereco = ucwords(mb_strtolower($endereco,'UTF-8'));
-        $this->cidade = mb_strtoupper($cidade,'UTF-8');
+        setEndereco($endereco);
+        setCidade($cidade);
         $this->observacoes = $observacoes;
+    }
+    
+    public function setCidade($cidade){
+        $this->cidade = mb_strtoupper($cidade,'UTF-8');
+    }
+    
+    public function setEndereco($endereco){
+        $this->endereco = ucwords(mb_strtolower($endereco,'UTF-8'));
+    }
+    
+    public function setEmail($email){
+        $this->email = mb_strtolower($email,'UTF-8');
+    }
+    
+    public function setNome($nome){
+        $this->nome = mb_strtoupper($nome,'UTF-8');
     }
     
     public function getVerificaCPF(){
@@ -46,7 +62,7 @@ class Paciente
         }
         return $countPacientesCpf;
     }
-
+    
     public function setAddPaciente(){
         $countPacientesIdInicio= getQnt('pacientes', $this->id_user);
         $countPacientesCpf= $this->getVerificaCPF();
@@ -70,11 +86,7 @@ class Paciente
             $stmt = bindExecute($stmt, $bind);
             
             $countPacientesIdFim = getQnt('pacientes', $this->id_user);
-
-            // echo($countPacientesIdInicio);
-            // echo($countPacientesIdFim);
-            // echo($countPacientesCrm);
-
+            
             if ($countPacientesIdInicio < $countPacientesIdFim) {
                 echo("Paciente cadastrado com sucesso!");
                 // $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
@@ -89,32 +101,8 @@ class Paciente
             // $_SESSION['msg'] = "Este CPF já está cadastrado!";
             // header('location:agendamento.php?status=ERRO');
         }
-        
-        
-        
-        
-        // $sql = 'INSERT INTO pacientes(id_user, nome, CPF, altura, peso, data_nascimento, email, telefone, endereco, cidade, observacoes) values(:id_user, :nome, :CPF, :altura, :peso, :data_nascimento, :email, :telefone, :endereco, :cidade, :observacoes);';
-        // $stmt = preparaComando($sql);
-        // $bind = array(
-            //     ':id_user' => $_SESSION['id'],
-            //     ':nome' => $nome,
-            //     ':CPF' => $cpf,
-            //     ':altura' => $altura,
-            //     ':peso' => $peso,
-            //     ':data_nascimento' => $nascimento,
-            //     ':email' => $email,
-            //     ':telefone' => $telefone,
-            //     ':endereco' => $endereco,
-            //     ':cidade' => $cidade,
-            //     ':observacoes' => $observacoes
-            // );
-            // // var_dump($bind);
-            // $stmt = bindExecute($stmt, $bind);
-            // header('location:agendamento.php');
-        }
-        
-        
     }
+}        
     
     
 
