@@ -8,7 +8,7 @@ class Medico
     private $id_user;
     private $id_medico;
     private $CRM;
-    private $nome;
+    private $nome; 
     private $telefone;
     private $especializacao;
 
@@ -39,7 +39,7 @@ class Medico
     
     public function setAddMedico(){
         $countMedicosIdInicio= getQnt('medicos', $this->id_user);
-        $countMedicosCrm= $this->getVerificaMedicosCRM($this->id_user, $this->CRM);
+        $countMedicosCrm= $this->getVerificaMedicosCRM();
 
         if ($countMedicosCrm == 0) {  
             $sql = 'INSERT INTO medicos(id_user, nome, CRM, telefone, especializacao) values(:id_user, :nome, :CRM, :telefone, :especializacao);';
@@ -54,13 +54,17 @@ class Medico
             $stmt = bindExecute($stmt, $bind);
 
             $countMedicosIdFim= getQnt('medicos', $this->id_user);
-            echo $countMedicosIdInicio;
-            echo $countMedicosIdFim;
+            // echo $countMedicosIdInicio;
+            // echo $countMedicosIdFim;
             
             if ($countMedicosIdInicio < $countMedicosIdFim) {
                 echo ('Médico cadastrado com sucesso!');
                 // $_SESSION['msg'] = "Médico cadastrado com sucesso!";
                 // header('location:agendamento.php?status=OK'); // Sucesso
+            }else {
+                echo ('Erro ao adicionar médico!');
+                // $_SESSION['msg'] = "Erro ao adicionar médico!";
+                // header('location:agendamento.php?status=ERRO');
             }
         }else {
             echo ('Este CRM já está cadastrado!');
