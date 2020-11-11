@@ -110,24 +110,4 @@ class Consulta
          return $stmt->fetch(PDO::FETCH_ASSOC)['qntConsulta'];
      }
 }
-// id_user = 1, id_paciente = 1, id_medico = 1,
-//  hora_inicio = '07:00:00', hora_fim = '08:00:00', 
-// data_consulta = '2020-11-12'
-
-// hora_inicio >= '07:00:00' and hora_inicio <= '08:00:00'  =>> 07:05:00........
-// hora_fim >= '07:00:00' and hora_fim >= '08:00:00'
-// SELECT * FROM consultas WHERE hora_inicio >= :hora_inicio and hora_inicio < :hora_fim and hora_fim >= :hora_inicio and hora_fim >= :hora_fim and data_consulta = :data_consulta
-
-
-// SELECT * FROM `consultas` WHERE (hora_inicio <= '07:00:00' and hora_fim > '07:00:00') or (hora_inicio >= '07:00:00' and hora_fim < '08:00:00') or (hora_inicio >= '07:00:00' and hora_fim >= '08:00:00')
-
-
-// inicio <= 7 and fim > 7 
-
-// SELECT * FROM `consultas` WHERE (hora_inicio <= '07:00:00' and hora_fim > '07:00:00') or (hora_inicio >= '07:00:00' and hora_inicio < '08:00:00' and hora_fim > '07:00:00')
-
-
-// SELECT COUNT(*) FROM `consultas` WHERE (hora_inicio <= '07:00:00' and hora_fim > '07:00:00') or (hora_inicio >= '07:00:00' and hora_inicio < '08:00:00' and hora_fim > '07:00:00')
-
-// SELECT * FROM `consultas` WHERE id_user = 1 and id_medico = 1 and data_consulta = '2020-11-12' and ((hora_inicio <= '07:00:00' and hora_fim > '07:00:00') or (hora_inicio >= '07:00:00' and hora_inicio < '08:00:00' and hora_fim > '07:00:00'))
 ?>
