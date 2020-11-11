@@ -70,6 +70,7 @@ class Paciente
     public function setAddPaciente(){
         $countPacientesIdInicio= getQnt('pacientes', $this->id_user);
         $countPacientesCpf= $this->getVerificaCPF();
+        $msg = '';
         
         if ($countPacientesCpf == 0) {  
             $sql = 'INSERT INTO pacientes(id_user, nome, CPF, altura, peso, data_nascimento, email, telefone, endereco, cidade, observacoes) values(:id_user, :nome, :CPF, :altura, :peso, :data_nascimento, :email, :telefone, :endereco, :cidade, :observacoes);';
@@ -93,19 +94,23 @@ class Paciente
             
             if ($countPacientesIdInicio < $countPacientesIdFim) {
                 $this->setIdPaciente($this->getIdPaciente());
-                echo("Paciente cadastrado com sucesso! || ".$this->id_paciente.' ||');
+                echo("Paciente cadastrado com sucesso!");
+                $msg = 'Paciente cadastrado com sucesso!';
                 // $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
                 // header('location:agendamento.php?status=OK');
             }else {
                 echo("Erro ao adicionar paciente!");
+                $msg = 'Erro ao adicionar paciente!';
                 // $_SESSION['msg'] = "Erro ao adicionar paciente!";
                 // header('location:agendamento.php?status=ERRO');
             }
         }else {
             echo("Este CPF já está cadastrado!");
+            $msg = 'Este CPF já está cadastrado!';
             // $_SESSION['msg'] = "Este CPF já está cadastrado!";
             // header('location:agendamento.php?status=ERRO');
         }
+        return $msg;
     }
 
 

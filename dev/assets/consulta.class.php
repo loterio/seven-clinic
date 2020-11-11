@@ -32,6 +32,7 @@ class Consulta
     $countConsultasIdInicio= getQnt('consultas', $this->id_user);
     $countConsultasMedico= $this->getVerificaConsultaMedico();
     $countConsultasPaciente= $this->getVerificaConsultaPaciente();
+    $msg = '';
     
     if ($countConsultasMedico == 0) {
         if ($countConsultasPaciente == 0) {
@@ -53,24 +54,29 @@ class Consulta
             $countConsultasIdFim= getQnt('consultas', $this->id_user);
             
             if ($countConsultasIdInicio < $countConsultasIdFim) {
-                echo ('Consulta cadastrada com sucesso!');
+                // echo ('Consulta cadastrada com sucesso!');
+                $msg = 'Consulta cadastrada com sucesso!';
                 // $_SESSION['msg'] = "Consulta cadastrada com sucesso!";
                 // header('location:agendamento.php?status=OK'); // Sucesso
             }else {
-                echo ('Erro ao adicionar consulta!');
+                // echo ('Erro ao adicionar consulta!');
+                $msg = 'Erro ao adicionar consulta!';
                 // $_SESSION['msg'] = "Erro ao adicionar consulta!";
                 // header('location:agendamento.php?status=ERRO');
             }
         }else {
-            echo ('Este horário já possui outra consulta agendada para este paciente!');
+            // echo ('Este horário já possui outra consulta agendada para este paciente!');
+            $msg = 'Este horário já possui outra consulta agendada para este paciente!';
             // $_SESSION['msg'] = "Este horário já possui outra consulta agendada para este paciente!";
             // header('location:agendamento.php?status=ERRO');
         }
     }else {
-        echo ('Este horário já possui outra consulta agendada para este médico!');
+        // echo ('Este horário já possui outra consulta agendada para este médico!');
+        $msg = 'Este horário já possui outra consulta agendada para este médico!';
         // $_SESSION['msg'] = "Este horário já possui outra consulta agendada para este médico!";
         // header('location:agendamento.php?status=ERRO');
     }   
+    return $msg;
    }
 
    public function getVerificaConsultaMedico(){
