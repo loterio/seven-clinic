@@ -14,10 +14,10 @@ class Medico
     
     public function __construct($id_user, $CRM, $nome, $telefone, $especializacao){
         $this->id_user = $id_user;
-        setCRM($CRM);
-        setNome($nome);
+        $this->setCRM($CRM);
+        $this->setNome($nome);
         $this->telefone = $telefone;
-        setEspecializacao($especializacao);
+        $this->setEspecializacao($especializacao);
     }
     
     public function setEspecializacao($especializacao){
@@ -68,6 +68,7 @@ class Medico
             $countMedicosIdFim= getQnt('medicos', $this->id_user);
             
             if ($countMedicosIdInicio < $countMedicosIdFim) {
+                $this->setIdMedico($this->getIdMedico());
                 echo ('Médico cadastrado com sucesso!');
                 // $_SESSION['msg'] = "Médico cadastrado com sucesso!";
                 // header('location:agendamento.php?status=OK'); // Sucesso
@@ -81,6 +82,25 @@ class Medico
             // $_SESSION['msg'] = "Este CRM já está cadastrado!";
             // header('location:agendamento.php?status=ERRO'); // CRM ja existe
         }   
+    }
+
+    public function setIdMedico($id){
+        $this->id_medico = $id;
+    }
+
+    public function getIdMedico(){
+        $sql = 'SELECT id_medico FROM medicos WHERE id_user = :id_user AND CRM = :CRM;';
+        $stmt = preparaComando($sql);
+        $bind = array(
+            ':id_user' => $this->id_user,
+            ':CRM' => $this->CRM
+        );
+        $stmt = bindExecute($stmt, $bind);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['id_medico'];
+    }
+
+    public function setAlteraMedico($id_user, $id_medico, $CRM, $nome, $telefone, $especializacao){
+
     }
 }   
     ?>

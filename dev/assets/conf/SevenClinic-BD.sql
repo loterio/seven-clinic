@@ -51,9 +51,7 @@ valor FLOAT NOT NULL,
 descricao VARCHAR(100) NOT NULL,
 id_paciente INT NOT NULL,
 id_medico INT NOT NULL,
-
--- Adicionar coluna para informar se ja foi finalizada ou não
-
+estado BOOLEAN NOT NULL,
 PRIMARY KEY (id_consulta),
 FOREIGN KEY (id_user) REFERENCES usuarios(id),
 FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),

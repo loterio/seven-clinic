@@ -21,15 +21,15 @@ class Paciente
     
     public function __construct($id_user, $nome, $CPF, $altura, $peso, $data_nascimento, $email, $telefone, $endereco, $cidade, $observacoes){
         $this->id_user = $id_user;
-        setNome($nome);
+        $this->setNome($nome);
         $this->CPF = $CPF;
         $this->altura = $altura;
         $this->peso = $peso;
         $this->data_nascimento = $data_nascimento;
-        setEmail($email);
+        $this->setEmail($email);
         $this->telefone = $telefone;
-        setEndereco($endereco);
-        setCidade($cidade);
+        $this->setEndereco($endereco);
+        $this->setCidade($cidade);
         $this->observacoes = $observacoes;
     }
     
@@ -47,6 +47,10 @@ class Paciente
     
     public function setNome($nome){
         $this->nome = mb_strtoupper($nome,'UTF-8');
+    }
+    
+    public function setIdPaciente($id){
+        $this->id_paciente = $id;
     }
     
     public function getVerificaCPF(){
@@ -88,7 +92,8 @@ class Paciente
             $countPacientesIdFim = getQnt('pacientes', $this->id_user);
             
             if ($countPacientesIdInicio < $countPacientesIdFim) {
-                echo("Paciente cadastrado com sucesso!");
+                $this->setIdPaciente($this->getIdPaciente());
+                echo("Paciente cadastrado com sucesso! || ".$this->id_paciente.' ||');
                 // $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
                 // header('location:agendamento.php?status=OK');
             }else {
@@ -101,6 +106,18 @@ class Paciente
             // $_SESSION['msg'] = "Este CPF já está cadastrado!";
             // header('location:agendamento.php?status=ERRO');
         }
+    }
+
+
+    public function getIdPaciente(){
+        $sql = 'SELECT id_paciente FROM pacientes WHERE id_user = :id_user AND CPF = :CPF;';
+        $stmt = preparaComando($sql);
+        $bind = array(
+            ':id_user' => $this->id_user,
+            ':CPF' => $this->CPF
+        );
+        $stmt = bindExecute($stmt, $bind);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['id_paciente'];
     }
 }        
     
