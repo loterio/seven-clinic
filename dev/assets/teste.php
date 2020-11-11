@@ -5,6 +5,7 @@ iniciaSession();
 require_once('medico.class.php');
 require_once('paciente.class.php');
 require_once('consulta.class.php');
+require_once('usuario.class.php');
 $medico = new Medico(1, 112, 'Felipe CLASSE 12', '44444444', 'nada');
 // echo $medico->setAddMedico();
 
@@ -44,5 +45,15 @@ $consulta = new Consulta(1, '2020-11-12', '07:30:00', '07:45:00', 120, 'ok', 13,
 // Erro ao adicionar consulta!
 // Este horário já possui outra consulta agendada para este paciente!
 // Este horário já possui outra consulta agendada para este médico!
+
+
+$usuario = new Usuario('jao123@gmail.com');
+// echo $usuario->setAlteraUsuario(1, 'jao', 'jao1234', 'jao1234')
+
+// ---------RETORNOS---------
+// Usuário atualizado com sucesso!
+// Não foi possível atualizar o usuário!
+// Este e-mail já está cadastrado!
+// A senha e a confirmação de senha não coincidem!
 
 ?>
