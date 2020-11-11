@@ -53,23 +53,30 @@ class Paciente
         $this->id_paciente = $id;
     }
     
-    public function getVerificaCPF(){
-        $sql = 'SELECT COUNT(*) AS pacientesCpf FROM pacientes WHERE id_user = :id_user AND CPF = :CPF;';
-        $stmt = preparaComando($sql);
-        $bind = array(
-            ':id_user' => $this->id_user,
-            ':CPF' => $this->CPF
-        );
-        $stmt = bindExecute($stmt, $bind);
-        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $countPacientesCpf = $linha['pacientesCpf'];
+    public function getVerificaCPF($op){
+        if ($op == TRUE) {
+            $sql = 'SELECT COUNT(*) AS pacientesCpf FROM pacientes WHERE id_user = :id_user AND CPF = :CPF AND id_paciente != :id_paciente;';
+            $stmt = preparaComando($sql);
+            $bind = array(
+                ':id_user' => $this->id_user,
+                ':id_paciente' => $this->id_paciente,
+                ':CPF' => $this->CPF
+            );
+        }else {
+            $sql = 'SELECT COUNT(*) AS pacientesCpf FROM pacientes WHERE id_user = :id_user AND CPF = :CPF;';
+            $stmt = preparaComando($sql);
+            $bind = array(
+                ':id_user' => $this->id_user,
+                ':CPF' => $this->CPF
+            );
         }
-        return $countPacientesCpf;
+        $stmt = bindExecute($stmt, $bind);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['pacientesCpf'];
     }
     
     public function setAddPaciente(){
         $countPacientesIdInicio= getQnt('pacientes', $this->id_user);
-        $countPacientesCpf= $this->getVerificaCPF();
+        $countPacientesCpf= $this->getVerificaCPF(FALSE);
         $msg = '';
         
         if ($countPacientesCpf == 0) {  
@@ -111,6 +118,53 @@ class Paciente
             // header('location:agendamento.php?status=ERRO');
         }
         return $msg;
+    }
+
+    public function setAlteraPaciente($id_paciente){
+        $this->setIdPaciente($id_paciente);
+        $countPacientesCpf= $this->getVerificaCPF(TRUE);
+        $msg = '';
+
+        if ($countPacientesCpf == 0) {
+            $sql = 'UPDATE pacientes SET nome = :nome, CPF = :CPF, altura = :altura, peso = :peso, data_nascimento = :data_nascimento, email = :email, telefone = :telefone, endereco = :endereco, cidade = :cidade, observacoes = :observacoes WHERE id_user = :id_user AND id_paciente = :id_paciente;';
+            $stmt = preparaComando($sql);
+            $bind = array(
+                ':nome' => $this->nome,
+                ':CPF' => $this->CPF,
+                ':altura' => $this->altura,
+                ':peso' => $this->peso,
+                ':data_nascimento' => $this->data_nascimento,
+                ':email' => $this->email,
+                ':telefone' => $this->telefone,
+                ':endereco' => $this->endereco,
+                ':cidade' => $this->cidade,
+                ':observacoes' => $this->observacoes,
+                ':id_user' => $this->id_user,
+                ':id_paciente' => $this->id_paciente
+            );
+            $stmt = bindExecute($stmt, $bind);
+
+            if( $stmt->rowCount() > 0 ) {
+                // echo ('Paciente atualizado com sucesso!');
+                $msg = 'Paciente atualizado com sucesso!';
+                // $_SESSION['msg'] = "Paciente atualizado com sucesso!";
+                // header('location:agendamento.php?status=OK');
+            } else {
+                // echo ('Não foi possível atualizar o paciente!');
+                $msg = 'Não foi possível atualizar o paciente!';
+                // $_SESSION['msg'] = "Não foi possível atualizar o paciente!";
+                // header('location:agendamento.php?status=ERRO');
+            }
+        }else {
+            // echo("Este CPF já está cadastrado!");
+            $msg = 'Este CPF já está cadastrado!';
+            // $_SESSION['msg'] = "Este CPF já está cadastrado!";
+            // header('location:agendamento.php?status=ERRO');
+        }
+        return $msg;
+
+
+
     }
 
 

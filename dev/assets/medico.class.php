@@ -32,10 +32,7 @@ class Medico
         $this->CRM = mb_strtoupper($CRM,'UTF-8');
     }
     
-    
     public function getVerificaMedicosCRM($op){
-        $countMedicosCrm = 0;
-        
         if ($op == TRUE) {
             $sql = 'SELECT COUNT(*) AS medicosCrm FROM medicos WHERE id_user = :id_user AND CRM = :CRM AND id_medico != :id_medico;';
             $stmt = preparaComando($sql);
@@ -53,10 +50,7 @@ class Medico
             );
         }
         $stmt = bindExecute($stmt, $bind);
-        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $countMedicosCrm = $linha['medicosCrm'];
-        }
-        return $countMedicosCrm;
+        return $stmt->fetch(PDO::FETCH_ASSOC)['medicosCrm'];
     }
     
     public function setAddMedico(){
@@ -114,10 +108,6 @@ class Medico
         return $stmt->fetch(PDO::FETCH_ASSOC)['id_medico'];
     }
 
-    public function getVerificaUpdate(){
-
-    }
-
     public function setAlteraMedico($id_medico){
         $this->setIdMedico($id_medico);
         $countMedicosCrm= $this->getVerificaMedicosCRM(TRUE);
@@ -135,6 +125,7 @@ class Medico
                 ':especializacao' => $this->especializacao
             );
             $stmt = bindExecute($stmt, $bind);
+            
             if( $stmt->rowCount() > 0 ) {
                 // echo ('Médico atualizado com sucesso!');
                 $msg = 'Médico atualizado com sucesso!';
