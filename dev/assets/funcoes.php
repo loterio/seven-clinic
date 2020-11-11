@@ -3,7 +3,7 @@ require_once('conf/default.inc.php');
 function criarConexao(){
     require_once('conf/conf.inc.php');
     try {
-        $conexao = new PDO(MYSQL,USER,PASSWORD);
+        $conexao = new PDO(MYSQL,USER,PASSWORD, array(PDO::MYSQL_ATTR_FOUND_ROWS => true));
         return $conexao;
     } catch (PDOExeption $e) {
         print('Erro ao conectar com o banco de dados. Favor verificar parâmetros!');

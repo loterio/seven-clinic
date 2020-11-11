@@ -94,18 +94,18 @@ class Paciente
             
             if ($countPacientesIdInicio < $countPacientesIdFim) {
                 $this->setIdPaciente($this->getIdPaciente());
-                echo("Paciente cadastrado com sucesso!");
+                // echo("Paciente cadastrado com sucesso!");
                 $msg = 'Paciente cadastrado com sucesso!';
                 // $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
                 // header('location:agendamento.php?status=OK');
             }else {
-                echo("Erro ao adicionar paciente!");
+                // echo("Erro ao adicionar paciente!");
                 $msg = 'Erro ao adicionar paciente!';
                 // $_SESSION['msg'] = "Erro ao adicionar paciente!";
                 // header('location:agendamento.php?status=ERRO');
             }
         }else {
-            echo("Este CPF já está cadastrado!");
+            // echo("Este CPF já está cadastrado!");
             $msg = 'Este CPF já está cadastrado!';
             // $_SESSION['msg'] = "Este CPF já está cadastrado!";
             // header('location:agendamento.php?status=ERRO');
