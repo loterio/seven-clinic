@@ -6,12 +6,31 @@ require_once('medico.class.php');
 require_once('paciente.class.php');
 require_once('consulta.class.php');
 require_once('usuario.class.php');
+require_once('contato.class.php');
+require_once('pessoa.class.php');
 
 
+// EXEMPLO -->> $usuario = new Usuario('email');
+$usuario = new Usuario('jao123@gmail.com');
+$usuario->setId(1);
+
+$pessoa = new Pessoa($usuario, 'Felipe', '47996994858');
+
+// echo $pessoa->getTelefone();
+
+// EXEMPLO -->> echo $usuario->setAlteraUsuario(id_user, 'nome', 'senha', 'confSenha')
+// echo $usuario->setAlteraUsuario(1, 'jao', 'jao1234', 'jao1234')
+
+// ---------RETORNOS---------
+// Usuário atualizado com sucesso!
+// Não foi possível atualizar o usuário!
+// Este e-mail já está cadastrado!
+// A senha e a confirmação de senha não coincidem!
 
 // EXEMPLO -->> $medico = new Medico(id_user, CRM, 'nome', 'telefone', 'especializacao');
-$medico = new Medico(1, 112, 'Felipe CLASSE 12', '44444444', 'nada');
+$medico = new Medico($usuario, 112, 'Felipe CLASSE 12', '44444444', 'nada');
 
+// echo $medico->getUser()->getId();
 
 // EXEMPLO -->> echo $medico->setAddMedico();
 // echo $medico->setAddMedico();
@@ -33,8 +52,10 @@ $medico = new Medico(1, 112, 'Felipe CLASSE 12', '44444444', 'nada');
 
 
 // EXEMPLO -->> $paciente = new Paciente(id_user, 'nome', 'CPF', altura, peso, 'data_nascimento', 'email', 'telefone', 'endereço', 'cidade', 'observacoes');
-$paciente = new Paciente(1, 'Uelinton teske', '87744', 1, 110, '2002-09-26', 'ueliNton.teskE09@gmail.com', '1234567890', 'Rua tiradentes, 69', 'braço do trombudo', 'Sinusite');
+$paciente = new Paciente($usuario, 'Uelinton teske', '87744', 1, 110, '2002-09-26', 'ueliNton.teskE09@gmail.com', '1234567890', 'Rua tiradentes, 69', 'braço do trombudo', 'Sinusite');
 
+// echo $paciente->getUser()->getId();
+echo $paciente->getTelefone();
 
 // EXEMPLO -->> echo $paciente->setAddPaciente();
 // echo $paciente->setAddPaciente();
@@ -45,7 +66,7 @@ $paciente = new Paciente(1, 'Uelinton teske', '87744', 1, 110, '2002-09-26', 'ue
 // Este CPF já está cadastrado!
 
 
-// EXEMPLO  -->> echo $paciente->setAlteraPaciente(id_user);
+// EXEMPLO  -->> echo $paciente->setAlteraPaciente(id_paciente);
 // echo $paciente->setAlteraPaciente(11);
 
 // ---------RETORNOS---------
@@ -55,8 +76,9 @@ $paciente = new Paciente(1, 'Uelinton teske', '87744', 1, 110, '2002-09-26', 'ue
 
 
 // EXEMPLO -->> $consulta = new Consulta(id_user, 'data_consulta', 'hora_inicio', 'hora_fim', valor, 'observaçoes', id_paciente, id_medico, estado);
-$consulta = new Consulta(1, '2020-11-12', '06:00:00', '08:30:00', 120, 'ok', 2, 2, 0);
+// $consulta = new Consulta($usuario, '2020-11-12', '06:00:00', '08:30:00', 120, 'ok', 2, 2, 0);
 
+// echo $consulta->getUser()->getId();
 
 // EXEMPLO -->> echo $consulta->setAddConsulta();
 // echo $consulta->setAddConsulta();
@@ -78,17 +100,5 @@ $consulta = new Consulta(1, '2020-11-12', '06:00:00', '08:30:00', 120, 'ok', 2, 
 // Este horário já possui outra consulta agendada para este médico!
 
 
-// EXEMPLO -->> $usuario = new Usuario('email');
-$usuario = new Usuario('jao123@gmail.com');
-
-
-// EXEMPLO -->> echo $usuario->setAlteraUsuario(id_user, 'nome', 'senha', 'confSenha')
-// echo $usuario->setAlteraUsuario(1, 'jao', 'jao1234', 'jao1234')
-
-// ---------RETORNOS---------
-// Usuário atualizado com sucesso!
-// Não foi possível atualizar o usuário!
-// Este e-mail já está cadastrado!
-// A senha e a confirmação de senha não coincidem!
 
 ?>

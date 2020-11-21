@@ -35,6 +35,10 @@ class Usuario
         $this->id = $id;
     }
 
+    public function getId(){
+        return $this->id;
+    }
+
     public function getVerificaEmail($op){
         if ($op == TRUE) {
             $sql = 'SELECT COUNT(*) AS usuariosEmail FROM usuarios WHERE email = :email AND id != :id;';
