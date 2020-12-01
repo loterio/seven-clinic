@@ -53,7 +53,7 @@ class Paciente extends Pessoa
             $sql = 'SELECT COUNT(*) AS pacientesCpf FROM pacientes WHERE id_user = :id_user AND CPF = :CPF AND id_paciente != :id_paciente;';
             $stmt = preparaComando($sql);
             $bind = array(
-                ':id_user' => parent::$user->getId(),
+                ':id_user' => $this->user->getId(),
                 ':id_paciente' => $this->id_paciente,
                 ':CPF' => $this->CPF
             );
@@ -61,7 +61,7 @@ class Paciente extends Pessoa
             $sql = 'SELECT COUNT(*) AS pacientesCpf FROM pacientes WHERE id_user = :id_user AND CPF = :CPF;';
             $stmt = preparaComando($sql);
             $bind = array(
-                ':id_user' => parent::$user->getId(),
+                ':id_user' => $this->user->getId(),
                 ':CPF' => $this->CPF
             );
         }
@@ -70,7 +70,7 @@ class Paciente extends Pessoa
     }
     
     public function setAddPaciente(){
-        $countPacientesIdInicio= getQnt('pacientes', parent::$user->getId());
+        $countPacientesIdInicio= getQnt('pacientes', $this->user->getId());
         $countPacientesCpf= $this->getVerificaCPF(FALSE);
         $msg = '';
         
@@ -78,8 +78,8 @@ class Paciente extends Pessoa
             $sql = 'INSERT INTO pacientes(id_user, nome, CPF, altura, peso, data_nascimento, email, telefone, endereco, cidade, observacoes) values(:id_user, :nome, :CPF, :altura, :peso, :data_nascimento, :email, :telefone, :endereco, :cidade, :observacoes);';
             $stmt = preparaComando($sql);
             $bind = array(
-                ':id_user' => parent::$user->getId(),
-                ':nome' => parent::$nome,
+                ':id_user' => $this->user->getId(),
+                ':nome' => $this->nome,
                 ':CPF' => $this->CPF,
                 ':altura' => $this->altura,
                 ':peso' => $this->peso,
@@ -92,7 +92,7 @@ class Paciente extends Pessoa
             );
             $stmt = bindExecute($stmt, $bind);
             
-            $countPacientesIdFim = getQnt('pacientes', parent::$user->getId());
+            $countPacientesIdFim = getQnt('pacientes', $this->user->getId());
             
             if ($countPacientesIdInicio < $countPacientesIdFim) {
                 $this->setIdPaciente($this->getIdPaciente());
@@ -124,7 +124,7 @@ class Paciente extends Pessoa
             $sql = 'UPDATE pacientes SET nome = :nome, CPF = :CPF, altura = :altura, peso = :peso, data_nascimento = :data_nascimento, email = :email, telefone = :telefone, endereco = :endereco, cidade = :cidade, observacoes = :observacoes WHERE id_user = :id_user AND id_paciente = :id_paciente;';
             $stmt = preparaComando($sql);
             $bind = array(
-                ':nome' => parent::$nome,
+                ':nome' => $this->nome,
                 ':CPF' => $this->CPF,
                 ':altura' => $this->altura,
                 ':peso' => $this->peso,
@@ -134,7 +134,7 @@ class Paciente extends Pessoa
                 ':endereco' => $this->endereco,
                 ':cidade' => $this->cidade,
                 ':observacoes' => $this->observacoes,
-                ':id_user' => parent::$user->getId(),
+                ':id_user' => $this->user->getId(),
                 ':id_paciente' => $this->id_paciente
             );
             $stmt = bindExecute($stmt, $bind);
@@ -166,11 +166,12 @@ class Paciente extends Pessoa
         $sql = 'SELECT id_paciente FROM pacientes WHERE id_user = :id_user AND CPF = :CPF;';
         $stmt = preparaComando($sql);
         $bind = array(
-            ':id_user' => parent::$user->getId(),
+            ':id_user' => $this->user->getId(),
             ':CPF' => $this->CPF
         );
         $stmt = bindExecute($stmt, $bind);
-        return $stmt->fetch(PDO::FETCH_ASSOC)['id_paciente'];
+        $this->setIdPaciente($stmt->fetch(PDO::FETCH_ASSOC)['id_paciente']);
+        return $this->id_paciente;
     }
 
     public function getTelefone(){

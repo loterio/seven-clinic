@@ -3,9 +3,9 @@
 
 class Pessoa  
 {
-    private $user;
-    private $nome;
-    private $contatos;
+    protected $user;
+    protected $nome;
+    protected $contatos;
 
     public function __construct(Usuario $user, $nome, $telefone){
         $this->setUser($user);

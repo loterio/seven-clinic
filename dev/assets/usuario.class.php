@@ -5,11 +5,11 @@ iniciaSession();
 
 class Usuario  
 {
-    private $id;
-    private $nome;
-    private $email;
-    private $senha;
-    private $confSenha;
+    protected $id;
+    protected $nome;
+    protected $email;
+    protected $senha;
+    protected $confSenha;
 
     public function __construct($email){
         $this->setEmail($email);

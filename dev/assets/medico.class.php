@@ -29,7 +29,7 @@ class Medico extends Pessoa
             $sql = 'SELECT COUNT(*) AS medicosCrm FROM medicos WHERE id_user = :id_user AND CRM = :CRM AND id_medico != :id_medico;';
             $stmt = preparaComando($sql);
             $bind = array(
-                ':id_user' => parent::$user->getId(),
+                ':id_user' => $this->user->getId(),
                 ':CRM' => $this->CRM,
                 ':id_medico' => $this->id_medico
             );
@@ -37,7 +37,7 @@ class Medico extends Pessoa
             $sql = 'SELECT COUNT(*) AS medicosCrm FROM medicos WHERE id_user = :id_user AND CRM = :CRM;';
             $stmt = preparaComando($sql);
             $bind = array(
-                ':id_user' => parent::$user->getId(),
+                ':id_user' => $this->user->getId(),
                 ':CRM' => $this->CRM
             );
         }
@@ -46,7 +46,7 @@ class Medico extends Pessoa
     }
     
     public function setAddMedico(){
-        $countMedicosIdInicio= getQnt('medicos', parent::$user->getId());
+        $countMedicosIdInicio= getQnt('medicos', $this->user->getId());
         $countMedicosCrm= $this->getVerificaMedicosCRM(FALSE);
         $msg = '';
         
@@ -54,15 +54,15 @@ class Medico extends Pessoa
             $sql = 'INSERT INTO medicos(id_user, nome, CRM, telefone, especializacao) values(:id_user, :nome, :CRM, :telefone, :especializacao);';
             $stmt = preparaComando($sql);
             $bind = array(
-                ':id_user' => parent::$user->getId(),
-                ':nome' => parent::$nome,
+                ':id_user' => $this->user->getId(),
+                ':nome' => $this->nome,
                 ':CRM' => $this->CRM,
                 ':telefone' => parent::getTelefone(),
                 ':especializacao' => $this->especializacao
             );
             $stmt = bindExecute($stmt, $bind);
             
-            $countMedicosIdFim= getQnt('medicos', parent::$user->getId());
+            $countMedicosIdFim= getQnt('medicos', $this->user->getId());
             
             if ($countMedicosIdInicio < $countMedicosIdFim) {
                 $this->setIdMedico($this->getIdMedico());
@@ -93,11 +93,12 @@ class Medico extends Pessoa
         $sql = 'SELECT id_medico FROM medicos WHERE id_user = :id_user AND CRM = :CRM;';
         $stmt = preparaComando($sql);
         $bind = array(
-            ':id_user' => parent::$user->getId(),
+            ':id_user' => $this->user->getId(),
             ':CRM' => $this->CRM
         );
         $stmt = bindExecute($stmt, $bind);
-        return $stmt->fetch(PDO::FETCH_ASSOC)['id_medico'];
+        $this->setIdMedico($stmt->fetch(PDO::FETCH_ASSOC)['id_medico']);
+        return $this->id_medico;
     }
 
     public function setAlteraMedico($id_medico){
@@ -109,9 +110,9 @@ class Medico extends Pessoa
             $sql = 'UPDATE medicos SET CRM = :CRM, nome = :nome, telefone = :telefone, especializacao = :especializacao WHERE id_user = :id_user AND id_medico = :id_medico;';
             $stmt = preparaComando($sql);
             $bind = array(
-                ':id_user' => parent::$user->getId(),
+                ':id_user' => $this->user->getId(),
                 ':id_medico' => $this->id_medico,
-                ':nome' => parent::$nome,
+                ':nome' => $this->nome,
                 ':CRM' => $this->CRM,
                 ':telefone' => parent::getTelefone(),
                 ':especializacao' => $this->especializacao

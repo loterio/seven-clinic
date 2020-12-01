@@ -12,20 +12,34 @@ class Consulta
    private $hora_fim;
    private $valor;
    private $descricao;
-   private $id_paciente;
-   private $id_medico;
+   private $paciente;
+   private $medico;
    private $estado;
 
-    public function __construct(Usuario $user, $data_consulta, $hora_inicio, $hora_fim, $valor, $descricao, $id_paciente, $id_medico, $estado){
+    public function __construct(Usuario $user, $data_consulta, $hora_inicio, $hora_fim, $valor, $descricao, $estado){
         $this->user = $user;
         $this->data_consulta = $data_consulta;
         $this->hora_inicio = $hora_inicio;
         $this->hora_fim = $hora_fim;
         $this->valor = $valor;
         $this->descricao = $descricao;
-        $this->id_paciente = $id_paciente;
-        $this->id_medico = $id_medico;
         $this->estado = $estado;
+    }
+
+    public function setAddMedico(Medico $medico){
+        $this->medico = $medico;
+    }
+
+    public function getMedico(){
+        return $this->medico;
+    }
+
+    public function setAddPaciente(Paciente $paciente){
+        $this->paciente = $paciente;
+    }
+
+    public function getPaciente(){
+        return $this->paciente;
     }
     
     public function setAddConsulta(){
@@ -45,8 +59,8 @@ class Consulta
                     ':hora_fim' => $this->hora_fim,
                     ':valor' => $this->valor,
                     ':descricao' => $this->descricao,
-                    ':id_paciente' => $this->id_paciente,
-                    ':id_medico' => $this->id_medico,
+                    ':id_paciente' => $this->paciente->getIdPaciente(),
+                    ':id_medico' => $this->medico->getIdMedico(),
                     ':estado' => $this->estado
                 );
                 $stmt = bindExecute($stmt, $bind);
@@ -86,7 +100,7 @@ class Consulta
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_medico' => $this->id_medico,
+                ':id_medico' => $this->medico->getIdMedico(),
                 ':id_consulta' => $this->id_consulta,
                 ':hora_inicio' => $this->hora_inicio,
                 ':hora_fim' => $this->hora_fim,
@@ -97,7 +111,7 @@ class Consulta
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_medico' => $this->id_medico,
+                ':id_medico' => $this->medico->getIdMedico(),
                 ':hora_inicio' => $this->hora_inicio,
                 ':hora_fim' => $this->hora_fim,
                 ':data_consulta' => $this->data_consulta
@@ -113,7 +127,7 @@ class Consulta
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_paciente' => $this->id_paciente,
+                ':id_paciente' => $this->paciente->getIdPaciente(),
                 ':id_consulta' => $this->id_consulta,
                 ':hora_inicio' => $this->hora_inicio,
                 ':hora_fim' => $this->hora_fim,
@@ -124,7 +138,7 @@ class Consulta
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_paciente' => $this->id_paciente,
+                ':id_paciente' => $this->paciente->getIdPaciente(),
                 ':hora_inicio' => $this->hora_inicio,
                 ':hora_fim' => $this->hora_fim,
                 ':data_consulta' => $this->data_consulta
@@ -164,8 +178,8 @@ class Consulta
                     ':hora_fim' => $this->hora_fim,
                     ':valor' => $this->valor,
                     ':descricao' => $this->descricao,
-                    ':id_paciente' => $this->id_paciente,
-                    ':id_medico' => $this->id_medico,
+                    ':id_paciente' => $this->paciente->getIdPaciente(),
+                    ':id_medico' => $this->medico->getIdMedico(),
                     ':estado' => $this->estado
                 );
                 $stmt = bindExecute($stmt, $bind);

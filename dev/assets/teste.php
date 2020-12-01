@@ -55,7 +55,7 @@ $medico = new Medico($usuario, 112, 'Felipe CLASSE 12', '44444444', 'nada');
 $paciente = new Paciente($usuario, 'Uelinton teske', '87744', 1, 110, '2002-09-26', 'ueliNton.teskE09@gmail.com', '1234567890', 'Rua tiradentes, 69', 'braço do trombudo', 'Sinusite');
 
 // echo $paciente->getUser()->getId();
-echo $paciente->getTelefone();
+// echo $paciente->getTelefone();
 
 // EXEMPLO -->> echo $paciente->setAddPaciente();
 // echo $paciente->setAddPaciente();
@@ -77,6 +77,9 @@ echo $paciente->getTelefone();
 
 // EXEMPLO -->> $consulta = new Consulta(id_user, 'data_consulta', 'hora_inicio', 'hora_fim', valor, 'observaçoes', id_paciente, id_medico, estado);
 // $consulta = new Consulta($usuario, '2020-11-12', '06:00:00', '08:30:00', 120, 'ok', 2, 2, 0);
+// $consulta->setAddMedico($medico);
+// $consulta->setAddPaciente($paciente);
+
 
 // echo $consulta->getUser()->getId();
 
@@ -99,6 +102,24 @@ echo $paciente->getTelefone();
 // Este horário já possui outra consulta agendada para este paciente!
 // Este horário já possui outra consulta agendada para este médico!
 
+
+
+
+//------------ PROCESSO PARA ADICIONAR UMA CONSULTA ----------
+
+// $usuarioCons = new Usuario('jao123@gmail.com');
+// $usuarioCons->setId(1);
+// $medicoCons = new Medico($usuarioCons, 1112, 'Felipe TESTE CONSULTA', '44444444', 'nada');
+// echo $medicoCons->setAddMedico();
+// $pacienteCons = new Paciente($usuarioCons, 'Uelinton teske', '8774477', 1, 110, '2002-09-26', 'ueliNton.teskE09@gmail.com', '1234567890', 'Rua tiradentes, 69', 'braço do trombudo', 'Sinusite');
+// echo $pacienteCons->setAddPaciente();
+// $consultaCons = new Consulta($usuarioCons, '2020-12-01', '06:00:00', '08:30:00', 120, 'ok', 0);
+// $consultaCons->setAddMedico($medicoCons);
+// $consultaCons->setAddPaciente($pacienteCons);
+// echo $consultaCons->setAddConsulta();
+
+
+// ---------------------------------------------------------------
 
 
 ?>
