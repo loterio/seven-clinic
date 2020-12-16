@@ -8,13 +8,16 @@ require_once('consulta.class.php');
 require_once('usuario.class.php');
 require_once('contato.class.php');
 require_once('pessoa.class.php');
+require_once('relatorio.class.php');
+require_once('relatorioMedico.class.php');
+require_once('relatorioPaciente.class.php');
 
 
 // EXEMPLO -->> $usuario = new Usuario('email');
 $usuario = new Usuario('jao123@gmail.com');
 $usuario->setId(1);
 
-$pessoa = new Pessoa($usuario, 'Felipe', '47996994858');
+// $pessoa = new Pessoa($usuario, 'Felipe', '47996994858');
 
 // echo $pessoa->getTelefone();
 
@@ -121,5 +124,10 @@ $paciente = new Paciente($usuario, 'Uelinton teske', '87744', 1, 110, '2002-09-2
 
 // ---------------------------------------------------------------
 
+// $relatorioMedico = new RelatorioMedico($usuario, '2020-10-14', '2020-11-13', 1);
+// echo "valorTotal: ".$relatorioMedico->geraRelatorio();
+
+// $relatorioPaciente = new RelatorioPaciente($usuario, '2020-10-14', '2020-11-13', 1);
+// echo "valorTotal: ".$relatorioPaciente->geraRelatorio();
 
 ?>

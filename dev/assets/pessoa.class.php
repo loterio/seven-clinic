@@ -15,13 +15,19 @@ abstract class Pessoa
 
     abstract function getTelefone();
     
-    abstract function setTelefone($telefone);
+    public function setTelefone($telefone){
+        $this->contatos[0] = new Contato('telefone', $telefone);
+    }
     
-    abstract function setNome($nome);
+    public function setNome($nome){
+        $this->nome = mb_strtoupper($nome,'UTF-8');
+    }
     
     abstract function getNome();
     
-    abstract function setUser(Usuario $user);
+    public function setUser(Usuario $user){
+        $this->user = $user;
+    }
     
     abstract function getUser();
     

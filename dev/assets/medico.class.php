@@ -145,21 +145,21 @@ class Medico extends Pessoa
         return parent::$contatos[0]->getContato();
     }
 
-    public function setTelefone($telefone){
-        parent::$contatos[0] = new Contato('telefone', $telefone);
-    }
+    // public function setTelefone($telefone){
+    //     parent::$contatos[0] = new Contato('telefone', $telefone);
+    // }
     
-    public function setNome($nome){
-        parent::$nome = mb_strtoupper($nome,'UTF-8');
-    }
+    // public function setNome($nome){
+    //     parent::$nome = mb_strtoupper($nome,'UTF-8');
+    // }
 
     public function getNome(){
         return parent::$nome;
     }
 
-    public function setUser(Usuario $user){
-        parent::$user = $user;
-    }
+    // public function setUser(Usuario $user){
+    //     parent::$user = $user;
+    // }
     
     public function getUser(){
         return parent::$user;
