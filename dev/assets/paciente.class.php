@@ -85,7 +85,7 @@ class Paciente extends Pessoa
                 ':peso' => $this->peso,
                 ':data_nascimento' => $this->data_nascimento,
                 ':email' => $this->getEmail(),
-                ':telefone' => parent::getTelefone(),
+                ':telefone' => $this->getTelefone(),
                 ':endereco' => $this->endereco,
                 ':cidade' => $this->cidade,
                 ':observacoes' => $this->observacoes
@@ -130,7 +130,7 @@ class Paciente extends Pessoa
                 ':peso' => $this->peso,
                 ':data_nascimento' => $this->data_nascimento,
                 ':email' => $this->getEmail(),
-                ':telefone' => parent::getTelefone(),
+                ':telefone' => $this->getTelefone(),
                 ':endereco' => $this->endereco,
                 ':cidade' => $this->cidade,
                 ':observacoes' => $this->observacoes,
@@ -175,28 +175,28 @@ class Paciente extends Pessoa
     }
 
     public function getTelefone(){
-        return parent::getTelefone();
+        return parent::$contatos[0]->getContato();
     }
 
     
     public function setTelefone($telefone){
-        parent::setTelefone($telefone);
+        parent::$contatos[0] = new Contato('telefone', $telefone);
     }
     
     public function setNome($nome){
-        parent::setNome($nome);
+        parent::$nome = mb_strtoupper($nome,'UTF-8');
     }
 
     public function getNome(){
-        return parent::getNome();
+        return parent::$nome;
     }
 
     public function setUser(Usuario $user){
-        parent::setUser($user);
+        parent::$user = $user;
     }
     
     public function getUser(){
-        return parent::getUser();
+        return parent::$user;
     }
 }        
     

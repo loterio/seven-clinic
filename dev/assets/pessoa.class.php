@@ -1,48 +1,36 @@
 <?php
 
 
-class Pessoa  
+abstract class Pessoa  
 {
     protected $user;
     protected $nome;
     protected $contatos;
 
-    public function __construct(Usuario $user, $nome, $telefone){
+    protected function __construct(Usuario $user, $nome, $telefone){
         $this->setUser($user);
         $this->setNome($nome);
         $this->setTelefone($telefone);
     }
 
-    public function getTelefone(){
-        return $this->contatos[0]->getContato();
-    }
-
-    public function getEmail(){
-        return $this->contatos[1]->getContato();
-    }
+    abstract function getTelefone();
     
-    public function setTelefone($telefone){
-        $this->contatos[0] = new Contato('telefone', $telefone);
-    }
-
-    public function setEmail($email){
+    abstract function setTelefone($telefone);
+    
+    abstract function setNome($nome);
+    
+    abstract function getNome();
+    
+    abstract function setUser(Usuario $user);
+    
+    abstract function getUser();
+    
+    protected function setEmail($email){
         $this->contatos[1] = new Contato('email', mb_strtolower($email,'UTF-8'));
     }
-    
-    public function setNome($nome){
-        $this->nome = mb_strtoupper($nome,'UTF-8');
-    }
 
-    public function getNome(){
-        return $this->nome;
-    }
-
-    public function setUser(Usuario $user){
-        $this->user = $user;
-    }
-    
-    public function getUser(){
-        return $this->user;
+    protected function getEmail(){
+        return $this->contatos[1]->getContato();
     }
 }
 
