@@ -322,4 +322,46 @@ function getQnt($tabela, $id_user){
     return $count;
 }
 
+function buscaPacientes(){
+    $dados = '';
+
+    $sql = 'SELECT * FROM pacientes WHERE id_user = :id_user;';
+    $stmt = preparaComando($sql);
+    $bind = array(
+        ':id_user' => $_SESSION['id']
+    );
+    $stmt = bindExecute($stmt, $bind);
+        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $dados .= '<option value="';
+            $dados .= $linha['id_paciente'];
+            $dados .= '">';
+            $dados .= $linha['nome'];
+            $dados .= ' - ';
+            $dados .= $linha['CPF'];
+            $dados .= '</option>';
+        }
+    return $dados;
+}
+
+function buscaMedicos(){
+    $dados = '';
+
+    $sql = 'SELECT * FROM medicos WHERE id_user = :id_user;';
+    $stmt = preparaComando($sql);
+    $bind = array(
+        ':id_user' => $_SESSION['id']
+    );
+    $stmt = bindExecute($stmt, $bind);
+        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $dados .= '<option value="';
+            $dados .= $linha['id_medico'];
+            $dados .= '">';
+            $dados .= $linha['nome'];
+            $dados .= ' - ';
+            $dados .= $linha['CRM'];
+            $dados .= '</option>';
+        }
+    return $dados;
+}
+
 ?>

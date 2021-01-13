@@ -1,15 +1,7 @@
-let mostrarOpcoesPerfil = true;
-let mostrarOpcoesAdd = true;
-let mostrarMenu = true;
+// ===============Cards=================
 
-const opcoesPerfil = document.querySelector(".perfil");
-const botaoAdd = document.querySelector(".botao-add");
-const opcoesAdd = document.querySelector(".add")
-const cardData = document.querySelectorAll(".card-data");
+const cardData = document.querySelectorAll(".card-data")
 const eventos = document.querySelectorAll(".eventos-data");
-const menuTogle = document.querySelector(".menu-togle")
-const menu = document.getElementsByTagName("sidenav")
-const fundoEscuro = document.querySelector(".fundo-escuro")
 
 cardData.forEach((card, index) => {
   card.addEventListener('click', ()=> {
@@ -17,24 +9,12 @@ cardData.forEach((card, index) => {
   })
 })
 
-document.addEventListener('click', function(event) {
-  let clicouMenuTogle = menuTogle.contains(event.target);
-  if (!clicouMenuTogle) {
-    let windowWidth = window.innerWidth;
-    if (windowWidth <= 768) {
-      menu[0].style.display = 'none';
-      fundoEscuro.style.display = 'none';
-    }
-  } else {
-    menu[0].style.display = 'initial';
-    fundoEscuro.style.display = 'initial';
-  }
-});
-
+// ===============Perfil================
+let mostrarOpcoesPerfil = true;
+const opcoesPerfil = document.querySelector(".perfil");
 
 document.addEventListener('click', function(event) {
   let clicouNoPerfil = opcoesPerfil.contains(event.target);
-  let clicouNoAdd = botaoAdd.contains(event.target);
 
   if (!clicouNoPerfil) {
     opcoesPerfil.classList.toggle("ativo", false);
@@ -43,6 +23,15 @@ document.addEventListener('click', function(event) {
     opcoesPerfil.classList.toggle("ativo", mostrarOpcoesPerfil);
     mostrarOpcoesPerfil = !mostrarOpcoesPerfil;
   }
+});
+
+// ===============Add===================
+let mostrarOpcoesAdd = true;
+const botaoAdd = document.querySelector(".botao-add");
+const opcoesAdd = document.querySelector(".add")
+
+document.addEventListener('click', function(event) {
+  let clicouNoAdd = botaoAdd.contains(event.target);
 
   if (!clicouNoAdd) {
     opcoesAdd.classList.toggle("ativo", false);
@@ -52,3 +41,60 @@ document.addEventListener('click', function(event) {
     mostrarOpcoesAdd = !mostrarOpcoesAdd;
   }
 });
+
+// ================Menu==================
+
+let mostrarMenu = true;
+
+const menuTogle = document.querySelector(".menu-togle")
+const menu = document.getElementsByTagName("sidenav")
+const fundoEscuro = document.querySelector(".fundo-escuro")
+
+document.body.onresize = function() {
+  if (document.body.clientWidth >= 768) {
+    menu[0].style.display = 'initial';
+    fundoEscuro.style.display = 'none';
+  }
+  if (document.body.clientWidth < 768) {
+    menu[0].style.display = 'none';
+  }
+};
+
+menuTogle.addEventListener("click", () => {
+  menu[0].style.display = 'initial';
+  fundoEscuro.style.display = 'initial';
+  mostrarMenu = false;
+});
+
+fundoEscuro.addEventListener("click", () => {
+  if (mostrarMenu == false) {
+    menu[0].style.display = 'none';
+    fundoEscuro.style.display = 'none';
+    mostrarMenu = true;
+  }
+});
+
+//============Formularios=============
+const botoesAdd = document.querySelectorAll(".add li button")
+
+botoesAdd.forEach(
+  botao => botao.addEventListener('click', 
+  () => mostraFormulario() 
+  )
+);
+function mostraFormulario() {
+  const fundoEscuro = document.querySelector(".fundo-escuro");
+  const espacoFormulario = document.querySelector(".espaco-formulario");
+  fundoEscuro.style.display = 'initial';
+  espacoFormulario.style.display = 'initial';
+}
+
+function fechaFormulario() {
+  const fundoEscuro = document.querySelector(".fundo-escuro");
+  const espacoFormulario = document.querySelector(".espaco-formulario");
+  const div = document.querySelector("#espaco-formulario");
+
+  fundoEscuro.style.display = 'none';
+  espacoFormulario.style.display = 'none';
+  div.innerHTML = "";
+}

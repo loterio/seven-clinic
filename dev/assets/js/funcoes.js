@@ -40,3 +40,12 @@ function ApenasLetras(e, t) {
         alert(err.Description);
     }
 }
+
+function ajaxDiv(url, idDiv){
+    const div = document.querySelector("#"+idDiv);
+    fetch(url)
+    .then((resposta) => resposta.text()) 
+    .then((html) => {
+      div.innerHTML = html;
+    })
+}

@@ -9,9 +9,11 @@
   <script src="../assets/js/jQuery.js"></script>
   <script src="../assets/js/funcoes.js"></script>
   <title>Seven Clinic</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 </head>
 
 <body>
+  <script>{erro}</script>
   <header>
     <img class="menu-togle" src="../assets/img/menu-icon.svg">
     <div class="logo">
@@ -62,6 +64,27 @@
     </form>
     <div class="datas">
       {msg}
+
+
+      <div class="eventos-data">
+        <div class="card-data">
+          <span class="data">Hoje</span>
+          <img src="../assets/img/setaBaixo.svg" alt="">
+        </div>
+        <div class="evento" onclick="ajaxDiv('alterarConsulta.php?id=1', 'espaco-formulario'); mostraFormulario();">
+          <div class="dados-paciente">
+            <div class="imagem" style="background-image: url(../assets/img/pacientes/foto.jpeg);"></div>
+            <div class="medico-paciente">
+              <span class="paciente">Henrique Borges dos Santos</span>
+              <span class="medico">Maicon Silva</span>
+            </div>
+          </div>
+          <span class="horario">08:00 - 09:00</span>
+        </div>
+      </div>
+    </div>
+
+
       <!-- <div class="eventos-data">
         <div class="card-data">
           <span class="data">Hoje</span>
@@ -141,14 +164,18 @@
       <div class="opcoes-add ativo">
         <span class="titulo">Novo</span>
         <ul>
-          <li><a href="#">Agendamento</a></li>
-          <li><a href="#">Paciente</a></li>
-          <li><a href="#">Médico</a></li>
+          <li class=""><button onclick="ajaxDiv('novoAgendamento.php', 'espaco-formulario')">Agendamento</button></li>
+          <li class=""><button onclick="ajaxDiv('novoPaciente.php', 'espaco-formulario')">Paciente</button></li>
+          <li class=""><button onclick="ajaxDiv('novoMedico.php', 'espaco-formulario')">Médico</button></li>
         </ul>
       </div>
     </div>
   </main>
-  <div class="fundo-escuro"></div>
+  <div class="fundo-escuro">
+    <div class="formularios">
+      <div class="espaco-formulario" id="espaco-formulario"></div>
+    </div>
+  </div>
 </body>
 <script src="../assets/js/agendamento-eventos.js"></script>
 <script src="../assets/js/init.js"></script>
