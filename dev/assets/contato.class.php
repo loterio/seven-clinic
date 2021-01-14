@@ -22,7 +22,7 @@ class Contato
     }
     
     public function getContato(){
-        return $this->contato ;
+        return $this->contato;
     }
 }
 

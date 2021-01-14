@@ -13,7 +13,9 @@ abstract class Pessoa
         $this->setTelefone($telefone);
     }
 
-    abstract function getTelefone();
+    public function getTelefone(){
+        return $this->contatos[0]->getContato();
+    }
     
     public function setTelefone($telefone){
         $this->contatos[0] = new Contato('telefone', $telefone);

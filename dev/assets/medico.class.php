@@ -67,22 +67,22 @@ class Medico extends Pessoa
             if ($countMedicosIdInicio < $countMedicosIdFim) {
                 $this->setIdMedico($this->getIdMedico());
                 // echo ('Médico cadastrado com sucesso!');
-                $msg = 'Médico cadastrado com sucesso!';
-                // $_SESSION['msg'] = "Médico cadastrado com sucesso!";
-                // header('location:agendamento.php?status=OK'); // Sucesso
+                // $msg = 'Médico cadastrado com sucesso!';
+                $_SESSION['msg'] = "Médico cadastrado com sucesso!";
+                header('location:agendamento.php?status=OK'); // Sucesso
             }else {
                 // echo ('Erro ao adicionar médico!');
-                $msg = 'Erro ao adicionar médico!';
-                // $_SESSION['msg'] = "Erro ao adicionar médico!";
-                // header('location:agendamento.php?status=ERRO');
+                // $msg = 'Erro ao adicionar médico!';
+                $_SESSION['msg'] = "Erro ao adicionar médico!";
+                header('location:agendamento.php?status=ERRO');
             }
         }else {
             // echo ('Este CRM já está cadastrado!');
-            $msg = 'Este CRM já está cadastrado!';
-            // $_SESSION['msg'] = "Este CRM já está cadastrado!";
-            // header('location:agendamento.php?status=ERRO'); // CRM ja existe
+            // $msg = 'Este CRM já está cadastrado!';
+            $_SESSION['msg'] = "Este CRM já está cadastrado!";
+            header('location:agendamento.php?status=ERRO'); // CRM ja existe
         }  
-        return $msg; 
+        // return $msg; 
     }
 
     public function setIdMedico($id){
@@ -142,7 +142,7 @@ class Medico extends Pessoa
     }
 
     public function getTelefone(){
-        return parent::$contatos[0]->getContato();
+        return parent::getTelefone();
     }
 
     // public function setTelefone($telefone){

@@ -2,15 +2,6 @@
 
 require_once('funcoes.php');
 iniciaSession();
-require_once('medico.class.php');
-require_once('paciente.class.php');
-require_once('consulta.class.php');
-require_once('usuario.class.php');
-require_once('contato.class.php');
-require_once('pessoa.class.php');
-require_once('relatorio.class.php');
-require_once('relatorioMedico.class.php');
-require_once('relatorioPaciente.class.php');
 
 
 // EXEMPLO -->> $usuario = new Usuario('email');
@@ -32,6 +23,7 @@ $usuario->setId(1);
 
 // EXEMPLO -->> $medico = new Medico(id_user, CRM, 'nome', 'telefone', 'especializacao');
 $medico = new Medico($usuario, 112, 'Felipe CLASSE 12', '44444444', 'nada');
+// echo $medico->getTelefone();
 
 // echo $medico->getUser()->getId();
 
@@ -55,8 +47,8 @@ $medico = new Medico($usuario, 112, 'Felipe CLASSE 12', '44444444', 'nada');
 
 
 // EXEMPLO -->> $paciente = new Paciente(id_user, 'nome', 'CPF', altura, peso, 'data_nascimento', 'email', 'telefone', 'endereço', 'cidade', 'observacoes');
-$paciente = new Paciente($usuario, 'Uelinton teske', '87744', 1, 110, '2002-09-26', 'ueliNton.teskE09@gmail.com', '1234567890', 'Rua tiradentes, 69', 'braço do trombudo', 'Sinusite');
-
+$paciente = new Paciente($usuario, 'beltrano', '0087744', 1, 110, '2002-09-26', 'ueliNton.teskE09@gmail.com', '1234567890', 'Rua tiradentes, 69', 'braço do trombudo', 'Sinusite');
+// var_dump($paciente);
 // echo $paciente->getUser()->getId();
 // echo $paciente->getTelefone();
 
@@ -76,10 +68,10 @@ $paciente = new Paciente($usuario, 'Uelinton teske', '87744', 1, 110, '2002-09-2
 // Paciente atualizado com sucesso!
 // Não foi possível atualizar o paciente!
 // Este CPF já está cadastrado!
+ 
 
-
-// EXEMPLO -->> $consulta = new Consulta(id_user, 'data_consulta', 'hora_inicio', 'hora_fim', valor, 'observaçoes', id_paciente, id_medico, estado);
-// $consulta = new Consulta($usuario, '2020-11-12', '06:00:00', '08:30:00', 120, 'ok', 2, 2, 0);
+// EXEMPLO -->> $consulta = new Consulta(id_user, 'data_consulta', 'hora_inicio', 'hora_fim', valor, 'observaçoes', estado);
+// $consulta = new Consulta($usuario, '2020-11-12', '06:00:00', '08:30:00', 120, 'ok', 0);
 // $consulta->setAddMedico($medico);
 // $consulta->setAddPaciente($paciente);
 

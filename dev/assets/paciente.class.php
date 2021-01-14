@@ -97,22 +97,22 @@ class Paciente extends Pessoa
             if ($countPacientesIdInicio < $countPacientesIdFim) {
                 $this->setIdPaciente($this->getIdPaciente());
                 // echo("Paciente cadastrado com sucesso!");
-                $msg = 'Paciente cadastrado com sucesso!';
-                // $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
-                // header('location:agendamento.php?status=OK');
+                // $msg = 'Paciente cadastrado com sucesso!';
+                $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
+                header('location:agendamento.php?status=OK');
             }else {
                 // echo("Erro ao adicionar paciente!");
-                $msg = 'Erro ao adicionar paciente!';
-                // $_SESSION['msg'] = "Erro ao adicionar paciente!";
-                // header('location:agendamento.php?status=ERRO');
+                // $msg = 'Erro ao adicionar paciente!';
+                $_SESSION['msg'] = "Erro ao adicionar paciente!";
+                header('location:agendamento.php?status=ERRO');
             }
         }else {
             // echo("Este CPF já está cadastrado!");
-            $msg = 'Este CPF já está cadastrado!';
-            // $_SESSION['msg'] = "Este CPF já está cadastrado!";
-            // header('location:agendamento.php?status=ERRO');
+            // $msg = 'Este CPF já está cadastrado!';
+            $_SESSION['msg'] = "Este CPF já está cadastrado!";
+            header('location:agendamento.php?status=ERRO');
         }
-        return $msg;
+        // return $msg;
     }
 
     public function setAlteraPaciente($id_paciente){
@@ -141,20 +141,20 @@ class Paciente extends Pessoa
 
             if( $stmt->rowCount() > 0 ) {
                 // echo ('Paciente atualizado com sucesso!');
-                $msg = 'Paciente atualizado com sucesso!';
-                // $_SESSION['msg'] = "Paciente atualizado com sucesso!";
-                // header('location:agendamento.php?status=OK');
+                // $msg = 'Paciente atualizado com sucesso!';
+                $_SESSION['msg'] = "Paciente atualizado com sucesso!";
+                header('location:agendamento.php?status=OK');
             } else {
                 // echo ('Não foi possível atualizar o paciente!');
-                $msg = 'Não foi possível atualizar o paciente!';
-                // $_SESSION['msg'] = "Não foi possível atualizar o paciente!";
-                // header('location:agendamento.php?status=ERRO');
+                // $msg = 'Não foi possível atualizar o paciente!';
+                $_SESSION['msg'] = "Não foi possível atualizar o paciente!";
+                header('location:agendamento.php?status=ERRO');
             }
         }else {
             // echo("Este CPF já está cadastrado!");
-            $msg = 'Este CPF já está cadastrado!';
-            // $_SESSION['msg'] = "Este CPF já está cadastrado!";
-            // header('location:agendamento.php?status=ERRO');
+            // $msg = 'Este CPF já está cadastrado!';
+            $_SESSION['msg'] = "Este CPF já está cadastrado!";
+            header('location:agendamento.php?status=ERRO');
         }
         return $msg;
 
@@ -175,7 +175,7 @@ class Paciente extends Pessoa
     }
 
     public function getTelefone(){
-        return parent::$contatos[0]->getContato();
+        return parent::getTelefone();
     }
 
     

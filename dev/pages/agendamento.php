@@ -4,6 +4,9 @@ require_once('../assets/funcoes.php');
 iniciaSession();
 
 if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
+    $usuario = new Usuario($_SESSION['email']);
+    $usuario->setId($_SESSION['id']);
+
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $pagina = file_get_contents('agendamento.html');
         if (isset($_SESSION['id'])) {
@@ -76,161 +79,51 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
         if (isset($_POST['acao'])) {
             if (isset($_SESSION['id'])) {
                 if ($_POST['acao'] == 'addMedico') {
-                    $nome = isset($_POST['nome']) ? mb_strtoupper($_POST['nome'],'UTF-8') : '';
-                    $crm = isset($_POST['crm']) ? mb_strtoupper($_POST['crm'],'UTF-8') : '';
+                    $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
+                    $crm = isset($_POST['crm']) ? $_POST['crm'] : '';
                     $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : '';
-                    $especializacao = isset($_POST['especializacao']) ? mb_strtoupper($_POST['especializacao'],'UTF-8') : '';
-                    $countMedicosIdInicio=0;
-                    $countMedicosIdFim=0;
-                    $countMedicosCrm=0;
+                    $especializacao = isset($_POST['especializacao']) ? $_POST['especializacao'] : '';
+         
+                    $medico = new Medico($usuario, $cmr, $nome, $telefone, $especializacao);
+                    $medico->setAddMedico();
 
-                    $sql1 = 'SELECT COUNT(*) AS idInicio FROM medicos WHERE id_user = :id_user;';
-                    $stmt1 = preparaComando($sql1);
-                    $bind1 = array(
-                        ':id_user' => $_SESSION['id']
-                    );
-                    $stmt1 = bindExecute($stmt1, $bind1);
-                    while ($linha1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
-                        $countMedicosIdInicio = $linha1['idInicio'];
-                    }
-                    
-                    $sql2 = 'SELECT COUNT(*) AS medicosCrm FROM medicos WHERE id_user = :id_user AND CRM = :CRM;';
-                    $stmt2 = preparaComando($sql2);
-                    $bind2 = array(
-                        ':id_user' => $_SESSION['id'],
-                        ':CRM' => $crm
-                    );
-                    $stmt2 = bindExecute($stmt2, $bind2);
-                    while ($linha2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-                        $countMedicosCrm = $linha2['medicosCrm'];
-                    }
-                    if ($countMedicosCrm == 0) {  
-                        $sql3 = 'INSERT INTO medicos(id_user, nome, CRM, telefone, especializacao) values(:id_user, :nome, :CRM, :telefone, :especializacao);';
-                        $stmt3 = preparaComando($sql3);
-                        $bind3 = array(
-                            ':id_user' => $_SESSION['id'],
-                            ':nome' => $nome,
-                            ':CRM' => $crm,
-                            ':telefone' => $telefone,
-                            ':especializacao' => $especializacao
-                        );
-                        $stmt3 = bindExecute($stmt3, $bind3);
-                        
-                        $sql4 = 'SELECT COUNT(*) AS idFim FROM  medicos WHERE id_user = :id_user;';
-                        $stmt4 = preparaComando($sql4);
-                        $bind4 = array(
-                            ':id_user' => $_SESSION['id']
-                        );
-                        $stmt4 = bindExecute($stmt4, $bind4);
-                        while ($linha4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                            $countMedicosIdFim = $linha4['idFim'];
-                        }
-                        // echo($countMedicosIdInicio);
-                        // echo($countMedicosIdFim);
-                        // echo($countMedicosCrm);
-                        if ($countMedicosIdInicio < $countMedicosIdFim) {
-                            $_SESSION['msg'] = "Médico cadastrado com sucesso!";
-                            header('location:agendamento.php?status=OK'); // Sucesso
-                        }
-                    }else {
-                        $_SESSION['msg'] = "Este CRM já está cadastrado!";
-                        header('location:agendamento.php?status=ERRO'); // CRM ja existe
-                    }
-                }if ($_POST['acao'] == 'addPaciente') {
-                    $nome = isset($_POST['nome']) ? mb_strtoupper($_POST['nome'],'UTF-8') : '';
+                }else if ($_POST['acao'] == 'addPaciente') {
+                    $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
                     $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : '';
                     $altura = isset($_POST['altura']) ? $_POST['altura'] : '';
                     $peso = isset($_POST['peso']) ? $_POST['peso'] : '';
                     $nascimento = isset($_POST['nascimento']) ? $_POST['nascimento'] : '';
-                    $email = isset($_POST['email']) ? mb_strtolower($_POST['email'],'UTF-8') : '';
+                    $email = isset($_POST['email']) ? $_POST['email'] : '';
                     $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : '';
-                    $endereco = isset($_POST['endereco']) ? ucwords(mb_strtolower($_POST['endereco'],'UTF-8')) : '';
-                    $cidade = isset($_POST['cidade']) ? mb_strtoupper($_POST['cidade'],'UTF-8') : '';
+                    $endereco = isset($_POST['endereco']) ? $_POST['endereco'] : '';
+                    $cidade = isset($_POST['cidade']) ? $_POST['cidade'] : '';
                     $observacoes = isset($_POST['observacoes']) ? $_POST['observacoes'] : '';
-                    $countPacientesIdInicio=0;
-                    $countPacientesIdFim=0;
-                    $countPacientesCpf=0;
 
-                    $sql1 = 'SELECT COUNT(*) AS idInicio FROM pacientes WHERE id_user = :id_user;';
-                    $stmt1 = preparaComando($sql1);
-                    $bind1 = array(
-                        ':id_user' => $_SESSION['id']
-                    );
-                    $stmt1 = bindExecute($stmt1, $bind1);
-                    while ($linha1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
-                        $countPacientesIdInicio = $linha1['idInicio'];
-                    }
+
+                    $paciente = new Paciente($usuario, $nome, $cpf, $altura, $peso, $nascimento, $email, $telefone, $endereco, $cidade, $observacoes);
+                    $paciente->setAddPaciente();
+
+                }else if ($_POST['acao'] == 'addConsulta') {
+                    $paciente = isset($_POST['paciente']) ? $_POST['paciente'] : '';
+                    $medico = isset($_POST['medico']) ? $_POST['medico'] : '';
+                    $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : '';
+                    $valor = isset($_POST['valor']) ? $_POST['valor'] : '';
+                    $data = isset($_POST['data']) ? $_POST['data'] : '';
+                    $hora_inicio = isset($_POST['hora_inicio']) ? $_POST['hora_inicio'] : '';
+                    $hora_final = isset($_POST['hora_final']) ? $_POST['hora_final'] : '';
+
+                    $consulta = new Consulta($usuario, $data, $hora_inicio, $hora_final, $valor, $descricao, $paciente, $medico, 0);
+                    $dadosMed = obtemMedicoPeloId($medico);
+                    $medico = new Medico($usuario, $dadosMed['CRM'], $dadosMed['nome'], $dadosMed['telefone'], $dadosMed['especializacao']);
+                    $medico->setIdMedico($medico->getIdMedico());
+                    $consulta->setAddMedico($medico);
+                    $dadosPac = obtemPacientePeloId($paciente);
+                    $paciente = new Paciente($usuario, $dadosPac['nome'], $dadosPac['CPF'], $dadosPac['altura'], $dadosPac['peso'], $dadosPac['data_nascimento'], $dadosPac['email'], $dadosPac['telefone'], $dadosPac['endereco'], $dadosPac['cidade'], $dadosPac['observacoes']);
+                    $paciente->setIdPaciente($paciente->getIdPaciente());
+                    $consulta->setAddPaciente($paciente);
                     
-                    $sql2 = 'SELECT COUNT(*) AS pacientesCpf FROM pacientes WHERE id_user = :id_user AND CPF = :CPF;';
-                    $stmt2 = preparaComando($sql2);
-                    $bind2 = array(
-                        ':id_user' => $_SESSION['id'],
-                        ':CPF' => $cpf
-                    );
-                    $stmt2 = bindExecute($stmt2, $bind2);
-                    while ($linha2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-                        $countPacientesCpf = $linha2['pacientesCpf'];
-                    }
-                    if ($countPacientesCpf == 0) {  
-                        $sql3 = 'INSERT INTO pacientes(id_user, nome, CPF, altura, peso, data_nascimento, email, telefone, endereco, cidade, observacoes) values(:id_user, :nome, :CPF, :altura, :peso, :data_nascimento, :email, :telefone, :endereco, :cidade, :observacoes);';
-                        $stmt3 = preparaComando($sql3);
-                        $bind3 = array(
-                            ':id_user' => $_SESSION['id'],
-                            ':nome' => $nome,
-                            ':CPF' => $cpf,
-                            ':altura' => $altura,
-                            ':peso' => $peso,
-                            ':data_nascimento' => $nascimento,
-                            ':email' => $email,
-                            ':telefone' => $telefone,
-                            ':endereco' => $endereco,
-                            ':cidade' => $cidade,
-                            ':observacoes' => $observacoes
-                        );
-                        $stmt3 = bindExecute($stmt3, $bind3);
-                        
-                        $sql4 = 'SELECT COUNT(*) AS idFim FROM  pacientes WHERE id_user = :id_user;';
-                        $stmt4 = preparaComando($sql4);
-                        $bind4 = array(
-                            ':id_user' => $_SESSION['id']
-                        );
-                        $stmt4 = bindExecute($stmt4, $bind4);
-                        while ($linha4 = $stmt4->fetch(PDO::FETCH_ASSOC)) {
-                            $countPacientesIdFim = $linha4['idFim'];
-                        }
-                        // echo($countPacientesIdInicio);
-                        // echo($countPacientesIdFim);
-                        // echo($countPacientesCrm);
-                        if ($countPacientesIdInicio < $countPacientesIdFim) {
-                            $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
-                            header('location:agendamento.php?status=OK'); // Sucesso
-                        }
-                    }else {
-                        $_SESSION['msg'] = "Este CPF já está cadastrado!";
-                        header('location:agendamento.php?status=ERRO'); // CPF ja existe
-                    }
+                    $consulta->setAddConsulta();
 
-
-
-                    
-                    // $sql = 'INSERT INTO pacientes(id_user, nome, CPF, altura, peso, data_nascimento, email, telefone, endereco, cidade, observacoes) values(:id_user, :nome, :CPF, :altura, :peso, :data_nascimento, :email, :telefone, :endereco, :cidade, :observacoes);';
-                    // $stmt = preparaComando($sql);
-                    // $bind = array(
-                    //     ':id_user' => $_SESSION['id'],
-                    //     ':nome' => $nome,
-                    //     ':CPF' => $cpf,
-                    //     ':altura' => $altura,
-                    //     ':peso' => $peso,
-                    //     ':data_nascimento' => $nascimento,
-                    //     ':email' => $email,
-                    //     ':telefone' => $telefone,
-                    //     ':endereco' => $endereco,
-                    //     ':cidade' => $cidade,
-                    //     ':observacoes' => $observacoes
-                    // );
-                    // // var_dump($bind);
-                    // $stmt = bindExecute($stmt, $bind);
-                    // header('location:agendamento.php');
                 }else {
                     echo("Função indísponível!");
                 }

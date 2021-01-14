@@ -1,4 +1,14 @@
 <?php
+require_once('medico.class.php');
+require_once('paciente.class.php');
+require_once('consulta.class.php');
+require_once('usuario.class.php');
+require_once('contato.class.php');
+require_once('pessoa.class.php');
+require_once('relatorio.class.php');
+require_once('relatorioMedico.class.php');
+require_once('relatorioPaciente.class.php');
+
 require_once('conf/default.inc.php');
 function criarConexao(){
     require_once('conf/conf.inc.php');
@@ -363,5 +373,54 @@ function buscaMedicos(){
         }
     return $dados;
 }
+
+function obtemMedicoPeloId($id){
+    $sql = 'SELECT * FROM medicos WHERE id_user = :id_user AND id_medico = :id_medico;';
+    $stmt = preparaComando($sql);
+    $bind = array(
+        ':id_user' => $_SESSION['id'],
+        ':id_medico' => $id
+    );
+    $stmt = bindExecute($stmt, $bind);
+        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $dados = array(
+                'id_user' => $linha['id_user'],
+                'id_medico' => $linha['id_medico'],
+                'nome' => $linha['nome'],
+                'CRM' => $linha['CRM'],
+                'telefone' => $linha['telefone'],
+                'especializacao' => $linha['especializacao']            
+            );
+        }
+    return $dados;
+}
+
+function obtemPacientePeloId($id){
+    $sql = 'SELECT * FROM pacientes WHERE id_user = :id_user AND id_paciente = :id_paciente;';
+    $stmt = preparaComando($sql);
+    $bind = array(
+        ':id_user' => $_SESSION['id'],
+        ':id_paciente' => $id
+    );
+    $stmt = bindExecute($stmt, $bind);
+        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $dados = array(
+                'id_user' => $linha['id_user'],
+                'id_paciente' => $linha['id_paciente'],
+                'nome' => $linha['nome'],
+                'CPF' => $linha['CPF'],
+                'altura' => $linha['altura'],
+                'peso' => $linha['peso'],
+                'data_nascimento' => $linha['data_nascimento'],
+                'email' => $linha['email'],
+                'telefone' => $linha['telefone'],
+                'endereco' => $linha['endereco'],
+                'cidade' => $linha['cidade'],
+                'observacoes' => $linha['observacoes']           
+            );
+        }
+    return $dados;
+}
+
 
 ?>
