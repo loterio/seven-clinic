@@ -219,11 +219,16 @@ button#exclui{
   height: 6rem;
   margin-top: 1.5rem;
   background-color: #D9A3EF;
-  box-shadow: 0px 0.5rem 0.5rem #0000002a;
+  box-shadow: 0px 0.5rem 0.5rem #00000010;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+}
+
+.card-data:hover {
+  transition: 0.2s;
+  box-shadow: 0px 0.5rem 0.5rem #0000002a;
 }
 
 .card-data span {
@@ -253,10 +258,16 @@ button#exclui{
   height: 8rem;
   margin-top: 1rem;
   background-color: #FFFFFF;
-  box-shadow: 0px 0.5rem 0.5rem #0000002a;
+  box-shadow: 0px 0.5rem 0.5rem #00000010;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.evento:hover{
+  transition: 0.2s;
+  box-shadow: 0px 0.5rem 0.5rem #0000002a;
+  cursor: pointer;
 }
 
 
@@ -309,7 +320,7 @@ button#exclui{
   border-radius: 50%;
   outline: none;
   cursor: pointer;
-  box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 10px 10px 4px #00000010;
 }
 
 .botao-add img {
@@ -327,8 +338,13 @@ button#exclui{
   border-radius: 1rem;
   flex-direction: column;
   align-items: center;
-  box-shadow: 1rem 1rem 0.4rem rgba(0, 0, 0, 0.25);
+  box-shadow: 1rem 1rem 0.4rem #00000010);
   display: none;
+}
+
+.botao-add:hover {
+  transition: 0.2s;
+  box-shadow: 1rem 1rem 0.4rem #0000002a;
 }
 
 .ativo .opcoes-add {
