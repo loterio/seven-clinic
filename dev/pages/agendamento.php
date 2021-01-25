@@ -84,7 +84,7 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                     $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : '';
                     $especializacao = isset($_POST['especializacao']) ? $_POST['especializacao'] : '';
          
-                    $medico = new Medico($usuario, $cmr, $nome, $telefone, $especializacao);
+                    $medico = new Medico($usuario, $crm, $nome, $telefone, $especializacao);
                     $medico->setAddMedico();
 
                 }else if ($_POST['acao'] == 'addPaciente') {

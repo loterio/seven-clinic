@@ -45,8 +45,8 @@ class Medico extends Pessoa
     }
     
     public function setAddMedico(){
-        $countMedicosIdInicio= getQnt('medicos', $this->user->getId());
-        $countMedicosCrm= $this->getVerificaMedicosCRM(FALSE);
+        $countMedicosIdInicio = getQnt('medicos', $this->user->getId());
+        $countMedicosCrm = $this->getVerificaMedicosCRM(FALSE);
         $msg = '';
         
         if ($countMedicosCrm == 0) {  

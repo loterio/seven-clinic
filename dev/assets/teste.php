@@ -23,15 +23,16 @@ $usuario->setId(1);
 // A senha e a confirmação de senha não coincidem!
 
 // EXEMPLO -->> $medico = new Medico(id_user, CRM, 'nome', 'telefone', 'especializacao');
-$medico = new Medico($usuario, 112, 'Felipe CLASSE 12', '44444444', 'nada');
+$medico = new Medico($usuario, 112, 'aaa', '323', 'nada');
 // echo $medico->getContato('telefone');
 // $medico->setId(2);
 // var_dump($medico);
+// echo $medico->getId();
 
 // echo $medico->getUser()->getId();
 
 // EXEMPLO -->> echo $medico->setAddMedico();
-// echo $medico->setAddMedico();
+echo $medico->setAddMedico();
 
 // ---------RETORNOS---------
 // Médico cadastrado com sucesso!
