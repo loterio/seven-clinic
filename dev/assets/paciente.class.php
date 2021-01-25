@@ -7,7 +7,6 @@ iniciaSession();
 
 class Paciente extends Pessoa
 {
-    private $id_paciente;
     private $CPF;
     private $altura;
     private $peso;
@@ -22,10 +21,17 @@ class Paciente extends Pessoa
         $this->altura = $altura;
         $this->peso = $peso;
         $this->data_nascimento = $data_nascimento;
-        $this->setEmail($email);
+        $this->setContato('email',$email);
         $this->setEndereco($endereco);
         $this->setCidade($cidade);
         $this->observacoes = $observacoes;
+    }
+
+    public function apresentar(){
+        $dados = parent::apresentar();
+        $dados['CPF'] = $this->CPF;
+        $dados['data_nascimento'] = $this->data_nascimento;
+        return $dados;
     }
     
     public function setCidade($cidade){
@@ -36,16 +42,16 @@ class Paciente extends Pessoa
         $this->endereco = ucwords(mb_strtolower($endereco,'UTF-8'));
     }
     
-    public function setEmail($email){
-        parent::setEmail($email);
-    }
-
-    public function getEmail(){
-        return parent::getEmail();
+    public function setContato($tipo, $contato){
+        if ($tipo == 'email') {
+            parent::setContato($tipo, mb_strtolower($contato,'UTF-8'));
+        }else {
+            parent::setContato($tipo, $contato);
+        }
     }
     
-    public function setIdPaciente($id){
-        $this->id_paciente = $id;
+    public function setId($id){
+        $this->id = $id;
     }
     
     public function getVerificaCPF($op){
@@ -54,7 +60,7 @@ class Paciente extends Pessoa
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_paciente' => $this->id_paciente,
+                ':id_paciente' => $this->id,
                 ':CPF' => $this->CPF
             );
         }else {
@@ -84,8 +90,8 @@ class Paciente extends Pessoa
                 ':altura' => $this->altura,
                 ':peso' => $this->peso,
                 ':data_nascimento' => $this->data_nascimento,
-                ':email' => $this->getEmail(),
-                ':telefone' => $this->getTelefone(),
+                ':email' => parent::getContato('email'),
+                ':telefone' => parent::getContato('telefone'),
                 ':endereco' => $this->endereco,
                 ':cidade' => $this->cidade,
                 ':observacoes' => $this->observacoes
@@ -95,7 +101,7 @@ class Paciente extends Pessoa
             $countPacientesIdFim = getQnt('pacientes', $this->user->getId());
             
             if ($countPacientesIdInicio < $countPacientesIdFim) {
-                $this->setIdPaciente($this->getIdPaciente());
+                $this->setId($this->getId());
                 // echo("Paciente cadastrado com sucesso!");
                 // $msg = 'Paciente cadastrado com sucesso!';
                 $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
@@ -116,7 +122,7 @@ class Paciente extends Pessoa
     }
 
     public function setAlteraPaciente($id_paciente){
-        $this->setIdPaciente($id_paciente);
+        $this->setId($id_paciente);
         $countPacientesCpf= $this->getVerificaCPF(TRUE);
         $msg = '';
 
@@ -129,13 +135,13 @@ class Paciente extends Pessoa
                 ':altura' => $this->altura,
                 ':peso' => $this->peso,
                 ':data_nascimento' => $this->data_nascimento,
-                ':email' => $this->getEmail(),
-                ':telefone' => $this->getTelefone(),
+                ':email' => parent::getContato('email'),
+                ':telefone' => parent::getContato('telefone'),
                 ':endereco' => $this->endereco,
                 ':cidade' => $this->cidade,
                 ':observacoes' => $this->observacoes,
                 ':id_user' => $this->user->getId(),
-                ':id_paciente' => $this->id_paciente
+                ':id_paciente' => $this->id
             );
             $stmt = bindExecute($stmt, $bind);
 
@@ -162,7 +168,7 @@ class Paciente extends Pessoa
 
     }
 
-    public function getIdPaciente(){
+    public function getId(){
         $sql = 'SELECT id_paciente FROM pacientes WHERE id_user = :id_user AND CPF = :CPF;';
         $stmt = preparaComando($sql);
         $bind = array(
@@ -170,30 +176,13 @@ class Paciente extends Pessoa
             ':CPF' => $this->CPF
         );
         $stmt = bindExecute($stmt, $bind);
-        $this->setIdPaciente($stmt->fetch(PDO::FETCH_ASSOC)['id_paciente']);
-        return $this->id_paciente;
+        $this->setId($stmt->fetch(PDO::FETCH_ASSOC)['id_paciente']);
+        return $this->id;
     }
-
-    public function getTelefone(){
-        return parent::getTelefone();
-    }
-
-    
-    // public function setTelefone($telefone){
-    //     parent::$contatos[0] = new Contato('telefone', $telefone);
-    // }
-    
-    // public function setNome($nome){
-    //     parent::$nome = mb_strtoupper($nome,'UTF-8');
-    // }
 
     public function getNome(){
         return parent::$nome;
     }
-
-    // public function setUser(Usuario $user){
-    //     parent::$user = $user;
-    // }
     
     public function getUser(){
         return parent::$user;

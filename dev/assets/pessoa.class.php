@@ -4,21 +4,27 @@
 abstract class Pessoa  
 {
     protected $user;
+    protected $id;
     protected $nome;
     protected $contatos;
 
     protected function __construct(Usuario $user, $nome, $telefone){
         $this->setUser($user);
         $this->setNome($nome);
-        $this->setTelefone($telefone);
+        $this->setContato('telefone', $telefone);
     }
 
-    public function getTelefone(){
-        return $this->contatos[0]->getContato();
+    public function apresentar(){
+        $dados = array('nome' => $this->nome);
+        return $dados;
+    }
+
+    public function getContato($tipo){
+        return $this->contatos[$tipo]->getContato();
     }
     
-    public function setTelefone($telefone){
-        $this->contatos[0] = new Contato('telefone', $telefone);
+    public function setContato($tipo, $contato){
+        $this->contatos[$tipo] = new Contato($tipo, $contato);
     }
     
     public function setNome($nome){
@@ -30,16 +36,14 @@ abstract class Pessoa
     public function setUser(Usuario $user){
         $this->user = $user;
     }
-    
-    abstract function getUser();
-    
-    protected function setEmail($email){
-        $this->contatos[1] = new Contato('email', mb_strtolower($email,'UTF-8'));
+
+    public function getId(){
+        return $this->id;
     }
 
-    protected function getEmail(){
-        return $this->contatos[1]->getContato();
-    }
+    abstract function setId($id);
+    
+    abstract function getUser();
 }
 
 

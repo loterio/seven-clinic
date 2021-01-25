@@ -115,11 +115,11 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                     $consulta = new Consulta($usuario, $data, $hora_inicio, $hora_final, $valor, $descricao, $paciente, $medico, 0);
                     $dadosMed = obtemMedicoPeloId($medico);
                     $medico = new Medico($usuario, $dadosMed['CRM'], $dadosMed['nome'], $dadosMed['telefone'], $dadosMed['especializacao']);
-                    $medico->setIdMedico($medico->getIdMedico());
+                    $medico->setId($medico->getId());
                     $consulta->setAddMedico($medico);
                     $dadosPac = obtemPacientePeloId($paciente);
                     $paciente = new Paciente($usuario, $dadosPac['nome'], $dadosPac['CPF'], $dadosPac['altura'], $dadosPac['peso'], $dadosPac['data_nascimento'], $dadosPac['email'], $dadosPac['telefone'], $dadosPac['endereco'], $dadosPac['cidade'], $dadosPac['observacoes']);
-                    $paciente->setIdPaciente($paciente->getIdPaciente());
+                    $paciente->setId($paciente->getId());
                     $consulta->setAddPaciente($paciente);
                     
                     $consulta->setAddConsulta();

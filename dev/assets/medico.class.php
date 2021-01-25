@@ -6,7 +6,6 @@ iniciaSession();
 
 class Medico extends Pessoa
 {
-    private $id_medico;
     private $CRM;
     private $especializacao;
     
@@ -31,7 +30,7 @@ class Medico extends Pessoa
             $bind = array(
                 ':id_user' => $this->user->getId(),
                 ':CRM' => $this->CRM,
-                ':id_medico' => $this->id_medico
+                ':id_medico' => $this->id
             );
         }else{
             $sql = 'SELECT COUNT(*) AS medicosCrm FROM medicos WHERE id_user = :id_user AND CRM = :CRM;';
@@ -57,7 +56,7 @@ class Medico extends Pessoa
                 ':id_user' => $this->user->getId(),
                 ':nome' => $this->nome,
                 ':CRM' => $this->CRM,
-                ':telefone' => $this->getTelefone(),
+                ':telefone' => parent::getContato('telefone'),
                 ':especializacao' => $this->especializacao
             );
             $stmt = bindExecute($stmt, $bind);
@@ -65,7 +64,7 @@ class Medico extends Pessoa
             $countMedicosIdFim= getQnt('medicos', $this->user->getId());
             
             if ($countMedicosIdInicio < $countMedicosIdFim) {
-                $this->setIdMedico($this->getIdMedico());
+                $this->setId($this->getId());
                 // echo ('Médico cadastrado com sucesso!');
                 // $msg = 'Médico cadastrado com sucesso!';
                 $_SESSION['msg'] = "Médico cadastrado com sucesso!";
@@ -85,11 +84,11 @@ class Medico extends Pessoa
         // return $msg; 
     }
 
-    public function setIdMedico($id){
-        $this->id_medico = $id;
+    public function setId($id){
+        $this->id = $id;
     }
 
-    public function getIdMedico(){
+    public function getId(){
         $sql = 'SELECT id_medico FROM medicos WHERE id_user = :id_user AND CRM = :CRM;';
         $stmt = preparaComando($sql);
         $bind = array(
@@ -97,12 +96,12 @@ class Medico extends Pessoa
             ':CRM' => $this->CRM
         );
         $stmt = bindExecute($stmt, $bind);
-        $this->setIdMedico($stmt->fetch(PDO::FETCH_ASSOC)['id_medico']);
-        return $this->id_medico;
+        $this->setId($stmt->fetch(PDO::FETCH_ASSOC)['id_medico']);
+        return $this->id;
     }
 
     public function setAlteraMedico($id_medico){
-        $this->setIdMedico($id_medico);
+        $this->setId($id_medico);
         $countMedicosCrm= $this->getVerificaMedicosCRM(TRUE);
         $msg = '';
 
@@ -111,10 +110,10 @@ class Medico extends Pessoa
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_medico' => $this->id_medico,
+                ':id_medico' => $this->id,
                 ':nome' => $this->nome,
                 ':CRM' => $this->CRM,
-                ':telefone' => $this->getTelefone(),
+                ':telefone' => parent::getContato('telefone'),
                 ':especializacao' => $this->especializacao
             );
             $stmt = bindExecute($stmt, $bind);
@@ -141,32 +140,20 @@ class Medico extends Pessoa
         // $sql = 'SELECT COUNT(*) AS medicosCrm FROM medicos WHERE id_user = :id_user AND CRM = :CRM; AND id_medico != :id_medico;';
     }
 
-    public function getTelefone(){
-        return parent::getTelefone();
+    public function apresentar(){
+        $dados = parent::apresentar();
+        $dados['CRM'] = $this->CRM;
+        $dados['especializacao'] = $this->especializacao;
+        return $dados;
     }
-
-    // public function setTelefone($telefone){
-    //     parent::$contatos[0] = new Contato('telefone', $telefone);
-    // }
-    
-    // public function setNome($nome){
-    //     parent::$nome = mb_strtoupper($nome,'UTF-8');
-    // }
 
     public function getNome(){
         return parent::$nome;
     }
-
-    // public function setUser(Usuario $user){
-    //     parent::$user = $user;
-    // }
     
     public function getUser(){
         return parent::$user;
     }
-}   
-// 
-// 
-// 
+}
 
     ?>

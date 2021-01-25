@@ -59,8 +59,8 @@ class Consulta
                     ':hora_fim' => $this->hora_fim,
                     ':valor' => $this->valor,
                     ':descricao' => $this->descricao,
-                    ':id_paciente' => $this->paciente->getIdPaciente(),
-                    ':id_medico' => $this->medico->getIdMedico(),
+                    ':id_paciente' => $this->paciente->getId(),
+                    ':id_medico' => $this->medico->getId(),
                     ':estado' => $this->estado
                 );
                 $stmt = bindExecute($stmt, $bind);
@@ -100,7 +100,7 @@ class Consulta
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_medico' => $this->medico->getIdMedico(),
+                ':id_medico' => $this->medico->getId(),
                 ':id_consulta' => $this->id_consulta,
                 ':hora_inicio' => $this->hora_inicio,
                 ':hora_fim' => $this->hora_fim,
@@ -111,7 +111,7 @@ class Consulta
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_medico' => $this->medico->getIdMedico(),
+                ':id_medico' => $this->medico->getId(),
                 ':hora_inicio' => $this->hora_inicio,
                 ':hora_fim' => $this->hora_fim,
                 ':data_consulta' => $this->data_consulta
@@ -127,7 +127,7 @@ class Consulta
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_paciente' => $this->paciente->getIdPaciente(),
+                ':id_paciente' => $this->paciente->getId(),
                 ':id_consulta' => $this->id_consulta,
                 ':hora_inicio' => $this->hora_inicio,
                 ':hora_fim' => $this->hora_fim,
@@ -138,7 +138,7 @@ class Consulta
             $stmt = preparaComando($sql);
             $bind = array(
                 ':id_user' => $this->user->getId(),
-                ':id_paciente' => $this->paciente->getIdPaciente(),
+                ':id_paciente' => $this->paciente->getId(),
                 ':hora_inicio' => $this->hora_inicio,
                 ':hora_fim' => $this->hora_fim,
                 ':data_consulta' => $this->data_consulta
@@ -178,8 +178,8 @@ class Consulta
                     ':hora_fim' => $this->hora_fim,
                     ':valor' => $this->valor,
                     ':descricao' => $this->descricao,
-                    ':id_paciente' => $this->paciente->getIdPaciente(),
-                    ':id_medico' => $this->medico->getIdMedico(),
+                    ':id_paciente' => $this->paciente->getId(),
+                    ':id_medico' => $this->medico->getId(),
                     ':estado' => $this->estado
                 );
                 $stmt = bindExecute($stmt, $bind);

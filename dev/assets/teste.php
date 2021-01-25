@@ -9,8 +9,9 @@ $usuario = new Usuario('jao123@gmail.com');
 $usuario->setId(1);
 
 // $pessoa = new Pessoa($usuario, 'Felipe', '47996994858');
+// var_dump($pessoa->apresentar());
 
-// echo $pessoa->getTelefone();
+// echo $pessoa->getContato('telefone');
 
 // EXEMPLO -->> echo $usuario->setAlteraUsuario(id_user, 'nome', 'senha', 'confSenha')
 // echo $usuario->setAlteraUsuario(1, 'jao', 'jao1234', 'jao1234')
@@ -23,7 +24,9 @@ $usuario->setId(1);
 
 // EXEMPLO -->> $medico = new Medico(id_user, CRM, 'nome', 'telefone', 'especializacao');
 $medico = new Medico($usuario, 112, 'Felipe CLASSE 12', '44444444', 'nada');
-// echo $medico->getTelefone();
+// echo $medico->getContato('telefone');
+// $medico->setId(2);
+// var_dump($medico);
 
 // echo $medico->getUser()->getId();
 
@@ -50,7 +53,8 @@ $medico = new Medico($usuario, 112, 'Felipe CLASSE 12', '44444444', 'nada');
 $paciente = new Paciente($usuario, 'beltrano', '0087744', 1, 110, '2002-09-26', 'ueliNton.teskE09@gmail.com', '1234567890', 'Rua tiradentes, 69', 'braço do trombudo', 'Sinusite');
 // var_dump($paciente);
 // echo $paciente->getUser()->getId();
-// echo $paciente->getTelefone();
+// echo $paciente->getContato('telefone');
+// var_dump($paciente->apresentar());
 
 // EXEMPLO -->> echo $paciente->setAddPaciente();
 // echo $paciente->setAddPaciente();
