@@ -60,8 +60,8 @@ FOREIGN KEY (id_user) REFERENCES usuarios(id),
 FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
 FOREIGN KEY (id_medico) REFERENCES medicos(id_medico)
 );
-select SUM(valor) as valorTotal from consultas where id_medico = 1 AND id_user = 1 AND estado = 0 AND data_consulta >= '2020-10-14' AND data_consulta <= '2020-11-13';
-select * from consultas where data_consulta >= '2020-10-13' AND data_consulta <= '2020-11-11' order by data_consulta;
+-- select SUM(valor) as valorTotal from consultas where id_medico = 1 AND id_user = 1 AND estado = 0 AND data_consulta >= '2020-10-14' AND data_consulta <= '2020-11-13';
+-- select * from consultas where data_consulta >= '2020-10-13' AND data_consulta <= '2020-11-11' order by data_consulta;
 
 
-select SUM(valor) as valorTotal from consultas where id_paciente = 1 AND id_user = 1 AND estado = 0 AND data_consulta >= '2020-10-14' AND data_consulta <= '2020-11-13';
+-- select SUM(valor) as valorTotal from consultas where id_paciente = 1 AND id_user = 1 AND estado = 0 AND data_consulta >= '2020-10-14' AND data_consulta <= '2020-11-13';
