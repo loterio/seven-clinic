@@ -38,7 +38,7 @@ id_user INT NOT NULL,
 id_medico INT NOT NULL AUTO_INCREMENT,
 CRM INT NOT NULL,
 nome VARCHAR(45) NOT NULL,
-telefone INT NOT NULL,
+telefone VARCHAR(14) NOT NULL,
 especializacao VARCHAR(45) NOT NULL,
 PRIMARY KEY (id_medico),
 FOREIGN KEY (id_user) REFERENCES usuarios(id)
