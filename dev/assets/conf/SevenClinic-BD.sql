@@ -61,6 +61,8 @@ FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
 FOREIGN KEY (id_medico) REFERENCES medicos(id_medico)
 );
 
+DROP PROCEDURE relatorio;
+
 DELIMITER $$
 	CREATE PROCEDURE relatorio(IN data_inicial DATE, IN data_final DATE, IN id_user INT)
     BEGIN
@@ -75,6 +77,7 @@ DELIMITER $$
 		 WHERE M.id_medico  = C.id_medico 
 		   AND P.id_paciente = C.id_paciente
 		   AND C.id_user = id_user
+           AND C.estado = true
 		   AND C.data_consulta >= data_inicial
 		   AND C.data_consulta <= data_final;
     END $$
