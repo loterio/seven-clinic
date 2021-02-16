@@ -3,10 +3,10 @@
     // Banco de Dados
 
     // DEIXAR HOST = LOCALHOST NO SERVIDOR TAMBÉM
-    define('HOST', 'localhost');
+    define('HOST', '200.135.58.18');
     define('DBNAME', 'equipe1');
-    define('USER', 'root');
-    define('PASSWORD', '');
+    define('USER', 'equipe1');
+    define('PASSWORD', 'Equipe01.');
     define('PORT', '3306');
 
 
