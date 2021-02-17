@@ -235,8 +235,12 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
         while ($linhaConsultas = $stmtConsultas->fetch(PDO::FETCH_ASSOC)) {
             // echo($linhaConsultas['id_paciente']."<br>");
             // ------- ABRE CARD "CONSULTA" --------
-            $dados .= '
-            <div class="evento">
+            $dados .= '<div class="evento" onclick="ajaxDiv(';
+            $dados .= "'detalheConsulta.php?id=";
+            $dados .= $linhaConsultas['id_consulta'];
+            $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
+            $dados .= '"';
+            $dados .= '>
                 <div class="dados-paciente">
                     <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
                     <div class="medico-paciente">
@@ -422,5 +426,53 @@ function obtemPacientePeloId($id){
     return $dados;
 }
 
+function selectPacientes($paciente){
+    $dados = '';
 
+    $sql = 'SELECT * FROM pacientes WHERE id_user = :id_user;';
+    $stmt = preparaComando($sql);
+    $bind = array(
+        ':id_user' => $_SESSION['id']
+    );
+    $stmt = bindExecute($stmt, $bind);
+        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $dados .= '<option value="';
+            $dados .= $linha['id_paciente'];
+            $dados .= '"';
+            if ($linha['id_paciente'] == $paciente) {
+                $dados .= ' selected';
+            }
+            $dados .= '>';
+            $dados .= $linha['nome'];
+            $dados .= ' - ';
+            $dados .= $linha['CPF'];
+            $dados .= '</option>';
+        }
+    return $dados;
+}
+
+function selectMedicos($medico){
+    $dados = '';
+
+    $sql = 'SELECT * FROM medicos WHERE id_user = :id_user;';
+    $stmt = preparaComando($sql);
+    $bind = array(
+        ':id_user' => $_SESSION['id']
+    );
+    $stmt = bindExecute($stmt, $bind);
+        while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $dados .= '<option value="';
+            $dados .= $linha['id_medico'];
+            $dados .= '"';
+            if ($linha['id_medico'] == $medico) {
+                $dados .= ' selected';
+            }
+            $dados .= '>';
+            $dados .= $linha['nome'];
+            $dados .= ' - ';
+            $dados .= $linha['CRM'];
+            $dados .= '</option>';
+        }
+    return $dados;
+}
 ?>

@@ -186,28 +186,28 @@ class Consulta
                 
                 if( $stmt->rowCount() > 0 ) {
                     // echo ('Consulta atualizada com sucesso!');
-                    $msg = 'Consulta atualizada com sucesso!';
-                    // $_SESSION['msg'] = "Consulta atualizada com sucesso!";
-                    // header('location:agendamento.php?status=OK');
+                    // $msg = 'Consulta atualizada com sucesso!';
+                    $_SESSION['msg'] = "Consulta atualizada com sucesso!";
+                    header('location:agendamento.php?status=OK');
                 } else {
                     // echo ('Não foi possível atualizar a consulta!');
-                    $msg = 'Não foi possível atualizar a consulta!';
-                    // $_SESSION['msg'] = "Não foi possível atualizar a consulta!";
-                    // header('location:agendamento.php?status=ERRO');
+                    // $msg = 'Não foi possível atualizar a consulta!';
+                    $_SESSION['msg'] = "Não foi possível atualizar a consulta!";
+                    header('location:agendamento.php?status=ERRO');
                 }
             }else {
                 // echo ('Este horário já possui outra consulta agendada para este paciente!');
-                $msg = 'Este horário já possui outra consulta agendada para este paciente!';
-                // $_SESSION['msg'] = "Este horário já possui outra consulta agendada para este paciente!";
-                // header('location:agendamento.php?status=ERRO');
+                // $msg = 'Este horário já possui outra consulta agendada para este paciente!';
+                $_SESSION['msg'] = "Este horário já possui outra consulta agendada para este paciente!";
+                header('location:agendamento.php?status=ERRO');
             }
         }else {
             // echo ('Este horário já possui outra consulta agendada para este médico!');
-            $msg = 'Este horário já possui outra consulta agendada para este médico!';
-            // $_SESSION['msg'] = "Este horário já possui outra consulta agendada para este médico!";
-            // header('location:agendamento.php?status=ERRO');
+            // $msg = 'Este horário já possui outra consulta agendada para este médico!';
+            $_SESSION['msg'] = "Este horário já possui outra consulta agendada para este médico!";
+            header('location:agendamento.php?status=ERRO');
         }   
-        return $msg;
+        // return $msg;
     }
 }
 ?>
