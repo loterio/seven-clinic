@@ -301,7 +301,7 @@ button#exclui{
 }
 
 .evento {
-  display: none;
+  display: flex;
 }
 
 .ativo .evento{

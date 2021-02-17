@@ -42,7 +42,7 @@ class Consulta
         return $this->paciente;
     }
     
-    public function setAddConsulta(){
+    public function setAddConsulta($link){
         $countConsultasIdInicio= getQnt('consultas', $this->user->getId());
         $countConsultasMedico= $this->getVerificaConsultaMedico(FALSE);
         $countConsultasPaciente= $this->getVerificaConsultaPaciente(FALSE);
@@ -71,24 +71,24 @@ class Consulta
                     // echo ('Consulta cadastrada com sucesso!');
                     // $msg = 'Consulta cadastrada com sucesso!';
                     $_SESSION['msg'] = "Consulta cadastrada com sucesso!";
-                    header('location:agendamento.php?status=OK'); // Sucesso
+                    header('location:'.$link.'.php?status=OK'); // Sucesso
                 }else {
                     // echo ('Erro ao adicionar consulta!');
                     // $msg = 'Erro ao adicionar consulta!';
                     $_SESSION['msg'] = "Erro ao adicionar consulta!";
-                    header('location:agendamento.php?status=ERRO');
+                    header('location:'.$link.'.php?status=ERRO');
                 }
             }else {
                 // echo ('Este horário já possui outra consulta agendada para este paciente!');
                 // $msg = 'Este horário já possui outra consulta agendada para este paciente!';
                 $_SESSION['msg'] = "Este horário já possui outra consulta agendada para este paciente!";
-                header('location:agendamento.php?status=ERRO');
+                header('location:'.$link.'.php?status=ERRO');
             }
         }else {
             // echo ('Este horário já possui outra consulta agendada para este médico!');
             // $msg = 'Este horário já possui outra consulta agendada para este médico!';
             $_SESSION['msg'] = "Este horário já possui outra consulta agendada para este médico!";
-            header('location:agendamento.php?status=ERRO');
+            header('location:'.$link.'.php?status=ERRO');
         }   
         // return $msg;
     }

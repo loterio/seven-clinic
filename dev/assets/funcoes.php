@@ -76,8 +76,8 @@ function limpaSession(){
 
 function apresentaAgenda($busca, $data, $filtro, $pesquisa){
     $dados = "";
-    // $id = $_SESSION['id']; ----- TIRAR DO COMENTARIO E APAGAR A LINHA DEBAIXO PARA O PROGRAMA FINAL ----------------------
-    $id = 1;
+    $id = $_SESSION['id'];
+    // $id = 1;
     $dataHoje = date('Y-m-d');
     $count = 0;
     // ------ INICIO BUSCA --------
@@ -474,5 +474,119 @@ function selectMedicos($medico){
             $dados .= '</option>';
         }
     return $dados;
+}
+
+function apresentaMedico($busca, $filtro){
+    $dados = "";
+    // $id = $_SESSION['id'];
+    $id = 1;
+    // $dataHoje = date('Y-m-d');
+    $count = 0;
+    // ------ INICIO BUSCA --------
+    if ($busca != '' AND $filtro == "M") {
+        $sqlConsultas = 'SELECT * FROM medicos WHERE id_user = :id_user AND nome LIKE :busca ORDER BY nome';
+        $stmtConsultas = preparaComando($sqlConsultas);
+        $bindConsultas = array(
+            ':id_user' => $id,
+            ':busca' => '%'.$busca.'%'
+        );
+    }else if ($busca != '' AND $filtro == "P") {
+        $sqlConsultas = 'SELECT * FROM medicos WHERE id_user = :id_user AND CRM LIKE :busca ORDER BY nome';
+        $stmtConsultas = preparaComando($sqlConsultas);
+        $bindConsultas = array(
+            ':id_user' => $id,
+            ':busca' => $busca.'%'
+        );
+    }else {
+        $sqlConsultas = 'SELECT * FROM medicos WHERE id_user = :id_user ORDER BY nome';
+        $stmtConsultas = preparaComando($sqlConsultas);
+        $bindConsultas = array(
+            ':id_user' => $id
+        );
+    }
+    // ------- FIM BUSCA ----------
+    
+        $stmtConsultas = bindExecute($stmtConsultas, $bindConsultas);
+        while ($linhaConsultas = $stmtConsultas->fetch(PDO::FETCH_ASSOC)) {
+            $count++;
+            // echo($linhaConsultas['id_paciente']."<br>");
+            // ------- ABRE CARD "CONSULTA" --------
+            $dados .= '<div class="evento" onclick="ajaxDiv(';
+            $dados .= "'detalheMedico.php?id=";
+            $dados .= $linhaConsultas['id_medico'];
+            $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
+            $dados .= '"';
+            $dados .= '>
+                <div class="dados-paciente">
+                    <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
+                    <div class="medico-paciente">
+                        <span class="paciente">';
+                        $dados .= $linhaConsultas['nome'];
+                        $dados .= '</span>
+                        <span class="medico">';
+                        $dados .= $linhaConsultas['especializacao'];
+                        $dados .= '</span>
+                    </div>
+                </div>
+            <span class="horario">';
+            $dados .= $linhaConsultas['CRM'];
+            $dados .= '</span>
+            </div>';
+            // ------- FECHA CARD "CONSULTA" --------
+        }
+
+    if ($count==0) {
+        $dados = "<div style='font-size: 2.4rem;padding-top: 2.4rem;text-align: center;'>Nenhum médico encontrado!</div>";
+    }
+    return $dados;
+}
+
+function adicionaMedico($usuario, $link){
+    $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
+    $crm = isset($_POST['crm']) ? $_POST['crm'] : '';
+    $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : '';
+    $especializacao = isset($_POST['especializacao']) ? $_POST['especializacao'] : '';
+
+    $medico = new Medico($usuario, $crm, $nome, $telefone, $especializacao);
+    $medico->setAddMedico($link);
+}
+
+function adicionaPaciente($usuario, $link){
+    $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
+    $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : '';
+    $altura = isset($_POST['altura']) ? $_POST['altura'] : '';
+    $peso = isset($_POST['peso']) ? $_POST['peso'] : '';
+    $nascimento = isset($_POST['nascimento']) ? $_POST['nascimento'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : '';
+    $endereco = isset($_POST['endereco']) ? $_POST['endereco'] : '';
+    $cidade = isset($_POST['cidade']) ? $_POST['cidade'] : '';
+    $observacoes = isset($_POST['observacoes']) ? $_POST['observacoes'] : '';
+
+
+    $paciente = new Paciente($usuario, $nome, $cpf, $altura, $peso, $nascimento, $email, $telefone, $endereco, $cidade, $observacoes);
+    $paciente->setAddPaciente($link);
+}
+
+function adicionaConsulta($usuario, $link){
+    $paciente = isset($_POST['paciente']) ? $_POST['paciente'] : '';
+    $medico = isset($_POST['medico']) ? $_POST['medico'] : '';
+    $descricao = isset($_POST['descricao']) ? $_POST['descricao'] : '';
+    $valor = isset($_POST['valor']) ? $_POST['valor'] : '';
+    $data = isset($_POST['data']) ? $_POST['data'] : '';
+    $hora_inicio = isset($_POST['hora_inicio']) ? $_POST['hora_inicio'] : '';
+    $hora_final = isset($_POST['hora_final']) ? $_POST['hora_final'] : '';
+
+    $consulta = new Consulta($usuario, $data, $hora_inicio, $hora_final, $valor, $descricao, 0);
+    $dadosMed = obtemMedicoPeloId($medico);
+    $medico = new Medico($usuario, $dadosMed['CRM'], $dadosMed['nome'], $dadosMed['telefone'], $dadosMed['especializacao']);
+    $medico->setId($medico->getId());
+    $consulta->setAddMedico($medico);
+    $dadosPac = obtemPacientePeloId($paciente);
+    $paciente = new Paciente($usuario, $dadosPac['nome'], $dadosPac['CPF'], $dadosPac['altura'], $dadosPac['peso'], $dadosPac['data_nascimento'], $dadosPac['email'], $dadosPac['telefone'], $dadosPac['endereco'], $dadosPac['cidade'], $dadosPac['observacoes']);
+    $paciente->setId($paciente->getId());
+    $consulta->setAddPaciente($paciente);
+    
+    $consulta->setAddConsulta($link);
 }
 ?>

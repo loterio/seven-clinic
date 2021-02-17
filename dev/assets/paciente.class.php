@@ -75,7 +75,7 @@ class Paciente extends Pessoa
         return $stmt->fetch(PDO::FETCH_ASSOC)['pacientesCpf'];
     }
     
-    public function setAddPaciente(){
+    public function setAddPaciente($link){
         $countPacientesIdInicio= getQnt('pacientes', $this->user->getId());
         $countPacientesCpf= $this->getVerificaCPF(FALSE);
         $msg = '';
@@ -105,18 +105,18 @@ class Paciente extends Pessoa
                 // echo("Paciente cadastrado com sucesso!");
                 // $msg = 'Paciente cadastrado com sucesso!';
                 $_SESSION['msg'] = "Paciente cadastrado com sucesso!";
-                header('location:agendamento.php?status=OK');
+                header('location:'.$link.'.php?status=OK');
             }else {
                 // echo("Erro ao adicionar paciente!");
                 // $msg = 'Erro ao adicionar paciente!';
                 $_SESSION['msg'] = "Erro ao adicionar paciente!";
-                header('location:agendamento.php?status=ERRO');
+                header('location:'.$link.'.php?status=ERRO');
             }
         }else {
             // echo("Este CPF já está cadastrado!");
             // $msg = 'Este CPF já está cadastrado!';
             $_SESSION['msg'] = "Este CPF já está cadastrado!";
-            header('location:agendamento.php?status=ERRO');
+            header('location:'.$link.'.php?status=ERRO');
         }
         // return $msg;
     }
@@ -149,23 +149,20 @@ class Paciente extends Pessoa
                 // echo ('Paciente atualizado com sucesso!');
                 // $msg = 'Paciente atualizado com sucesso!';
                 $_SESSION['msg'] = "Paciente atualizado com sucesso!";
-                header('location:agendamento.php?status=OK');
+                header('location:paciente.php?status=OK');
             } else {
                 // echo ('Não foi possível atualizar o paciente!');
                 // $msg = 'Não foi possível atualizar o paciente!';
                 $_SESSION['msg'] = "Não foi possível atualizar o paciente!";
-                header('location:agendamento.php?status=ERRO');
+                header('location:paciente.php?status=ERRO');
             }
         }else {
             // echo("Este CPF já está cadastrado!");
             // $msg = 'Este CPF já está cadastrado!';
             $_SESSION['msg'] = "Este CPF já está cadastrado!";
-            header('location:agendamento.php?status=ERRO');
+            header('location:paciente.php?status=ERRO');
         }
         return $msg;
-
-
-
     }
 
     public function getId(){

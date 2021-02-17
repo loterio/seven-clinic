@@ -5,7 +5,7 @@ $(document).ready(function(){
         $("#hidden").css("display", "none");
         $("#busca").css("display", "none");
         $("#data").css("display", "inline");
-      }else if ((filtro) == "P" || (filtro) == "M" ){
+      }else if ((filtro) == "P" || (filtro) == "M"){
         $("#hidden").css("display", "none");
         $("#busca").css("display", "inline");
         $("#data").css("display", "none");

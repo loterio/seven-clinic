@@ -57,8 +57,8 @@ id_medico INT NOT NULL,
 estado BOOLEAN NOT NULL,
 PRIMARY KEY (id_consulta),
 FOREIGN KEY (id_user) REFERENCES usuarios(id),
-FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
-FOREIGN KEY (id_medico) REFERENCES medicos(id_medico)
+FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente) ON DELETE CASCADE,
+FOREIGN KEY (id_medico) REFERENCES medicos(id_medico) ON DELETE CASCADE
 );
 
 DROP PROCEDURE relatorio;

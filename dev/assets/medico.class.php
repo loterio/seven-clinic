@@ -44,7 +44,7 @@ class Medico extends Pessoa
         return $stmt->fetch(PDO::FETCH_ASSOC)['medicosCrm'];
     }
     
-    public function setAddMedico(){
+    public function setAddMedico($link){
         $countMedicosIdInicio = getQnt('medicos', $this->user->getId());
         $countMedicosCrm = $this->getVerificaMedicosCRM(FALSE);
         $msg = '';
@@ -68,18 +68,18 @@ class Medico extends Pessoa
                 // echo ('Médico cadastrado com sucesso!');
                 // $msg = 'Médico cadastrado com sucesso!';
                 $_SESSION['msg'] = "Médico cadastrado com sucesso!";
-                header('location:agendamento.php?status=OK'); // Sucesso
+                header('location:'.$link.'.php?status=OK'); // Sucesso
             }else {
                 // echo ('Erro ao adicionar médico!');
                 // $msg = 'Erro ao adicionar médico!';
                 $_SESSION['msg'] = "Erro ao adicionar médico!";
-                header('location:agendamento.php?status=ERRO');
+                header('location:'.$link.'.php?status=ERRO');
             }
         }else {
             // echo ('Este CRM já está cadastrado!');
             // $msg = 'Este CRM já está cadastrado!';
             $_SESSION['msg'] = "Este CRM já está cadastrado!";
-            header('location:agendamento.php?status=ERRO'); // CRM ja existe
+            header('location:'.$link.'.php?status=ERRO'); // CRM ja existe
         }  
         // return $msg; 
     }
@@ -100,8 +100,7 @@ class Medico extends Pessoa
         return $this->id;
     }
 
-    public function setAlteraMedico($id_medico){
-        $this->setId($id_medico);
+    public function setAlteraMedico(){
         $countMedicosCrm= $this->getVerificaMedicosCRM(TRUE);
         $msg = '';
 
@@ -120,22 +119,22 @@ class Medico extends Pessoa
             
             if( $stmt->rowCount() > 0 ) {
                 // echo ('Médico atualizado com sucesso!');
-                $msg = 'Médico atualizado com sucesso!';
-                // $_SESSION['msg'] = "Médico atualizado com sucesso!";
-                // header('location:agendamento.php?status=OK');
+                // $msg = 'Médico atualizado com sucesso!';
+                $_SESSION['msg'] = "Médico atualizado com sucesso!";
+                header('location:medico.php?status=OK');
             } else {
                 // echo ('Não foi possível atualizar o médico!');
-                $msg = 'Não foi possível atualizar o médico!';
-                // $_SESSION['msg'] = "Não foi possível atualizar o médico!";
-                // header('location:agendamento.php?status=ERRO');
+                // $msg = 'Não foi possível atualizar o médico!';
+                $_SESSION['msg'] = "Não foi possível atualizar o médico!";
+                header('location:medico.php?status=ERRO');
             }
         }else {
             // echo ('Este CRM já está cadastrado!');
-            $msg = 'Este CRM já está cadastrado!';
-            // $_SESSION['msg'] = "Este CRM já está cadastrado!";
-            // header('location:agendamento.php?status=ERRO'); // CRM ja existe
+            // $msg = 'Este CRM já está cadastrado!';
+            $_SESSION['msg'] = "Este CRM já está cadastrado!";
+            header('location:medico.php?status=ERRO'); // CRM ja existe
         }  
-        return $msg; 
+        // return $msg; 
         // $user, $id_medico, $CRM, $nome, $telefone, $especializacao
         // $sql = 'SELECT COUNT(*) AS medicosCrm FROM medicos WHERE id_user = :id_user AND CRM = :CRM; AND id_medico != :id_medico;';
     }
@@ -153,6 +152,33 @@ class Medico extends Pessoa
     
     public function getUser(){
         return parent::$user;
+    }
+
+    public function setExcluiMedico(){
+        $countConsultasIdInicio= getQnt('medicos', $this->user->getId());
+        $msg = '';
+        
+        $sql = 'DELETE FROM medicos WHERE id_user = :id_user AND CRM = :CRM';
+        $stmt = preparaComando($sql);
+        $bind = array(
+            ':id_user' => $this->user->getId(),
+            ':CRM' => $this->CRM
+        );
+        $stmt = bindExecute($stmt, $bind);
+        
+        $countConsultasIdFim= getQnt('medicos', $this->user->getId());
+
+        if ($countConsultasIdInicio > $countConsultasIdFim) {
+            // echo ('Médico excluido com sucesso!');
+            // $msg = 'Médico excluido com sucesso!';
+            $_SESSION['msg'] = "Médico excluido com sucesso!";
+            header('location:medico.php?status=OK'); // Sucesso
+        }else {
+            // echo ('Erro ao excluir médico!');
+            // $msg = 'Erro ao excluir médico!';
+            $_SESSION['msg'] = "Erro ao excluir médico!";
+            header('location:medico.php?status=ERRO');
+        }
     }
 }
 

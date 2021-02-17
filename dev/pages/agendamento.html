@@ -42,8 +42,8 @@
       <span>Menu</span>
     </div>
     <ul>
-      <li class="ativo"><a href="#">Agenda</a></li>
-      <li><a href="#">Médicos</a></li>
+      <li class="ativo"><a href="agendamento.php">Agenda</a></li>
+      <li><a href="medico.php">Médicos</a></li>
       <li><a href="#">Pacientes</a></li>
       <li><a href="#">Relatórios</a></li>
     </ul>
@@ -164,9 +164,9 @@
       <div class="opcoes-add ativo">
         <span class="titulo">Novo</span>
         <ul>
-          <li class=""><button onclick="ajaxDiv('novoAgendamento.php', 'espaco-formulario')">Agendamento</button></li>
-          <li class=""><button onclick="ajaxDiv('novoPaciente.php', 'espaco-formulario')">Paciente</button></li>
-          <li class=""><button onclick="ajaxDiv('novoMedico.php', 'espaco-formulario')">Médico</button></li>
+          <li class=""><button onclick="ajaxDiv('novoAgendamento.php?link=agendamento', 'espaco-formulario')">Agendamento</button></li>
+          <li class=""><button onclick="ajaxDiv('novoPaciente.php?link=agendamento', 'espaco-formulario')">Paciente</button></li>
+          <li class=""><button onclick="ajaxDiv('novoMedico.php?link=agendamento', 'espaco-formulario')">Médico</button></li>
         </ul>
       </div>
     </div>

@@ -8,6 +8,11 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
   if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       $pagina = file_get_contents('novoAgendamento.html');
       if (isset($_SESSION['id'])) {
+        if (isset($_GET['link'])) {
+          $pagina = str_replace('{link}', $_GET['link'], $pagina);
+        }else {
+          $pagina = str_replace('{link}', 'agendamento', $pagina);
+        }
         $pagina = str_replace('{op-pacientes}', buscaPacientes(), $pagina);
         $pagina = str_replace('{op-medicos}', buscaMedicos(), $pagina);
         // $pagina = str_replace('{data}', $data, $pagina);
