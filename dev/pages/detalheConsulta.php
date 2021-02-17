@@ -24,6 +24,26 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                 $stmtConsultas = bindExecute($stmtConsultas, $bindConsultas);
                 $dadosConsulta = $stmtConsultas->fetch(PDO::FETCH_ASSOC);
     
+                if ($acao == 'alterar') {
+                    $pagina = str_replace('{readonly}', 'required', $pagina);
+                    $pagina = str_replace('{disabled}', 'required', $pagina);
+                    // $pagina = str_replace('{link}', 'agendamento.php', $pagina);
+                    $dados = '<button type="button" onclick="fechaFormulario()">Cancelar</button>';
+                    $dados .= '<button type="submit" name="acao" value="alteraConsulta">Salvar</button>';
+                    $pagina = str_replace('{botao}', $dados, $pagina);
+                }else{
+                    $pagina = str_replace('{readonly}', 'readonly', $pagina);
+                    $pagina = str_replace('{disabled}', 'disabled', $pagina); 
+                    $pagina = str_replace('{radio}', 'disabled', $pagina); 
+                    $dados = '<button type="submit" name="acao" value="excluiConsulta">Excluir</button>';
+                    $dados .= '<button type="button" onclick="ajaxDiv(';
+                    $dados .= "'detalheConsulta.php?id=";
+                    $dados .= $dadosConsulta['id_consulta'];
+                    $dados .= "&acao=alterar', 'espaco-formulario'); mostraFormulario();";
+                    $dados .= '"';
+                    $dados .= '>Alterar</button>';
+                    $pagina = str_replace('{botao}', $dados, $pagina);
+                }
                 // $dadosConsulta['paciente'];
                 $pagina = str_replace('{id}', $dadosConsulta['id_consulta'], $pagina);
                 $pagina = str_replace('{descricao}', $dadosConsulta['descricao'], $pagina);
@@ -43,24 +63,6 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                     $pagina = str_replace('{check1}', '', $pagina); 
                 }
     
-                if ($acao == 'alterar') {
-                    $pagina = str_replace('{readonly}', 'required', $pagina);
-                    $pagina = str_replace('{disabled}', 'required', $pagina);
-                    $pagina = str_replace('{link}', 'agendamento.php', $pagina);
-                    $dados = '<button type="submit" name="acao" value="alteraConsulta">Agendar</button>';
-                    $pagina = str_replace('{botao}', $dados, $pagina);
-                }else{
-                    $pagina = str_replace('{readonly}', 'readonly', $pagina);
-                    $pagina = str_replace('{disabled}', 'disabled', $pagina); 
-                    $pagina = str_replace('{radio}', 'disabled', $pagina); 
-                    $dados = '<button type="button" onclick="ajaxDiv(';
-                    $dados .= "'detalheConsulta.php?id=";
-                    $dados .= $dadosConsulta['id_consulta'];
-                    $dados .= "&acao=alterar', 'espaco-formulario'); mostraFormulario();";
-                    $dados .= '"';
-                    $dados .= '>Alterar</button>';
-                    $pagina = str_replace('{botao}', $dados, $pagina);
-                }
                 
             }
 

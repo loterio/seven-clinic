@@ -160,8 +160,7 @@ class Consulta
         return $this->user;
     }
     
-    public function setAlteraConsulta($id_consulta){
-        $this->setIdConsulta($id_consulta);
+    public function setAlteraConsulta(){
         $countConsultasMedico= $this->getVerificaConsultaMedico(TRUE);
         $countConsultasPaciente= $this->getVerificaConsultaPaciente(TRUE);
         $msg = '';
@@ -208,6 +207,33 @@ class Consulta
             header('location:agendamento.php?status=ERRO');
         }   
         // return $msg;
+    }
+
+    public function setExcluiConsulta(){
+        $countConsultasIdInicio= getQnt('consultas', $this->user->getId());
+        $msg = '';
+        
+        $sql = 'DELETE FROM consultas WHERE id_user =:id_user AND id_consulta = :id_consulta';
+        $stmt = preparaComando($sql);
+        $bind = array(
+            ':id_user' => $this->user->getId(),
+            ':id_consulta' => $this->id_consulta
+        );
+        $stmt = bindExecute($stmt, $bind);
+        
+        $countConsultasIdFim= getQnt('consultas', $this->user->getId());
+
+        if ($countConsultasIdInicio > $countConsultasIdFim) {
+            // echo ('Consulta excluída com sucesso!');
+            // $msg = 'Consulta excluída com sucesso!';
+            $_SESSION['msg'] = "Consulta excluída com sucesso!";
+            header('location:agendamento.php?status=OK'); // Sucesso
+        }else {
+            // echo ('Erro ao excluir consulta!');
+            // $msg = 'Erro ao excluir consulta!';
+            $_SESSION['msg'] = "Erro ao excluir consulta!";
+            header('location:agendamento.php?status=ERRO');
+        }
     }
 }
 ?>
