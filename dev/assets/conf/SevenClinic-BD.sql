@@ -17,9 +17,6 @@ id_user INT NOT NULL,
 id_paciente INT NOT NULL AUTO_INCREMENT,
 nome VARCHAR(45) NOT NULL,
 CPF VARCHAR(14) NOT NULL, 
-
--- Mudar CPF para INT
-
 altura FLOAT NOT NULL,
 peso FLOAT NOT NULL,
 data_nascimento DATE NOT NULL,
@@ -36,7 +33,7 @@ FOREIGN KEY (id_user) REFERENCES usuarios(id)
 CREATE TABLE medicos (
 id_user INT NOT NULL,
 id_medico INT NOT NULL AUTO_INCREMENT,
-CRM INT NOT NULL,
+CRM VARCHAR(14) NOT NULL,
 nome VARCHAR(45) NOT NULL,
 telefone VARCHAR(14) NOT NULL,
 especializacao VARCHAR(45) NOT NULL,

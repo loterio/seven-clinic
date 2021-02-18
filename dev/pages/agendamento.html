@@ -44,7 +44,7 @@
     <ul>
       <li class="ativo"><a href="agendamento.php">Agenda</a></li>
       <li><a href="medico.php">Médicos</a></li>
-      <li><a href="#">Pacientes</a></li>
+      <li><a href="paciente.php">Pacientes</a></li>
       <li><a href="#">Relatórios</a></li>
     </ul>
   </sidenav>
@@ -52,11 +52,13 @@
     <form method="GET" action="agendamento.php" class="pesquisar">
       <select name="filtro" id="filtro" required>
         <option value="" disabled {op1}>Filtrar por:</option>
+        <option value="T" {opT}>Todas as consultas</option>
         <option value="P" {opP}>Paciente</option>
         <option value="M" {opM}>Médico</option>
         <option value="D" {opD}>Data</option>
       </select>
       <input type="text" id="hidden" name="hidden" placeholder="Escolha um filtro..." value="" disabled {display_hidden}>
+      <input type="text" id="todas" name="todas" placeholder="Buscar por todas as consultas..." value="" disabled {display_todas}>
       <input type="text" id="busca" name="busca" placeholder="Pesquisar ..." value="{busca}" {display_busca}>
       <input type="date" id="data" name="data" placeholder="Pesquisar ..." value="{data}" {display_data}>
       <button type="submit" name="pesquisa" value="buscar">Pesquisar</button>

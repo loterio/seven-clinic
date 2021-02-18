@@ -81,7 +81,7 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
     $dataHoje = date('Y-m-d');
     $count = 0;
     // ------ INICIO BUSCA --------
-    if (($busca != '' OR $data != '') AND $filtro != '' AND $pesquisa != '') {
+    if (((($busca != '' OR $data != '') AND $filtro != '') OR $filtro == 'T')AND $pesquisa != '') {
         switch ($filtro) {
             // case 'T':
             //     $sqlDatas = "SELECT DISTINCT C.data_consulta FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta >= :data_hoje AND (M.nome LIKE :busca OR P.nome LIKE :busca) ORDER BY C.data_consulta";
@@ -124,16 +124,15 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
                 );
             break;  
             default:
-                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
+                $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user ORDER BY data_consulta';
                 $stmtDatas = preparaComando($sqlDatas);
                 $bindDatas = array(
-                    ':id_user' => $id,
-                    ':data_hoje' => $dataHoje
+                    ':id_user' => $id
                 );
             break;
         }
     }else {
-        $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje ORDER BY data_consulta';
+        $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND (data_consulta >= :data_hoje OR estado != 1) ORDER BY data_consulta';
         $stmtDatas = preparaComando($sqlDatas);
         $bindDatas = array(
             ':id_user' => $id,
@@ -478,8 +477,8 @@ function selectMedicos($medico){
 
 function apresentaMedico($busca, $filtro){
     $dados = "";
-    // $id = $_SESSION['id'];
-    $id = 1;
+    $id = $_SESSION['id'];
+    // $id = 1;
     // $dataHoje = date('Y-m-d');
     $count = 0;
     // ------ INICIO BUSCA --------
@@ -541,12 +540,77 @@ function apresentaMedico($busca, $filtro){
     return $dados;
 }
 
+function apresentaPaciente($busca, $filtro){
+    $dados = "";
+    $id = $_SESSION['id'];
+    // $id = 1;
+    // $dataHoje = date('Y-m-d');
+    $count = 0;
+    // ------ INICIO BUSCA --------
+    if ($busca != '' AND $filtro == "M") {
+        $sqlConsultas = 'SELECT * FROM pacientes WHERE id_user = :id_user AND nome LIKE :busca ORDER BY nome';
+        $stmtConsultas = preparaComando($sqlConsultas);
+        $bindConsultas = array(
+            ':id_user' => $id,
+            ':busca' => '%'.$busca.'%'
+        );
+    }else if ($busca != '' AND $filtro == "P") {
+        $sqlConsultas = 'SELECT * FROM pacientes WHERE id_user = :id_user AND CPF LIKE :busca ORDER BY nome';
+        $stmtConsultas = preparaComando($sqlConsultas);
+        $bindConsultas = array(
+            ':id_user' => $id,
+            ':busca' => $busca.'%'
+        );
+    }else {
+        $sqlConsultas = 'SELECT * FROM pacientes WHERE id_user = :id_user ORDER BY nome';
+        $stmtConsultas = preparaComando($sqlConsultas);
+        $bindConsultas = array(
+            ':id_user' => $id
+        );
+    }
+    // ------- FIM BUSCA ----------
+    
+        $stmtConsultas = bindExecute($stmtConsultas, $bindConsultas);
+        while ($linhaConsultas = $stmtConsultas->fetch(PDO::FETCH_ASSOC)) {
+            $count++;
+            // echo($linhaConsultas['id_paciente']."<br>");
+            // ------- ABRE CARD "CONSULTA" --------
+            $dados .= '<div class="evento" onclick="ajaxDiv(';
+            $dados .= "'detalhePaciente.php?id=";
+            $dados .= $linhaConsultas['id_paciente'];
+            $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
+            $dados .= '"';
+            $dados .= '>
+                <div class="dados-paciente">
+                    <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
+                    <div class="medico-paciente">
+                        <span class="paciente">';
+                        $dados .= $linhaConsultas['nome'];
+                        $dados .= '</span>
+                        <span class="medico">';
+                        $dados .= $linhaConsultas['cidade'];
+                        $dados .= '</span>
+                    </div>
+                </div>
+            <span class="horario">';
+            $dados .= $linhaConsultas['CPF'];
+            $dados .= '</span>
+            </div>';
+            // ------- FECHA CARD "CONSULTA" --------
+        }
+
+    if ($count==0) {
+        $dados = "<div style='font-size: 2.4rem;padding-top: 2.4rem;text-align: center;'>Nenhum paciente encontrado!</div>";
+    }
+    return $dados;
+}
+
 function adicionaMedico($usuario, $link){
     $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
     $crm = isset($_POST['crm']) ? $_POST['crm'] : '';
     $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : '';
     $especializacao = isset($_POST['especializacao']) ? $_POST['especializacao'] : '';
-
+ 
     $medico = new Medico($usuario, $crm, $nome, $telefone, $especializacao);
     $medico->setAddMedico($link);
 }

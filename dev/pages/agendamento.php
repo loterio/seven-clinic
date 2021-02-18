@@ -21,38 +21,57 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                 $agenda = apresentaAgenda($busca, $data, $filtro, $pesquisa);
                 if ($filtro == 'P') {
                     $pagina = str_replace('{op1}', '', $pagina);
+                    $pagina = str_replace('{opT}', '', $pagina);
                     $pagina = str_replace('{opP}', 'selected', $pagina);
                     $pagina = str_replace('{opM}', '', $pagina);
                     $pagina = str_replace('{opD}', '', $pagina);
                     $pagina = str_replace('{display}', 'style="display: inline"', $pagina);
                     $pagina = str_replace('{display_hidden}', 'style="display: none"', $pagina);
+                    $pagina = str_replace('{display_todas}', 'style="display: none"', $pagina);
                     $pagina = str_replace('{display_busca}', 'style="display: inline"', $pagina);
                     $pagina = str_replace('{display_data}', 'style="display: none"', $pagina);
                 }else if ($filtro == 'M') {
                     $pagina = str_replace('{op1}', '', $pagina);
+                    $pagina = str_replace('{opT}', '', $pagina);
                     $pagina = str_replace('{opP}', '', $pagina);
                     $pagina = str_replace('{opM}', 'selected', $pagina);
                     $pagina = str_replace('{opD}', '', $pagina);
                     $pagina = str_replace('{display}', 'style="display: inline"', $pagina);
                     $pagina = str_replace('{display_hidden}', 'style="display: none"', $pagina);
+                    $pagina = str_replace('{display_todas}', 'style="display: none"', $pagina);
                     $pagina = str_replace('{display_busca}', 'style="display: inline"', $pagina);
+                    $pagina = str_replace('{display_data}', 'style="display: none"', $pagina);
+                }else if ($filtro == 'T') {
+                    $pagina = str_replace('{op1}', '', $pagina);
+                    $pagina = str_replace('{opP}', '', $pagina);
+                    $pagina = str_replace('{opM}', '', $pagina);
+                    $pagina = str_replace('{opT}', 'selected', $pagina);
+                    $pagina = str_replace('{opD}', '', $pagina);
+                    $pagina = str_replace('{display}', 'style="display: inline"', $pagina);
+                    $pagina = str_replace('{display_hidden}', 'style="display: none"', $pagina);
+                    $pagina = str_replace('{display_busca}', 'style="display: none"', $pagina);
+                    $pagina = str_replace('{display_todas}', 'style="display: inline"', $pagina);
                     $pagina = str_replace('{display_data}', 'style="display: none"', $pagina);
                 }else if ($filtro == 'D') {
                     $pagina = str_replace('{op1}', '', $pagina);
+                    $pagina = str_replace('{opT}', '', $pagina);
                     $pagina = str_replace('{opP}', '', $pagina);
                     $pagina = str_replace('{opM}', '', $pagina);
                     $pagina = str_replace('{opD}', 'selected', $pagina);
                     $pagina = str_replace('{display}', 'style="display: inline"', $pagina);
                     $pagina = str_replace('{display_hidden}', 'style="display: none"', $pagina);
+                    $pagina = str_replace('{display_todas}', 'style="display: none"', $pagina);
                     $pagina = str_replace('{display_busca}', 'style="display: none"', $pagina);
                     $pagina = str_replace('{display_data}', 'style="display: inline"', $pagina);
                 }else {
                     $pagina = str_replace('{op1}', 'selected', $pagina);
+                    $pagina = str_replace('{opT}', '', $pagina);
                     $pagina = str_replace('{opP}', '', $pagina);
                     $pagina = str_replace('{opM}', '', $pagina);
                     $pagina = str_replace('{opD}', '', $pagina);
                     $pagina = str_replace('{display}', 'style="display: none"', $pagina);
                     $pagina = str_replace('{display_hidden}', 'style="display: inline"', $pagina);
+                    $pagina = str_replace('{display_todas}', 'style="display: none"', $pagina);
                     $pagina = str_replace('{display_busca}', 'style="display: none"', $pagina);
                     $pagina = str_replace('{display_data}', 'style="display: none"', $pagina);
                 }

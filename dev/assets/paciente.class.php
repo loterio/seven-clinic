@@ -121,8 +121,7 @@ class Paciente extends Pessoa
         // return $msg;
     }
 
-    public function setAlteraPaciente($id_paciente){
-        $this->setId($id_paciente);
+    public function setAlteraPaciente(){
         $countPacientesCpf= $this->getVerificaCPF(TRUE);
         $msg = '';
 
@@ -183,6 +182,33 @@ class Paciente extends Pessoa
     
     public function getUser(){
         return parent::$user;
+    }
+
+    public function setExcluiPaciente(){
+        $countConsultasIdInicio= getQnt('pacientes', $this->user->getId());
+        $msg = '';
+        
+        $sql = 'DELETE FROM pacientes WHERE id_user = :id_user AND CPF = :CPF';
+        $stmt = preparaComando($sql);
+        $bind = array(
+            ':id_user' => $this->user->getId(),
+            ':CPF' => $this->CPF
+        );
+        $stmt = bindExecute($stmt, $bind);
+        
+        $countConsultasIdFim= getQnt('pacientes', $this->user->getId());
+
+        if ($countConsultasIdInicio > $countConsultasIdFim) {
+            // echo ('Paciente excluido com sucesso!');
+            // $msg = 'Paciente excluido com sucesso!';
+            $_SESSION['msg'] = "Paciente excluido com sucesso!";
+            header('location:paciente.php?status=OK'); // Sucesso
+        }else {
+            // echo ('Erro ao excluir paciente!');
+            // $msg = 'Erro ao excluir paciente!';
+            $_SESSION['msg'] = "Erro ao excluir paciente!";
+            header('location:paciente.php?status=ERRO');
+        }
     }
 }        
     
