@@ -59,16 +59,43 @@ class Usuario
         return $stmt->fetch(PDO::FETCH_ASSOC)['usuariosEmail'];
     }
     
-    public function setAlteraUsuario($id, $nome, $senha, $confSenha){
-        $this->setId($id);
+    public function setAlteraUsuario($email, $nome, $senha, $confSenha, $link){
+        $this->setEmail($email);
         $this->setNome($nome);
         $this->setSenha($senha);
         $this->setConfSenha($confSenha);
         
         $countEmailUsusarios = $this->getVerificaEmail(TRUE);
         $msg = '';
-        
-        if ($this->senha === $this->confSenha) {
+        if ($this->senha == '' AND $this->confSenha == '') {            
+            if ($countEmailUsusarios == 0) {
+                $sql = 'UPDATE usuarios SET nome = :nome, email = :email WHERE id = :id;';
+                $stmt = preparaComando($sql);
+                $bind = array(
+                    ':id' => $this->id,
+                    ':nome' => $this->nome,
+                    ':email' => $this->email
+                );
+                $stmt = bindExecute($stmt, $bind);
+                
+                if( $stmt->rowCount() > 0 ) {
+                    // echo ('Usuário atualizado com sucesso!');
+                    // $msg = 'Usuário atualizado com sucesso!';
+                    $_SESSION['msg'] = "Usuário atualizado com sucesso!";
+                    header('location:'.$link.'.php?status=OK');
+                } else {
+                    // echo ('Não foi possível atualizar o usuário!');
+                    // $msg = 'Não foi possível atualizar o usuário!';
+                    $_SESSION['msg'] = "Não foi possível atualizar o usuário!";
+                    header('location:'.$link.'.php?status=ERRO');
+                }
+            }else {
+                // echo ('Este e-mail já está cadastrado!');
+                // $msg = 'Este e-mail já está cadastrado!';
+                $_SESSION['msg'] = "Este e-mail já está cadastrado!";
+                header('location:'.$link.'.php?status=ERRO');
+            } 
+        }else if ($this->senha === $this->confSenha) {
             $senha_cript=hash('sha512',$this->senha);
             
             if ($countEmailUsusarios == 0) {
@@ -84,28 +111,28 @@ class Usuario
                 
                 if( $stmt->rowCount() > 0 ) {
                     // echo ('Usuário atualizado com sucesso!');
-                    $msg = 'Usuário atualizado com sucesso!';
-                    // $_SESSION['msg'] = "Usuário atualizado com sucesso!";
-                    // header('location:perfil.php?status=OK');
+                    // $msg = 'Usuário atualizado com sucesso!';
+                    $_SESSION['msg'] = "Usuário atualizado com sucesso!";
+                    header('location:'.$link.'.php?status=OK');
                 } else {
                     // echo ('Não foi possível atualizar o usuário!');
-                    $msg = 'Não foi possível atualizar o usuário!';
-                    // $_SESSION['msg'] = "Não foi possível atualizar o usuário!";
-                    // header('location:perfil.php?status=ERRO');
+                    // $msg = 'Não foi possível atualizar o usuário!';
+                    $_SESSION['msg'] = "Não foi possível atualizar o usuário!";
+                    header('location:'.$link.'.php?status=ERRO');
                 }
             }else {
                 // echo ('Este e-mail já está cadastrado!');
-                $msg = 'Este e-mail já está cadastrado!';
-                // $_SESSION['msg'] = "Este e-mail já está cadastrado!";
-                // header('location:perfil.php?status=ERRO');
+                // $msg = 'Este e-mail já está cadastrado!';
+                $_SESSION['msg'] = "Este e-mail já está cadastrado!";
+                header('location:'.$link.'.php?status=ERRO');
             }  
         }else {
             // echo ('A senha e a confirmação de senha não coincidem!');
-            $msg = 'A senha e a confirmação de senha não coincidem!';
-            // $_SESSION['msg'] = "A senha e a confirmação de senha não coincidem!";
-            // header('location:perfil.php?status=ERRO');
+            // $msg = 'A senha e a confirmação de senha não coincidem!';
+            $_SESSION['msg'] = "A senha e a confirmação de senha não coincidem!";
+            header('location:'.$link.'.php?status=ERRO');
         }
-        return $msg;
+        // return $msg;
     }
    
 }

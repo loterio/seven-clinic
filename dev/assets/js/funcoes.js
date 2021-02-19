@@ -3,14 +3,22 @@ $(document).ready(function(){
      var filtro = ($('#filtro option:selected').val());
      if ((filtro) == "D"){
         $("#hidden").css("display", "none");
-        $("#busca").css("display", "none");
+        $("#busca").css("display", "none"); 
+        $("#todas").css("display", "none"); 
         $("#data").css("display", "inline");
+      }else if ((filtro) == "T"){
+        $("#hidden").css("display", "none");
+        $("#busca").css("display", "none"); 
+        $("#data").css("display", "none");
+        $("#todas").css("display", "inline");
       }else if ((filtro) == "P" || (filtro) == "M"){
         $("#hidden").css("display", "none");
         $("#busca").css("display", "inline");
+        $("#todas").css("display", "none"); 
         $("#data").css("display", "none");
       }else{
         $("#hidden").css("display", "inline");
+        $("#todas").css("display", "none"); 
         $("#busca").css("display", "none");
         $("#data").css("display", "none");
       }
