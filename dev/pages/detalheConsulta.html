@@ -38,13 +38,20 @@
     <label for="horario-fim">Fim da Consulta</label>
     <input type="time" name="horario-fim" id="horario-fim" value="{horario_fim}" {readonly}>
   </div>
+  <!-- <div class="input input-grande">
+    <label for="estado">Situação</label>
+  </div> -->
   <div class="input input-grande">
     <label for="estado">Situação</label>
-  </div>
-  <div class="">
+    <select name="estado" id="estado" {disabled}>
+      <option value="1" {check1}>Finalizada</option>
+      <option value="0" {check0}>Em espera</option>
+    </select>
+  <!-- </div>
+    <div class="">
     <input type="radio" id="estado" name="estado" value="1" {radio} {check1}> Concluída
     <input type="radio" id="estado" name="estado" value="0" {radio} {check0}> Em espera
-  </div>
+  </div> -->
   <div class="botao-submit input-grande">
     
     {botao}

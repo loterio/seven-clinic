@@ -34,7 +34,7 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                 }else{
                     $pagina = str_replace('{readonly}', 'readonly', $pagina);
                     $pagina = str_replace('{disabled}', 'disabled', $pagina); 
-                    $pagina = str_replace('{radio}', 'disabled', $pagina); 
+                    // $pagina = str_replace('{radio}', 'disabled', $pagina); 
                     $dados = '<button type="submit" name="acao" value="excluiConsulta">Excluir</button>';
                     $dados .= '<button type="button" onclick="ajaxDiv(';
                     $dados .= "'detalheConsulta.php?id=";
@@ -56,16 +56,15 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                 $pagina = str_replace('{medicos}', selectMedicos($dadosConsulta['id_medico']), $pagina);
 
                 if ($dadosConsulta['estado'] == 1) {
-                    $pagina = str_replace('{check1}', 'checked', $pagina); 
+                    $pagina = str_replace('{check1}', 'selected', $pagina); 
                     $pagina = str_replace('{check0}', '', $pagina); 
                 }else if ($dadosConsulta['estado'] == 0) {
-                    $pagina = str_replace('{check0}', 'checked', $pagina); 
+                    $pagina = str_replace('{check0}', 'selected', $pagina); 
                     $pagina = str_replace('{check1}', '', $pagina); 
                 }
     
                 
             }
-
 
 
 
