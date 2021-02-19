@@ -1,0 +1,56 @@
+<form action="">
+  <div class="form-group">
+    <label for="novo-agendamento-paciente">Paciente</label>
+    <select class="form-control" id="novo-agendamento-paciente">
+      <option selected disabled>Selecione o Paciente</option>
+      <option>Henrique Borges dos Santos</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="novo-agendamento-medico">Médico</label>
+    <select class="form-control" id="novo-agendamento-medico">
+      <option selected disabled>Selecione o Médico</option>
+      <option>Augusto de Oliveira</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="novo-agendamento-descricao">Descrição</label>
+    <textarea class="form-control" id="novo-agendamento-descricao" rows="3"></textarea>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="novo-agendamento-valor">Valor R$</label>
+        <input type="number" class="form-control" id="novo-agendamento-valor" placeholder="Valor da consulta">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="novo-agendamento-data">Data da Consulta</label>
+        <input type="date" class="form-control" id="novo-agendamento-data" placeholder="">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="novo-agendamento-hora-inicio">Ínicio da Consulta</label>
+        <input type="time" class="form-control" id="novo-agendamento-hora-inicio" placeholder="">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="novo-agendamento-hora-fim">Fim da Consulta</label>
+        <input type="time" class="form-control" id="novo-agendamento-hora-fim" placeholder="">
+      </div>
+    </div>
+  </div>
+  <div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+    <label class="custom-control-label" for="customSwitch1">Consulta concluida</label>
+  </div>    
+  <div class="w-100 d-flex justify-content-center">
+    <button type="button" class="btn btn-danger mr-1" data-dismiss="modal">Excluir</button>
+    <input type="submit" class="btn btn-primary ml-1" value="Alterar">
+  </div>
+</form>
