@@ -132,7 +132,7 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
             break;
         }
     }else {
-        $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND (data_consulta >= :data_hoje OR estado != 1) ORDER BY data_consulta';
+        $sqlDatas = 'SELECT DISTINCT data_consulta FROM consultas WHERE id_user = :id_user AND data_consulta >= :data_hoje AND estado != 1 ORDER BY data_consulta';
         $stmtDatas = preparaComando($sqlDatas);
         $bindDatas = array(
             ':id_user' => $id,
