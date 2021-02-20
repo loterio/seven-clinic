@@ -1,4 +1,5 @@
 <?php
+namespace Classes\Pessoa;
 
 
 abstract class Pessoa  

@@ -1,4 +1,5 @@
 <?php
+namespace Classes\Medico;
 use PHPUnit\Framework\TestCase;
 require_once "medico.class.php";
 

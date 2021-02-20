@@ -1,4 +1,5 @@
 <?php
+namespace Classes\Contato;
 class Contato 
 {
     private $tipo;

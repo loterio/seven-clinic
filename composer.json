@@ -1,5 +1,28 @@
 {
-    "require-dev": {
+    "name": "loterio/seven-clinic",
+    "description": "Projeto destinado à matéria de programação do IFC",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Felipe André Leonhardt",
+            "email": "cabanha.fl@gmail.com",
+            "role": "Developer"
+        },{
+            "name": "Herique Borges dos Santos",
+            "email": "henrique.10agr@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload": {
+        "psr-4": {
+            "Class\\": "dev/assets/class"
+        }
+    },
+    "require": {
         "phpunit/phpunit": "^6.4"
     }
 }

@@ -1,13 +1,13 @@
 <?php
-require_once('medico.class.php');
-require_once('paciente.class.php');
-require_once('consulta.class.php');
-require_once('usuario.class.php');
-require_once('contato.class.php');
-require_once('pessoa.class.php');
-require_once('relatorio.class.php');
-require_once('relatorioMedico.class.php');
-require_once('relatorioPaciente.class.php');
+use Classes\Consulta\Consulta;
+use Classes\Contato\Contato;
+use Classes\Medico\Medico;
+use Classes\Paciente\Paciente;
+use Classes\Pessoa\Pessoa;
+use Classes\Relatorio\Relatorio;
+use Classes\Usuario\Usuario;
+
+require_once('../../vendor/autoload.php');
 
 require_once('conf/default.inc.php');
 function criarConexao(){

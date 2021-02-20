@@ -1,4 +1,5 @@
 <?php
+namespace Classes\Consulta;
 use PHPUnit\Framework\TestCase;
 require_once "consulta.class.php";
 

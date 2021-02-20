@@ -1,4 +1,5 @@
 <?php
+namespace Classes\Usuario;
 use PHPUnit\Framework\TestCase;
 require_once "usuario.class.php";
 

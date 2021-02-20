@@ -1,6 +1,7 @@
 <?php
+namespace Classes\Consulta;
 
-require_once('funcoes.php');
+require_once('./funcoes.php');
 iniciaSession();
 
 class Consulta  

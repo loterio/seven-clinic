@@ -1,7 +1,8 @@
 <?php
+namespace Classes\Paciente;
 
 require_once('pessoa.class.php');
-require_once('funcoes.php');
+require_once('./funcoes.php');
 iniciaSession();
 
 

@@ -1,7 +1,8 @@
 <?php
+namespace Classes\Relatorio;
 
 require_once('relatorio.class.php');
-require_once('funcoes.php');
+require_once('./funcoes.php');
 iniciaSession();
 
 class RelatorioMedico extends Relatorio
