@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'e0aa62c4bcdfb67cd19b0716177cd2e6c2eee4c5',
+    'reference' => 'b1d7b963a65030043e4de8e1016565a13cd3e10a',
     'name' => 'loterio/seven-clinic',
   ),
   'versions' => 
@@ -51,7 +51,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'e0aa62c4bcdfb67cd19b0716177cd2e6c2eee4c5',
+      'reference' => 'b1d7b963a65030043e4de8e1016565a13cd3e10a',
     ),
     'myclabs/deep-copy' => 
     array (

@@ -1,7 +1,8 @@
 <?php
-namespace Classes\Medico;
+namespace App;
+
 require_once('pessoa.class.php');
-require_once('./funcoes.php');
+require_once('funcoes.php');
 iniciaSession();
 
 class Medico extends Pessoa

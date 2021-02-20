@@ -1,6 +1,5 @@
 <?php
-namespace Classes\Pessoa;
-
+namespace App;
 
 abstract class Pessoa  
 {

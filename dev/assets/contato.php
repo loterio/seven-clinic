@@ -1,5 +1,5 @@
 <?php
-namespace Classes\Contato;
+namespace App;
 class Contato 
 {
     private $tipo;

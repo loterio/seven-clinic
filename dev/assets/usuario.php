@@ -1,7 +1,7 @@
 <?php
-namespace Classes\Usuario;
+namespace App;
 
-require_once('./funcoes.php');
+require_once('funcoes.php');
 iniciaSession();
 
 class Usuario  

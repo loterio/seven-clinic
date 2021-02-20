@@ -1,9 +1,10 @@
 <?php
-namespace Classes\Usuario;
+namespace App\Usuario;
+
 use PHPUnit\Framework\TestCase;
 require_once "usuario.class.php";
 
-class UsuatioTesteAlterar extends TestCase 
+class UsuarioTesteAlterar extends TestCase 
 {
     public function testUsuarioAlterar() {
       $usuario = new Usuario("henrique.10@gmail.com");

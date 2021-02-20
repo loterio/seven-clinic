@@ -1,8 +1,8 @@
 <?php
-namespace Classes\Paciente;
+namespace App;
 
 require_once('pessoa.class.php');
-require_once('./funcoes.php');
+require_once('funcoes.php');
 iniciaSession();
 
 

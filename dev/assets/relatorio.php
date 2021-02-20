@@ -1,7 +1,7 @@
 <?php
-namespace Classes\Relatorio;
+namespace App;
 
-require_once('./funcoes.php');
+require_once('funcoes.php');
 iniciaSession();
 
 abstract class Relatorio
