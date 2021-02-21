@@ -82,6 +82,7 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
         $conf_senha = isset($_POST['conf_senha']) ? $_POST['conf_senha'] : '';
         $acao = isset($_POST['acao']) ? $_POST['acao'] : '';
         $link = isset($_POST['link']) ? $_POST['link'] : '';
+        // var_dump($_POST);
         if ($acao == 'alteraUsuario') {
             $usuario->setAlteraUsuario($email, $nome, $senha, $conf_senha, $link);
         }else {

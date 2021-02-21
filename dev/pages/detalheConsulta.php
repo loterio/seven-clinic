@@ -9,10 +9,11 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
     $usuario->setId($_SESSION['id']);
 
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-        $pagina = file_get_contents('detalheConsulta.html');
+        // $pagina = file_get_contents('detalheConsulta.html');
         if (isset($_SESSION['id'])) {
             $consulta = isset($_GET['id']) ? $_GET['id'] : '';
             $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
+            // echo "ação: " . $acao;
             if ($consulta != '' AND $acao != '') {
                 
                 $sqlConsultas = 'SELECT * FROM consultas WHERE id_user = :id_user AND id_consulta = :id_consulta';
@@ -24,44 +25,67 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                 $stmtConsultas = bindExecute($stmtConsultas, $bindConsultas);
                 $dadosConsulta = $stmtConsultas->fetch(PDO::FETCH_ASSOC);
     
-                if ($acao == 'alterar') {
-                    $pagina = str_replace('{readonly}', 'required', $pagina);
-                    $pagina = str_replace('{disabled}', 'required', $pagina);
-                    // $pagina = str_replace('{link}', 'agendamento.php', $pagina);
-                    $dados = '<button type="button" onclick="fechaFormulario()">Cancelar</button>';
-                    $dados .= '<button type="submit" name="acao" value="alteraConsulta">Salvar</button>';
-                    $pagina = str_replace('{botao}', $dados, $pagina);
-                }else{
-                    $pagina = str_replace('{readonly}', 'readonly', $pagina);
-                    $pagina = str_replace('{disabled}', 'disabled', $pagina); 
-                    // $pagina = str_replace('{radio}', 'disabled', $pagina); 
-                    $dados = '<button type="submit" name="acao" value="excluiConsulta">Excluir</button>';
-                    $dados .= '<button type="button" onclick="ajaxDiv(';
-                    $dados .= "'detalheConsulta.php?id=";
-                    $dados .= $dadosConsulta['id_consulta'];
-                    $dados .= "&acao=alterar', 'espaco-formulario'); mostraFormulario();";
-                    $dados .= '"';
-                    $dados .= '>Alterar</button>';
-                    $pagina = str_replace('{botao}', $dados, $pagina);
-                }
-                // $dadosConsulta['paciente'];
-                $pagina = str_replace('{id}', $dadosConsulta['id_consulta'], $pagina);
-                $pagina = str_replace('{descricao}', $dadosConsulta['descricao'], $pagina);
-                $pagina = str_replace('{data_consulta}', $dadosConsulta['data_consulta'], $pagina);
-                $pagina = str_replace('{horario_inicio}', $dadosConsulta['hora_inicio'], $pagina);
-                $pagina = str_replace('{horario_fim}', $dadosConsulta['hora_fim'], $pagina);
-                $pagina = str_replace('{data_consulta}', $dadosConsulta['data_consulta'], $pagina);
-                $pagina = str_replace('{valor}', $dadosConsulta['valor'], $pagina);
-                $pagina = str_replace('{pacientes}', selectPacientes($dadosConsulta['id_paciente']), $pagina);
-                $pagina = str_replace('{medicos}', selectMedicos($dadosConsulta['id_medico']), $pagina);
+                if ($acao == 'detalhe') {
+                    $selectPacientes = selectPacientes($dadosConsulta['id_paciente']);
+                    $selectMedicos = selectMedicos($dadosConsulta['id_medico']);
+                    $check1 = $dadosConsulta['estado'] == 1 ? 'checked' : '';
+                    $check0 = $dadosConsulta['estado'] == 0 ? 'checked' : '';
+                    $radio = '';
 
-                if ($dadosConsulta['estado'] == 1) {
-                    $pagina = str_replace('{check1}', 'selected', $pagina); 
-                    $pagina = str_replace('{check0}', '', $pagina); 
-                }else if ($dadosConsulta['estado'] == 0) {
-                    $pagina = str_replace('{check0}', 'selected', $pagina); 
-                    $pagina = str_replace('{check1}', '', $pagina); 
+                    $dadosConsultaArquivo = [
+                        'id' => $consulta,
+                        'pacientes' => $selectPacientes,
+                        'medicos' => $selectMedicos,
+                        'descricao' => $dadosConsulta['descricao'],
+                        'valor' => $dadosConsulta['valor'],
+                        'data_consulta' => $dadosConsulta['data_consulta'],
+                        'horario_inicio' => $dadosConsulta['hora_inicio'],
+                        'horario_fim' => $dadosConsulta['hora_fim'],
+                        'radio' => $radio,
+                        'check1' => $check1,
+                        'check0' => $check0
+                    ];
+
+                    $pagina = rescreveStrReplace($dadosConsultaArquivo, 'detalheConsulta.html');
                 }
+                // if ($acao == 'alterar') {
+                //     $pagina = str_replace('{readonly}', 'required', $pagina);
+                //     $pagina = str_replace('{disabled}', 'required', $pagina);
+                //     // $pagina = str_replace('{link}', 'agendamento.php', $pagina);
+                //     $dados = '<button type="button" onclick="fechaFormulario()">Cancelar</button>';
+                //     $dados .= '<button type="submit" name="acao" value="alteraConsulta">Salvar</button>';
+                //     $pagina = str_replace('{botao}', $dados, $pagina);
+                // }else{
+                //     $pagina = str_replace('{readonly}', 'readonly', $pagina);
+                //     $pagina = str_replace('{disabled}', 'disabled', $pagina); 
+                //     // $pagina = str_replace('{radio}', 'disabled', $pagina); 
+                //     $dados = '<button type="submit" name="acao" value="excluiConsulta">Excluir</button>';
+                //     $dados .= '<button type="button" onclick="ajaxDiv(';
+                //     $dados .= "'detalheConsulta.php?id=";
+                //     $dados .= $dadosConsulta['id_consulta'];
+                //     $dados .= "&acao=alterar', 'espaco-formulario'); mostraFormulario();";
+                //     $dados .= '"';
+                //     $dados .= '>Alterar</button>';
+                //     $pagina = str_replace('{botao}', $dados, $pagina);
+                // }
+                // $dadosConsulta['paciente'];
+                // $pagina = str_replace('{id}', $dadosConsulta['id_consulta'], $pagina);
+                // $pagina = str_replace('{descricao}', $dadosConsulta['descricao'], $pagina);
+                // $pagina = str_replace('{data_consulta}', $dadosConsulta['data_consulta'], $pagina);
+                // $pagina = str_replace('{horario_inicio}', $dadosConsulta['hora_inicio'], $pagina);
+                // $pagina = str_replace('{horario_fim}', $dadosConsulta['hora_fim'], $pagina);
+                // $pagina = str_replace('{data_consulta}', $dadosConsulta['data_consulta'], $pagina);
+                // $pagina = str_replace('{valor}', $dadosConsulta['valor'], $pagina);
+                // $pagina = str_replace('{pacientes}', selectPacientes($dadosConsulta['id_paciente']), $pagina);
+                // $pagina = str_replace('{medicos}', selectMedicos($dadosConsulta['id_medico']), $pagina);
+
+                // if ($dadosConsulta['estado'] == 1) {
+                //     $pagina = str_replace('{check1}', 'selected', $pagina); 
+                //     $pagina = str_replace('{check0}', '', $pagina); 
+                // }else if ($dadosConsulta['estado'] == 0) {
+                //     $pagina = str_replace('{check0}', 'selected', $pagina); 
+                //     $pagina = str_replace('{check1}', '', $pagina); 
+                // }
     
                 
             }

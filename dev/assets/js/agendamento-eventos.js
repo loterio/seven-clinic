@@ -1,100 +1,100 @@
-// ===============Cards=================
+// // ===============Cards=================
 
-const cardData = document.querySelectorAll(".card-data")
-const eventos = document.querySelectorAll(".eventos-data");
+// const cardData = document.querySelectorAll(".card-data")
+// const eventos = document.querySelectorAll(".eventos-data");
 
-cardData.forEach((card, index) => {
-  card.addEventListener('click', ()=> {
-    eventos[index].classList.toggle('ativo');
-  })
-})
+// cardData.forEach((card, index) => {
+//   card.addEventListener('click', ()=> {
+//     eventos[index].classList.toggle('ativo');
+//   })
+// })
 
-// ===============Perfil================
-let mostrarOpcoesPerfil = true;
-const opcoesPerfil = document.querySelector(".perfil");
+// // ===============Perfil================
+// let mostrarOpcoesPerfil = true;
+// const opcoesPerfil = document.querySelector(".perfil");
 
-document.addEventListener('click', function(event) {
-  let clicouNoPerfil = opcoesPerfil.contains(event.target);
+// document.addEventListener('click', function(event) {
+//   let clicouNoPerfil = opcoesPerfil.contains(event.target);
 
-  if (!clicouNoPerfil) {
-    opcoesPerfil.classList.toggle("ativo", false);
-    mostrarOpcoesPerfil = true;
-  }else {
-    opcoesPerfil.classList.toggle("ativo", mostrarOpcoesPerfil);
-    mostrarOpcoesPerfil = !mostrarOpcoesPerfil;
-  }
-});
+//   if (!clicouNoPerfil) {
+//     opcoesPerfil.classList.toggle("ativo", false);
+//     mostrarOpcoesPerfil = true;
+//   }else {
+//     opcoesPerfil.classList.toggle("ativo", mostrarOpcoesPerfil);
+//     mostrarOpcoesPerfil = !mostrarOpcoesPerfil;
+//   }
+// });
 
-// ===============Add===================
-let mostrarOpcoesAdd = true;
-const botaoAdd = document.querySelector(".botao-add");
-const opcoesAdd = document.querySelector(".add")
+// // ===============Add===================
+// let mostrarOpcoesAdd = true;
+// const botaoAdd = document.querySelector(".botao-add");
+// const opcoesAdd = document.querySelector(".add")
 
-document.addEventListener('click', function(event) {
-  let clicouNoAdd = botaoAdd.contains(event.target);
+// document.addEventListener('click', function(event) {
+//   let clicouNoAdd = botaoAdd.contains(event.target);
 
-  if (!clicouNoAdd) {
-    opcoesAdd.classList.toggle("ativo", false);
-    mostrarOpcoesAdd = true;
-  }else {
-    opcoesAdd.classList.toggle("ativo", mostrarOpcoesAdd);
-    mostrarOpcoesAdd = !mostrarOpcoesAdd;
-  }
-});
+//   if (!clicouNoAdd) {
+//     opcoesAdd.classList.toggle("ativo", false);
+//     mostrarOpcoesAdd = true;
+//   }else {
+//     opcoesAdd.classList.toggle("ativo", mostrarOpcoesAdd);
+//     mostrarOpcoesAdd = !mostrarOpcoesAdd;
+//   }
+// });
 
-// ================Menu==================
+// // ================Menu==================
 
-let mostrarMenu = true;
+// let mostrarMenu = true;
 
-const menuTogle = document.querySelector(".menu-togle")
-const menu = document.getElementsByTagName("sidenav")
-const fundoEscuro = document.querySelector(".fundo-escuro")
+// const menuTogle = document.querySelector(".menu-togle")
+// const menu = document.getElementsByTagName("sidenav")
+// const fundoEscuro = document.querySelector(".fundo-escuro")
 
-document.body.onresize = function() {
-  if (document.body.clientWidth >= 768) {
-    menu[0].style.display = 'initial';
-    fundoEscuro.style.display = 'none';
-  }
-  if (document.body.clientWidth < 768) {
-    menu[0].style.display = 'none';
-  }
-};
+// document.body.onresize = function() {
+//   if (document.body.clientWidth >= 768) {
+//     menu[0].style.display = 'initial';
+//     fundoEscuro.style.display = 'none';
+//   }
+//   if (document.body.clientWidth < 768) {
+//     menu[0].style.display = 'none';
+//   }
+// };
 
-menuTogle.addEventListener("click", () => {
-  menu[0].style.display = 'initial';
-  fundoEscuro.style.display = 'initial';
-  mostrarMenu = false;
-});
+// menuTogle.addEventListener("click", () => {
+//   menu[0].style.display = 'initial';
+//   fundoEscuro.style.display = 'initial';
+//   mostrarMenu = false;
+// });
 
-fundoEscuro.addEventListener("click", () => {
-  if (mostrarMenu == false) {
-    menu[0].style.display = 'none';
-    fundoEscuro.style.display = 'none';
-    mostrarMenu = true;
-  }
-});
+// fundoEscuro.addEventListener("click", () => {
+//   if (mostrarMenu == false) {
+//     menu[0].style.display = 'none';
+//     fundoEscuro.style.display = 'none';
+//     mostrarMenu = true;
+//   }
+// });
 
 //============Formularios=============
-const botoesAdd = document.querySelectorAll(".add li button")
+// const botoesAdd = document.querySelectorAll(".add li button")
 
-botoesAdd.forEach(
-  botao => botao.addEventListener('click', 
-  () => mostraFormulario() 
-  )
-);
-function mostraFormulario() {
-  const fundoEscuro = document.querySelector(".fundo-escuro");
-  const espacoFormulario = document.querySelector(".espaco-formulario");
-  fundoEscuro.style.display = 'initial';
-  espacoFormulario.style.display = 'initial';
-}
+// botoesAdd.forEach(
+//   botao => botao.addEventListener('click', 
+//   () => mostraFormulario() 
+//   )
+// );
+// function mostraFormulario() {
+//   const fundoEscuro = document.querySelector(".fundo-escuro");
+//   const espacoFormulario = document.querySelector(".espaco-formulario");
+//   fundoEscuro.style.display = 'initial';
+//   espacoFormulario.style.display = 'initial';
+// }
 
-function fechaFormulario() {
-  const fundoEscuro = document.querySelector(".fundo-escuro");
-  const espacoFormulario = document.querySelector(".espaco-formulario");
-  const div = document.querySelector("#espaco-formulario");
+// function fechaFormulario() {
+//   const fundoEscuro = document.querySelector(".fundo-escuro");
+//   const espacoFormulario = document.querySelector(".espaco-formulario");
+//   const div = document.querySelector("#espaco-formulario");
 
-  fundoEscuro.style.display = 'none';
-  espacoFormulario.style.display = 'none';
-  div.innerHTML = "";
-}
+//   fundoEscuro.style.display = 'none';
+//   espacoFormulario.style.display = 'none';
+//   div.innerHTML = "";
+// }

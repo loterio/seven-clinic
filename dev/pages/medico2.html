@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/medico.css">
+  <script src="../assets/js/jQuery.js"></script>
+  <script src="../assets/js/funcoes.js"></script>
+  <title>Seven Clinic</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <script>{erro}</script>
+  <header>
+    <img class="menu-togle" src="../assets/img/menu-icon.svg">
+    <div class="logo">
+      <img src="../assets/img/logoBranca.png" alt="">
+    </div>
+    <div class="perfil">
+      <button class="botao-perfil">Perfil</button>
+      <img class="seta-perfil" src="../assets/img/setaBaixo.svg" alt="">
+      <img class="perfil-mobile" src="../assets/img/usuarioPerfil.svg">
+      <nav class="opcoes-perfil">
+        <ul>
+          <li>
+            <img src="../assets/img/info.svg" alt="">
+            <a href="#" onclick="ajaxDiv('perfil.php?link=medico&acao=detalhe', 'espaco-formulario');  mostraFormulario();">Informações</a>
+          </li>
+          <li>
+            <img src="../assets/img/back.svg" alt="">
+            <a href="sair.php">Sair</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <sidenav>
+    <div class="titulo">
+      <span>Menu</span>
+    </div>
+    <ul>
+      <li><a href="agendamento.php">Agenda</a></li>
+      <li class="ativo"><a href="medico.php">Médicos</a></li>
+      <li><a href="paciente.php">Pacientes</a></li>
+      <li><a href="#">Relatórios</a></li>
+    </ul>
+  </sidenav>
+  <main>
+    <form method="GET" action="medico.php" class="pesquisar">
+      <select name="filtro" id="filtro" required>
+        <option value="" disabled {op1}>Filtrar por:</option>
+        <option value="M" {opM}>Nome</option>
+        <option value="P" {opP}>CRM</option>
+      </select>
+      <input type="text" id="hidden" name="hidden" placeholder="Escolha um filtro..." value="" disabled {display_hidden}>
+      <input type="text" id="busca" name="busca" placeholder="Pesquisar ..." value="{busca}" {display_busca}>
+      <button type="submit" name="pesquisa" value="buscar">Pesquisar</button>
+      <button class="limpar" type="submit" id="exclui" name="exclui" value="exclui" {display}>Limpar filtros</button>
+    </form>
+    <div class="datas">
+      {msg}
+    </div>
+    <div class="add">
+      <button class="botao-add"><img src="../assets/img/mais.svg" alt=""></button>
+      <div class="opcoes-add ativo">
+        <span class="titulo">Novo</span>
+        <ul>
+          <li class=""><button onclick="ajaxDiv('novoAgendamento.php?link=medico', 'espaco-formulario')">Agendamento</button></li>
+          <li class=""><button onclick="ajaxDiv('novoPaciente.php?link=medico', 'espaco-formulario')">Paciente</button></li>
+          <li class=""><button onclick="ajaxDiv('novoMedico.php?link=medico', 'espaco-formulario')">Médico</button></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <div class="fundo-escuro">
+    <div class="formularios">
+      <div class="espaco-formulario" id="espaco-formulario"></div>
+    </div>
+  </div>
+</body>
+<script src="../assets/js/agendamento-eventos.js"></script>
+<script src="../assets/js/init.js"></script>
+</html>

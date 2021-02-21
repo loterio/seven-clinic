@@ -1,86 +1,407 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../assets/css/bootstrap.css">
+  <!-- Css projeto -->
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/medico.css">
-  <script src="../assets/js/jQuery.js"></script>
-  <script src="../assets/js/funcoes.js"></script>
   <title>Seven Clinic</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body class="d-flex flex-column">
   <script>{erro}</script>
-  <header>
-    <img class="menu-togle" src="../assets/img/menu-icon.svg">
-    <div class="logo">
-      <img src="../assets/img/logoBranca.png" alt="">
-    </div>
-    <div class="perfil">
-      <button class="botao-perfil">Perfil</button>
-      <img class="seta-perfil" src="../assets/img/setaBaixo.svg" alt="">
-      <img class="perfil-mobile" src="../assets/img/usuarioPerfil.svg">
-      <nav class="opcoes-perfil">
-        <ul>
-          <li>
-            <img src="../assets/img/info.svg" alt="">
-            <a href="#" onclick="ajaxDiv('perfil.php?link=paciente&acao=detalhe', 'espaco-formulario');  mostraFormulario();">Informações</a>
-          </li>
-          <li>
-            <img src="../assets/img/back.svg" alt="">
-            <a href="sair.php">Sair</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <sidenav>
-    <div class="titulo">
-      <span>Menu</span>
-    </div>
-    <ul>
-      <li><a href="agendamento.php">Agenda</a></li>
-      <li><a href="medico.php">Médicos</a></li>
-      <li class="ativo"><a href="paciente.php">Pacientes</a></li>
-      <li><a href="#">Relatórios</a></li>
-    </ul>
-  </sidenav>
-  <main>
-    <form method="GET" action="paciente.php" class="pesquisar">
-      <select name="filtro" id="filtro" required>
-        <option value="" disabled {op1}>Filtrar por:</option>
-        <option value="M" {opM}>Nome</option>
-        <option value="P" {opP}>CPF</option>
-      </select>
-      <input type="text" id="hidden" name="hidden" placeholder="Escolha um filtro..." value="" disabled {display_hidden}>
-      <input type="text" id="busca" name="busca" placeholder="Pesquisar ..." value="{busca}" {display_busca}>
-      <button type="submit" name="pesquisa" value="buscar">Pesquisar</button>
-      <button class="limpar" type="submit" id="exclui" name="exclui" value="exclui" {display}>Limpar filtros</button>
-    </form>
-    <div class="datas">
-      {msg}
-    </div>
-    <div class="add">
-      <button class="botao-add"><img src="../assets/img/mais.svg" alt=""></button>
-      <div class="opcoes-add ativo">
-        <span class="titulo">Novo</span>
-        <ul>
-          <li class=""><button onclick="ajaxDiv('novoAgendamento.php?link=paciente', 'espaco-formulario')">Agendamento</button></li>
-          <li class=""><button onclick="ajaxDiv('novoPaciente.php?link=paciente', 'espaco-formulario')">Paciente</button></li>
-          <li class=""><button onclick="ajaxDiv('novoMedico.php?link=paciente', 'espaco-formulario')">Médico</button></li>
-        </ul>
+  <nav class="navbar bg-primary shadow-sm">
+    <button id="button-menu-toggle" class="navbar-toggler" type="button">
+      <img src="../assets/img/menu-icon.svg" height="30">
+    </button>
+    <a class="navbar-brand" href="#">
+      <img src="../assets/img/logoBranca.png" width="200" alt="">
+    </a>
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <ion-icon name="person"></ion-icon>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#dadosPerfil">Informações</button>
+        <a href="sair.php" class="dropdown-item">Sair</a>
       </div>
     </div>
+  </nav>
+  <main class="w-100 h-100 d-flex flex-row overflow-hidden">
+    <nav id="menu" class="border-right p-2 bg-white">
+      <a href="agendamento.php" class="btn btn-light btn-block">Agendamento</a>
+      <a href="medico.php" class="btn btn-light btn-block">Médicos</a>
+      <a href="#" class="btn btn-primary btn-block">Pacientes</a>
+      <a href="relatorio.php" class="btn btn-light btn-block">Relatório</a>
+
+      <div class="btn-group dropright mt-2">
+        <button type="button" class="btn btn-outline-primary btn dropdown-toggle" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Novo
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <button class="dropdown-item" type="button" data-toggle="modal"
+            data-target="#novoAgendamento">Agendamento</button>
+          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#novoPaciente">Paciente</button>
+          <button class="dropdown-item" type="button" data-toggle="modal" data-target="#novoMedico">Médico</button>
+        </div>
+      </div>
+    </nav>
+    <section class="bg-light w-100 overflow-auto">
+      <div class="container">
+        <div id="agenda-filtro" class="my-3">
+          <div class="col-12">
+            <form method="GET" action="paciente.php" class="pesquisar">
+              <div class="form-row">
+                <div class="form-group col-12 col-lg-3">
+                  <select class="form-control" name="filtro" id="filtro" required>
+                    <option value="" disabled {op1}>Filtrar por:</option>
+                    <option value="M" {opM}>Nome</option>
+                    <option value="P" {opP}>CPF</option>
+                  </select>
+                </div>
+                <div class="form-group col-12 col-lg-5">
+                  <input type="text" class="form-control" id="hidden" name="hidden" placeholder="Escolha um filtro..."
+                    value="" disabled {display_hidden}>
+                  <input type="text" class="form-control" id="busca" name="busca" placeholder="Pesquisar ..."
+                    value="{busca}" {display_busca}>
+                </div>
+                <div class="form-group col-12 col-lg-2">
+                  <button type="submit" class="btn btn-primary btn-block" name="pesquisa"
+                    value="buscar">Pesquisar</button>
+                  <!-- <input type="submit" class="btn btn-primary btn-block" value="Buscar"> -->
+                </div>
+                <div class="form-group col-12 col-lg-2">
+                  <button class="btn btn-primary btn-block" type="submit" id="exclui" name="exclui" value="exclui"
+                    {display}>Limpar filtros</button>
+                  <!-- <input type="submit" class="btn btn-primary btn-block" value="Buscar"> -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="agenda-medicos" class="mb-3">
+          <div class="col-12 d-flex flex-column align-items-center mb-3">
+            {msg}
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
-  <div class="fundo-escuro">
-    <div class="formularios">
-      <div class="espaco-formulario" id="espaco-formulario"></div>
+  <div class="modal fade" id="novoAgendamento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Novo Agendamento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-5">
+          <form method="POST" action="paciente.php" autocomplete="off">
+            <input type="hidden" name="id_consulta" value="{id}" readonly>
+            <div class="form-group">
+              <label for="novo-agendamento-paciente">Paciente</label>
+              <select name="paciente" class="form-control" id="novo-agendamento-paciente">
+                <option value="NULL" disabled selected>Selecione o paciente</option>
+                {op-pacientes}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="novo-agendamento-medico">Médico</label>
+              <select name="medico" class="form-control" id="novo-agendamento-medico">
+                <option vlue="NULL" disabled selected>Selecione o médico</option>
+                {op-medicos}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="novo-agendamento-descricao">Descrição</label>
+              <textarea class="form-control" name="descricao" id="novo-agendamento-descricao" rows="3"></textarea>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-agendamento-valor">Valor R$</label>
+                  <input type="number" name="valor" class="form-control" id="novo-agendamento-valor"
+                    placeholder="Valor da consulta">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-agendamento-data">Data da Consulta</label>
+                  <input type="date" name="data" class="form-control" id="novo-agendamento-data" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-agendamento-hora-inicio">Ínicio da Consulta</label>
+                  <input type="time" name="hora_inicio" class="form-control" id="novo-agendamento-hora-inicio"
+                    placeholder="">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-agendamento-hora-fim">Fim da Consulta</label>
+                  <input type="time" name="hora_final" class="form-control" id="novo-agendamento-hora-fim"
+                    placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="w-100 d-flex justify-content-center">
+              <!-- <button type="button" class="btn btn-danger mr-1" onclick="excluirConsulta({id})" data-dismiss="modal">Excluir</button>
+              <input type="submit" class="btn btn-primary ml-1" value="Alterar"> -->
+              <button type="submit" class="btn btn-primary ml-1" name="acao" value="addConsulta">Agendar</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="modal fade" id="novoPaciente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Novo Paciente</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-5">
+          <form method="POST" action="paciente.php">
+            <div class="form-group">
+              <label for="novo-paciente-nome">Nome</label>
+              <input type="text" class="form-control" id="novo-paciente-nome" placeholder="Informe o nome do Paciente"
+                onkeypress="return ApenasLetras(event,this);" title="Não é permitido números e/ou caracteres especiais."
+                pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" name="nome" required>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-paciente-cpf">CPF</label>
+                  <input type="text" class="form-control" id="novo-paciente-cpf" placeholder="Informe o CPF do Paciente"
+                    name="cpf" maxlength="14" required>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-paciente-altura">Altura</label>
+                  <input type="text" class="form-control" id="novo-paciente-altura"
+                    placeholder="Informe a Altura do Paciente" name="altura" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-paciente-peso">Peso</label>
+                  <input type="text" class="form-control" id="novo-paciente-peso"
+                    placeholder="Informe o Peso do Paciente" name="peso" required>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-paciente-data-nascimento">Data de Nascimento</label>
+                  <input type="date" class="form-control" id="novo-paciente-data-nascimento" placeholder=""
+                    name="nascimento" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-paciente-email">Email</label>
+                  <input type="email" class="form-control" id="novo-paciente-email"
+                    placeholder="Informe o Email do Paciente" name="email" required>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-paciente-telefone">Telefone</label>
+                  <input type="tel" class="form-control" id="novo-paciente-telefone"
+                    placeholder="Informe o Telefone do Paciente" name="telefone" maxlength="14" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-paciente-endereco">Endereço</label>
+                  <input type="text" class="form-control" id="novo-paciente-endereco"
+                    placeholder="Informe o Endereço do Paciente" name="endereco" required>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-paciente-cidade">Cidade</label>
+                  <input type="text" class="form-control" id="novo-paciente-cidade"
+                    placeholder="Informe a Cidade do Paciente" name="cidade" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="novo-paciente-observacoes">Observações</label>
+              <textarea class="form-control" name="observacoes" id="novo-paciente-observacoes" rows="3"></textarea>
+            </div>
+            <div class="w-100 d-flex justify-content-center">
+              <!-- <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
+              <input type="submit" class="btn btn-primary ml-1" value="Adicionar"> -->
+              <button type="submit" class="btn btn-primary" name="acao" value="addPaciente">Adicionar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="novoMedico" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Novo Médico</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-5">
+          <form method="POST" action="paciente.php">
+            <div class="form-group">
+              <label for="novo-medico-nome">Nome</label>
+              <input type="text" class="form-control" id="novo-medico-nome" placeholder="Informe o Nome do Médico"
+                name="nome" onkeypress="return ApenasLetras(event,this);"
+                title="Não é permitido números e/ou caracteres especiais."
+                pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" maxlength="45" required>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-medico-crm">CRM</label>
+                  <input type="text" class="form-control" id="novo-medico-crm" placeholder="Informe o CRM do Médico"
+                    name="crm" maxlength="14" required>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="novo-medico-telefone">Telefone</label>
+                  <input type="tel" class="form-control" id="novo-medico-telefone"
+                    placeholder="Informe o Telefone do Médico" name="telefone" maxlength="14" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="novo-medico-especialização">Expecialização</label>
+              <input type="text" class="form-control" id="novo-medico-especialização"
+                placeholder="Informe a Especialização do Médico" name="especializacao" maxlength="45" required>
+            </div>
+            <div class="w-100 d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary" name="acao" value="addMedico">Adicionar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="dadosPerfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Novo Médico</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-5">
+          <form method="POST" action="perfil.php" autocomplete="off">
+            <input type="hidden" name="link" value="paciente">
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" class="form-control" id="nome" placeholder="Informe seu Email" name="nome"
+                onkeypress="return ApenasLetras(event,this);" title="Não é permitido números e/ou caracteres especiais."
+                pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{nome}" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" value="{email}"
+                placeholder="Informe seu Email" required>
+            </div>
+            <div class="form-group">
+              <label for="senha">Senha</label>
+              <input type="password" class="form-control" id="senha" name="senha" placeholder="Informe sua Senha"
+                minlength="6" required>
+            </div>
+            <div class="form-group">
+              <label for="senha-confirmacao">Confirmar Senha</label>
+              <input type="password" class="form-control" id="senha-confirmacao" name="conf_senha"
+                placeholder="Confirme sua Senha" minlength="6" required>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary" name="acao" value="alteraUsuario">Alterar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="detalhamento" link="detalhePaciente.php" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Novo Agendamento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-5">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+  <script>
+    //================Detalhamento==========
+    const pacientes = document.querySelectorAll(".paciente");
+    const linkDetalhamento = document.getElementById('detalhamento').getAttribute('link');
+    function detalhamentoPaciente(linkDetalhamentoPaciente) {
+      const bodyModalDetalhamento = document.querySelector('#detalhamento .modal-body');
+      console.log(linkDetalhamentoPaciente);
+      fetch(linkDetalhamentoPaciente)
+        .then((resposta) => resposta.text())
+        .then(conteudo => {
+          bodyModalDetalhamento.innerHTML = conteudo;
+        });
+    }
+    pacientes.forEach(consulta => {
+      consulta.addEventListener('click', () => {
+        const idPaciente = consulta.getAttribute('id-paciente');
+        const linkDetalhamentoPaciente = linkDetalhamento + '?id=' + idPaciente;
+        // console.log(linkDetalhamentoPaciente);
+        detalhamentoPaciente(linkDetalhamentoPaciente);
+      });
+    });
+    //==============Excluir Consulta==========
+    function excluirConsulta(id) {
+      if (confirm('Deseja mesmo excluir essa consyu'))
+        window.location.href = '';
+    }
+  </script>
 </body>
+<script src="../assets/js/funcoes2.js"></script>
+<script src="../assets/js/funcoes.js"></script>
 <script src="../assets/js/agendamento-eventos.js"></script>
 <script src="../assets/js/init.js"></script>
+
 </html>

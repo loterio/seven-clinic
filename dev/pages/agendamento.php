@@ -76,9 +76,21 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                     $pagina = str_replace('{display_data}', 'style="display: none"', $pagina);
                 }
                 // $pagina = str_replace('{filtro}', $filtro, $pagina);
+                $sqlUsuario = 'SELECT * FROM usuarios WHERE id = :id';
+                $stmtUsuario = preparaComando($sqlUsuario);
+                $bindUsuario = array(
+                    ':id' => $_SESSION['id']
+                );
+                $stmtUsuario = bindExecute($stmtUsuario, $bindUsuario);
+                $dadosUsuario = $stmtUsuario->fetch(PDO::FETCH_ASSOC);
+
                 $pagina = str_replace('{busca}', $busca, $pagina);
                 $pagina = str_replace('{data}', $data, $pagina);
                 $pagina = str_replace('{msg}', $agenda, $pagina);
+                $pagina = str_replace('{op-pacientes}', buscaPacientes(), $pagina);
+                $pagina = str_replace('{op-medicos}', buscaMedicos(), $pagina);
+                $pagina = str_replace('{nome}', $dadosUsuario['nome'], $pagina);
+                $pagina = str_replace('{email}', $dadosUsuario['email'], $pagina);
 
                 if (isset($_GET['status'])){
                     if ($_GET['status'] == 'ERRO' OR $_GET['status'] == 'OK' AND isset($_SESSION['msg'])) {   
@@ -95,6 +107,7 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
             }
         }
     }else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // echo 'Pedido para Alterar Paciente';
         if (isset($_POST['acao'])) {
             if (isset($_SESSION['id'])) {
                 if ($_POST['acao'] == 'addMedico') {
@@ -107,6 +120,7 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                     adicionaConsulta($usuario, 'agendamento');
 
                 }else if ($_POST['acao'] == 'alteraConsulta') {
+
                     $id_consulta = isset($_POST['id_consulta']) ? $_POST['id_consulta'] : '';
                     $paciente = isset($_POST['paciente']) ? $_POST['paciente'] : '';
                     $medico = isset($_POST['medico']) ? $_POST['medico'] : '';
@@ -116,7 +130,7 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                     $hora_inicio = isset($_POST['horario-inicio']) ? $_POST['horario-inicio'] : '';
                     $hora_final = isset($_POST['horario-fim']) ? $_POST['horario-fim'] : '';
                     $estado = isset($_POST['estado']) ? $_POST['estado'] : '';
-
+                    
                     $consulta = new Consulta($usuario, $data, $hora_inicio, $hora_final, $valor, $descricao, $estado);
                     $dadosMed = obtemMedicoPeloId($medico);
                     $medico = new Medico($usuario, $dadosMed['CRM'], $dadosMed['nome'], $dadosMed['telefone'], $dadosMed['especializacao']);

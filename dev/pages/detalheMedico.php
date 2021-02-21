@@ -12,8 +12,7 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
         $pagina = file_get_contents('detalheMedico.html');
         if (isset($_SESSION['id'])) {
             $id_medico = isset($_GET['id']) ? $_GET['id'] : '';
-            $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
-            if ($id_medico != '' AND $acao != '') {
+            if ($id_medico != '') {
                 
                 $sqlConsultas = 'SELECT * FROM medicos WHERE id_user = :id_user AND id_medico = :id_medico';
                 $stmtConsultas = preparaComando($sqlConsultas);
@@ -24,22 +23,22 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                 $stmtConsultas = bindExecute($stmtConsultas, $bindConsultas);
                 $dadosConsulta = $stmtConsultas->fetch(PDO::FETCH_ASSOC);
     
-                if ($acao == 'alterar') {
-                    $pagina = str_replace('{readonly}', 'required', $pagina);
-                    $dados = '<button type="button" onclick="fechaFormulario()">Cancelar</button>';
-                    $dados .= '<button type="submit" name="acao" value="alteraMedico">Salvar</button>';
-                    $pagina = str_replace('{botao}', $dados, $pagina);
-                }else{
-                    $pagina = str_replace('{readonly}', 'readonly', $pagina);
-                    $dados = '<button type="submit" name="acao" value="excluiMedico">Excluir</button>';
-                    $dados .= '<button type="button" onclick="ajaxDiv(';
-                    $dados .= "'detalheMedico.php?id=";
-                    $dados .= $dadosConsulta['id_medico'];
-                    $dados .= "&acao=alterar', 'espaco-formulario'); mostraFormulario();";
-                    $dados .= '"';
-                    $dados .= '>Alterar</button>';
-                    $pagina = str_replace('{botao}', $dados, $pagina);
-                }
+                // if ($acao == 'alterar') {
+                //     $pagina = str_replace('{readonly}', 'required', $pagina);
+                //     $dados = '<button type="button" onclick="fechaFormulario()">Cancelar</button>';
+                //     $dados .= '<button type="submit" name="acao" value="alteraMedico">Salvar</button>';
+                //     $pagina = str_replace('{botao}', $dados, $pagina);
+                // }else{
+                //     $pagina = str_replace('{readonly}', 'readonly', $pagina);
+                //     $dados = '<button type="submit" name="acao" value="excluiMedico">Excluir</button>';
+                //     $dados .= '<button type="button" onclick="ajaxDiv(';
+                //     $dados .= "'detalheMedico.php?id=";
+                //     $dados .= $dadosConsulta['id_medico'];
+                //     $dados .= "&acao=alterar', 'espaco-formulario'); mostraFormulario();";
+                //     $dados .= '"';
+                //     $dados .= '>Alterar</button>';
+                //     $pagina = str_replace('{botao}', $dados, $pagina);
+                // }
                 // $dadosConsulta['paciente'];
                 $pagina = str_replace('{id_medico}', $dadosConsulta['id_medico'], $pagina);
                 $pagina = str_replace('{nome}', $dadosConsulta['nome'], $pagina);

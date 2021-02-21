@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/login.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+  <title>SevenClinic</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  <script>
+    {msg}
+  </script>
+</head>
+ 
+<body>
+  <div class="pagina">
+    <div class="logo-bloco">
+      <div class="logo-imagem"></div>
+    </div>
+    <div class="conteudo">
+      <div class="formulario-bloco">
+        <div class="formulario-nav">
+          <a class="btn-nav-atv" href="#">Login</a>
+          <a class="btn-nav" href="cadastro.php">Cadastro</a>
+        </div>
+        <form class="formulario" action="login.php" method="post" autocomplete="off">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" value="{email}">
+          <label for="senha">Senha</label>
+          <input type="password" name="senha" name="senha" value="">
+          <input class="dado-btn" type="submit" value="Entrar">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

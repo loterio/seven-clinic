@@ -42,9 +42,21 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
                     $pagina = str_replace('{display_busca}', 'style="display: none"', $pagina);
                 }
                 // $pagina = str_replace('{filtro}', $filtro, $pagina);
+                $sqlUsuario = 'SELECT * FROM usuarios WHERE id = :id';
+                $stmtUsuario = preparaComando($sqlUsuario);
+                $bindUsuario = array(
+                    ':id' => $_SESSION['id']
+                );
+                $stmtUsuario = bindExecute($stmtUsuario, $bindUsuario);
+                $dadosUsuario = $stmtUsuario->fetch(PDO::FETCH_ASSOC);
+
                 $pagina = str_replace('{busca}', $busca, $pagina);
                 $pagina = str_replace('{data}', $data, $pagina);
                 $pagina = str_replace('{msg}', $agenda, $pagina);
+                $pagina = str_replace('{op-pacientes}', buscaPacientes(), $pagina);
+                $pagina = str_replace('{op-medicos}', buscaMedicos(), $pagina);
+                $pagina = str_replace('{nome}', $dadosUsuario['nome'], $pagina);
+                $pagina = str_replace('{email}', $dadosUsuario['email'], $pagina);
 
                 if (isset($_GET['status'])){
                     if ($_GET['status'] == 'ERRO' OR $_GET['status'] == 'OK' AND isset($_SESSION['msg'])) {   

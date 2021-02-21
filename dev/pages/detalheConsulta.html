@@ -1,62 +1,66 @@
-<button class="fechar" onclick="fechaFormulario()"><img src="../assets/img/fechar.svg" alt=""></button>
-<h2 class="titulo">Agendamento</h2>
 <form method="POST" action="agendamento.php" autocomplete="off">
-  <div class="input input-grande">
-      <input type="hidden" name="id_consulta" value="{id}" readonly>
-    <label for="paciente">Paciente</label>
-    <select name="paciente" id="paciente" {disabled}>
-        {pacientes}
-      <!-- <option value="Henrique">Henrique</option>
-      <option value="Felipe">Felipe</option> -->
+  <input type="hidden" name="id_consulta" value="{id}" readonly>
+  <div class="form-group">
+    <label for="novo-agendamento-paciente">Paciente</label>
+    <select name="paciente" class="form-control" id="novo-agendamento-paciente">
+      {pacientes}
+      <!-- <option selected disabled>Selecione o Paciente</option>
+      <option>Henrique Borges dos Santos</option> -->
     </select>
   </div>
-  <div class="input input-grande">
-    <label for="medico">Médico</label>
-    <select name="medico" id="medico" {disabled}>
-        {medicos}
-      <!-- <option value="Henrique">Henrique</option>
-      <option value="Felipe">Felipe</option> -->
+  <div class="form-group">
+    <label for="novo-agendamento-medico">Médico</label>
+    <select name="medico" class="form-control" id="novo-agendamento-medico">
+      {medicos}
+      <!-- <option selected disabled>Selecione o Médico</option>
+      <option>Augusto de Oliveira</option> -->
     </select>
   </div>
-  <div class="input input-grande">
-    <label for="descricao">Descrição</label>
-    <textarea id="descricao" name="descricao" {readonly}>{descricao}</textarea>
+  <div class="form-group">
+    <label for="novo-agendamento-descricao">Descrição</label>
+    <textarea class="form-control" name="descricao"  id="novo-agendamento-descricao" rows="3">{descricao}</textarea>
   </div>
-  <div class="input input-pequeno">
-    <label for="valor">Valor</label>
-    <input type="number" id="valor" name="valor" value="{valor}" {readonly}>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="novo-agendamento-valor">Valor R$</label>
+        <input type="number" name="valor" value="{valor}" class="form-control" id="novo-agendamento-valor" placeholder="Valor da consulta">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="novo-agendamento-data">Data da Consulta</label>
+        <input type="date" name="data" value="{data_consulta}" class="form-control" id="novo-agendamento-data" placeholder="">
+      </div>
+    </div>
   </div>
-  <div class="input input-pequeno">
-    <label for="data">Data</label>
-    <input type="date" id="data" name="data" value="{data_consulta}" {readonly}>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="novo-agendamento-hora-inicio">Ínicio da Consulta</label>
+        <input type="time" name="horario-inicio" value="{horario_inicio}" class="form-control" id="novo-agendamento-hora-inicio" placeholder="">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="novo-agendamento-hora-fim">Fim da Consulta</label>
+        <input type="time" name="horario-fim" value="{horario_fim}" class="form-control" id="novo-agendamento-hora-fim" placeholder="">
+      </div>
+    </div>
   </div>
-  <div class="input input-pequeno">
-    <label for="horario-inicio">Início da Consulta</label>
-    <input type="time" id="horario-inicio" name="horario-inicio" value="{horario_inicio}" {readonly}>
+  Estado da Consulta:
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline1" name="estado" value="1" {radio} {check1} class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline1">Concluída</label>
   </div>
-  <div class="input input-pequeno">
-    <label for="horario-fim">Fim da Consulta</label>
-    <input type="time" name="horario-fim" id="horario-fim" value="{horario_fim}" {readonly}>
-  </div>
-  <!-- <div class="input input-grande">
-    <label for="estado">Situação</label>
-  </div> -->
-  <div class="input input-grande">
-    <label for="estado">Situação</label>
-    <select name="estado" id="estado" {disabled}>
-      <option value="1" {check1}>Finalizada</option>
-      <option value="0" {check0}>Em espera</option>
-    </select>
-  </div>
-    <!-- <div class="">
-    <input type="radio" id="estado" name="estado" value="1" {radio} {check1}> Concluída
-    <input type="radio" id="estado" name="estado" value="0" {radio} {check0}> Em espera
-  </div> -->
-  <div class="botao-submit input-grande">
-    
-    {botao}
-    <!-- <button type="button" onclick="ajaxDiv('alterarConsulta.php?id={id}', 'espaco-formulario'); mostraFormulario();">Agendar</button> -->
-    <!-- <input type="submit" value="Agendar">
-    <input type="submit" value="Agendar"> -->
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline2" name="estado" value="0" {radio} {check0} class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline2">Em espera</label>
+  </div>  
+  <div class="w-100 d-flex justify-content-center my-3">
+    <!-- <button type="button" class="btn btn-danger mr-1" onclick="excluirConsulta({id})" data-dismiss="modal">Excluir</button>
+    <input type="submit" class="btn btn-primary ml-1" value="Alterar"> -->
+    <button type="submit" class="btn btn-danger mr-2" name="acao" value="excluiConsulta">Excluir</button>
+    <button type="submit" class="btn btn-primary ml-2" name="acao" value="alteraConsulta">Alterar</button>
   </div>
 </form>

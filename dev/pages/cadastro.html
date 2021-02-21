@@ -1,53 +1,78 @@
-<!DOCTYPE html>
-<!-- 
-    PARA FUNCIONAR A PAGINA CADASTRO.HTML TEM QUE TER:
-        - UM LOCAL COM '{msg}', ONDE SERÁ RETORNADO AS MENSAGENS DE ERRO NO CADASTO, AO USUARIO
-        - METÓDO POST NO FORMULÁRIO
-        - VALUE = "{nome}" NO CAMPO NOME E VALUE = "{email}" NO CAMPO EMAIL
-        - OS NOMES DOS CAMPOS DEVEM SER 
-                nome
-                email
-                senha
-                confSenha
- -->
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/cadastro.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
-    <title>SevenClinic</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-    <script src="../assets/js/funçoes.js"></script>
-    <script>
-        {msg}
-    </script>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../assets/css/bootstrap.css">
+  <!-- Css projeto -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/cadastro.css">
+  <title>Seven Clinic</title>
+  <script>
+    {msg}
+</script>
 </head>
-<body>
-  <div class="pagina">
-    <div class="logo-bloco">
-      <div class="logo-imagem"></div>
-    </div>
-    <div class="conteudo">
-      <div class="formulario-bloco">
-        <div class="formulario-nav">
-          <a class="btn-nav" href="login.php">Login</a>
-          <a class="btn-nav-atv" href="cadastro.php">Cadastro</a>
-        </div>
-        <form class="formulario" action="cadastro.php" method="post" autocomplete="off">
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" onkeypress="return ApenasLetras(event,this);" title="Não é permitido números e/ou caracteres especiais." pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{nome}">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" value="{email}">
-          <label for="senha">Senha</label>
-          <input type="password" name="senha" name="senha" minlength="6" value="">
-          <label for="senha">Confirmar Senha</label>
-          <input class="dado-input" type="password" name="confSenha" minlength="6" value="">
-          <input class="dado-btn" type="submit" value="Cadastrar">
-        </form>
+
+<body class="bg-light">
+  <main class="container">
+    <div class="row justify-content-center mt-5 mb-3">
+      <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+        <img class="img-fluid" src="../assets/img/logoRoxa.png" alt="">
       </div>
     </div>
-  </div>
+    <!-- <div class="row justify-content-center my-2">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-4">
+        <div class="col-12 alert alert-danger alert-dismissible fade show" role="alert">
+          Email ou Senha <strong>Inválidos!</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div> -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-4">
+        <div class="shadow-sm bg-white py-3 rounded">
+          <div class="col-12">
+            <form action="cadastro.php" method="post" autocomplete="off">
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Informe seu Email" name="nome" onkeypress="return ApenasLetras(event,this);" title="Não é permitido números e/ou caracteres especiais." pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{nome}" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{email}" placeholder="Informe seu Email" required>
+              </div>
+              <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" placeholder="Informe sua Senha" minlength="6" required>
+              </div>
+              <div class="form-group">
+                <label for="senha-confirmacao">Confirmar Senha</label>
+                <input type="password" class="form-control" id="senha-confirmacao" name="confSenha" placeholder="Confirme sua Senha" minlength="6" required>
+              </div>
+              <input type="submit" class="btn btn-primary btn-lg btn-block" value="Cadastrar">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mb-4">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-4">
+        <div class="shadow-sm bg-white py-3 rounded">
+          <div class="col-12 text-center">
+            <span>Já tem conta? <strong><a href="login.php">Entre aqui!</a></strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>

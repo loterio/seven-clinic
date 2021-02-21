@@ -1,0 +1,62 @@
+<button class="fechar" onclick="fechaFormulario()"><img src="../assets/img/fechar.svg" alt=""></button>
+<h2 class="titulo">Agendamento</h2>
+<form method="POST" action="agendamento.php" autocomplete="off">
+  <div class="input input-grande">
+      <input type="hidden" name="id_consulta" value="{id}" readonly>
+    <label for="paciente">Paciente</label>
+    <select name="paciente" id="paciente" {disabled}>
+        {pacientes}
+      <!-- <option value="Henrique">Henrique</option>
+      <option value="Felipe">Felipe</option> -->
+    </select>
+  </div>
+  <div class="input input-grande">
+    <label for="medico">Médico</label>
+    <select name="medico" id="medico" {disabled}>
+        {medicos}
+      <!-- <option value="Henrique">Henrique</option>
+      <option value="Felipe">Felipe</option> -->
+    </select>
+  </div>
+  <div class="input input-grande">
+    <label for="descricao">Descrição</label>
+    <textarea id="descricao" name="descricao" {readonly}>{descricao}</textarea>
+  </div>
+  <div class="input input-pequeno">
+    <label for="valor">Valor</label>
+    <input type="number" id="valor" name="valor" value="{valor}" {readonly}>
+  </div>
+  <div class="input input-pequeno">
+    <label for="data">Data</label>
+    <input type="date" id="data" name="data" value="{data_consulta}" {readonly}>
+  </div>
+  <div class="input input-pequeno">
+    <label for="horario-inicio">Início da Consulta</label>
+    <input type="time" id="horario-inicio" name="horario-inicio" value="{horario_inicio}" {readonly}>
+  </div>
+  <div class="input input-pequeno">
+    <label for="horario-fim">Fim da Consulta</label>
+    <input type="time" name="horario-fim" id="horario-fim" value="{horario_fim}" {readonly}>
+  </div>
+  <!-- <div class="input input-grande">
+    <label for="estado">Situação</label>
+  </div> -->
+  <div class="input input-grande">
+    <label for="estado">Situação</label>
+    <select name="estado" id="estado" {disabled}>
+      <option value="1" {check1}>Finalizada</option>
+      <option value="0" {check0}>Em espera</option>
+    </select>
+  </div>
+    <!-- <div class="">
+    <input type="radio" id="estado" name="estado" value="1" {radio} {check1}> Concluída
+    <input type="radio" id="estado" name="estado" value="0" {radio} {check0}> Em espera
+  </div> -->
+  <div class="botao-submit input-grande">
+    
+    {botao}
+    <!-- <button type="button" onclick="ajaxDiv('alterarConsulta.php?id={id}', 'espaco-formulario'); mostraFormulario();">Agendar</button> -->
+    <!-- <input type="submit" value="Agendar">
+    <input type="submit" value="Agendar"> -->
+  </div>
+</form>

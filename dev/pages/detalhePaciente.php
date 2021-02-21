@@ -13,45 +13,46 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
         if (isset($_SESSION['id'])) {
             $id_paciente = isset($_GET['id']) ? $_GET['id'] : '';
             $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
-            if ($id_paciente != '' AND $acao != '') {
+            if ($id_paciente != '') {
                 
-                $sqlConsultas = 'SELECT * FROM pacientes WHERE id_user = :id_user AND id_paciente = :id_paciente';
-                $stmtConsultas = preparaComando($sqlConsultas);
-                $bindConsultas = array(
+                $sqlPaciente = 'SELECT * FROM pacientes WHERE id_user = :id_user AND id_paciente = :id_paciente';
+                $stmtPaciente = preparaComando($sqlPaciente);
+                $bindPaciente = array(
                     ':id_user' => $_SESSION['id'],
                     ':id_paciente' => $id_paciente
                 );
-                $stmtConsultas = bindExecute($stmtConsultas, $bindConsultas);
-                $dadosConsulta = $stmtConsultas->fetch(PDO::FETCH_ASSOC);
-    
-                if ($acao == 'alterar') {
-                    $pagina = str_replace('{readonly}', '', $pagina);
-                    $dados = '<button type="button" onclick="fechaFormulario()">Cancelar</button>';
-                    $dados .= '<button type="submit" name="acao" value="alteraPaciente">Salvar</button>';
-                    $pagina = str_replace('{botao}', $dados, $pagina);
-                }else{
-                    $pagina = str_replace('{readonly}', 'readonly', $pagina);
-                    $dados = '<button type="submit" name="acao" value="excluiPaciente">Excluir</button>';
-                    $dados .= '<button type="button" onclick="ajaxDiv(';
-                    $dados .= "'detalhePaciente.php?id=";
-                    $dados .= $dadosConsulta['id_paciente'];
-                    $dados .= "&acao=alterar', 'espaco-formulario'); mostraFormulario();";
-                    $dados .= '"';
-                    $dados .= '>Alterar</button>';
-                    $pagina = str_replace('{botao}', $dados, $pagina);
-                }
+                $stmtPaciente = bindExecute($stmtPaciente, $bindPaciente);
+                $dadosPaciente = $stmtPaciente->fetch(PDO::FETCH_ASSOC);
+
+                // if ($acao == 'alterar') {
+                //     $pagina = str_replace('{readonly}', '', $pagina);
+                //     $dados = '<button type="button" onclick="fechaFormulario()">Cancelar</button>';
+                //     $dados .= '<button type="submit" name="acao" value="alteraPaciente">Salvar</button>';
+                //     $pagina = str_replace('{botao}', $dados, $pagina);
+                // }else{
+                //     $pagina = str_replace('{readonly}', 'readonly', $pagina);
+                //     $dados = '<button type="submit" name="acao" value="excluiPaciente">Excluir</button>';
+                //     $dados .= '<button type="button" onclick="ajaxDiv(';
+                //     $dados .= "'detalhePaciente.php?id=";
+                //     $dados .= $dadosConsulta['id_paciente'];
+                //     $dados .= "&acao=alterar', 'espaco-formulario'); mostraFormulario();";
+                //     $dados .= '"';
+                //     $dados .= '>Alterar</button>';
+                //     $pagina = str_replace('{botao}', $dados, $pagina);
+                // }
                 // $dadosConsulta['paciente'];
-                $pagina = str_replace('{id_paciente}', $dadosConsulta['id_paciente'], $pagina);
-                $pagina = str_replace('{nome}', $dadosConsulta['nome'], $pagina);
-                $pagina = str_replace('{cpf}', $dadosConsulta['CPF'], $pagina);
-                $pagina = str_replace('{altura}', $dadosConsulta['altura'], $pagina);
-                $pagina = str_replace('{peso}', $dadosConsulta['peso'], $pagina);
-                $pagina = str_replace('{nascimento}', $dadosConsulta['data_nascimento'], $pagina);
-                $pagina = str_replace('{email}', $dadosConsulta['email'], $pagina);
-                $pagina = str_replace('{telefone}', $dadosConsulta['telefone'], $pagina);
-                $pagina = str_replace('{endereco}', $dadosConsulta['endereco'], $pagina);
-                $pagina = str_replace('{cidade}', $dadosConsulta['cidade'], $pagina);
-                $pagina = str_replace('{observacoes}', $dadosConsulta['observacoes'], $pagina);
+
+                $pagina = str_replace('{id_paciente}', $dadosPaciente['id_paciente'], $pagina);
+                $pagina = str_replace('{nome}', $dadosPaciente['nome'], $pagina);
+                $pagina = str_replace('{cpf}', $dadosPaciente['CPF'], $pagina);
+                $pagina = str_replace('{altura}', $dadosPaciente['altura'], $pagina);
+                $pagina = str_replace('{peso}', $dadosPaciente['peso'], $pagina);
+                $pagina = str_replace('{nascimento}', $dadosPaciente['data_nascimento'], $pagina);
+                $pagina = str_replace('{email}', $dadosPaciente['email'], $pagina);
+                $pagina = str_replace('{telefone}', $dadosPaciente['telefone'], $pagina);
+                $pagina = str_replace('{endereco}', $dadosPaciente['endereco'], $pagina);
+                $pagina = str_replace('{cidade}', $dadosPaciente['cidade'], $pagina);
+                $pagina = str_replace('{observacoes}', $dadosPaciente['observacoes'], $pagina);
                 // echo $dadosConsulta['nome'];
     
                 

@@ -34,7 +34,7 @@ function preparaComando($sql){
         die();
     }
 }
-
+ 
 function bindExecute($comando, &$dados){
     try {
         foreach ($dados as $chave => &$valor) {
@@ -102,8 +102,8 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
                     ':data_hoje' => $dataHoje,
                     ':busca' => '%'.$busca.'%'
                 );
-                var_dump($sqlDatas);
-                var_dump($bindDatas);
+                // var_dump($sqlDatas);
+                // var_dump($bindDatas);
             break;
             case 'M':
                 $sqlDatas = 'SELECT DISTINCT C.data_consulta FROM consultas C INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta >= :data_hoje AND M.nome LIKE :busca ORDER BY C.data_consulta';
@@ -144,34 +144,37 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
     $stmtDatas = bindExecute($stmtDatas, $bindDatas);
     while ($linhaDatas = $stmtDatas->fetch(PDO::FETCH_ASSOC)) {
         $count++;
-        // ------- ABRE CARD "DATA" --------
-        $dados .= '
-        <div class="eventos-data">
-            <div class="card-data">
-                <span class="data">';
-
-                $dataCard = explode("-", $linhaDatas['data_consulta']);
-                $vetDataHoje = explode("-", $dataHoje);
-                
-                if ($dataCard[0] == $vetDataHoje[0]) {
-                    if ($dataCard[1] == $vetDataHoje[1]) {
-                        if ($dataCard[2] == $vetDataHoje[2]) {
-                            $dados .= "Hoje";
-                        }elseif ($dataCard[2] == ($vetDataHoje[2]+1)) {
-                            $dados .= "Amanhã";
-                        }else {
-                            $dados .= formataData($linhaDatas['data_consulta']);
-                        }
-                    }else {
-                        $dados .= formataData($linhaDatas['data_consulta']);
-                    }
+        $dataCard = explode("-", $linhaDatas['data_consulta']);
+        $vetDataHoje = explode("-", $dataHoje);
+        
+        $dataFormatada = '';
+        if ($dataCard[0] == $vetDataHoje[0]) {
+            if ($dataCard[1] == $vetDataHoje[1]) {
+                if ($dataCard[2] == $vetDataHoje[2]) {
+                    $dataFormatada = "Hoje";
+                }elseif ($dataCard[2] == ($vetDataHoje[2]+1)) {
+                    $dataFormatada = "Amanhã";
                 }else {
-                    $dados .= formataData($linhaDatas['data_consulta']);
+                    $dataFormatada = formataData($linhaDatas['data_consulta']);
                 }
-                $dados .= '</span>
-                <img src="../assets/img/setaBaixo.svg" alt="">
+            }else {
+                $dataFormatada = formataData($linhaDatas['data_consulta']);
+            }
+        }else {
+            $dataFormatada = formataData($linhaDatas['data_consulta']);
+        }
+        // ------- ABRE CARD "DATA" --------
+        $dados .= '<div class="consultas-data col-12 d-flex flex-column align-items-center mb-3" data-consultas="'.$dataFormatada.'">
+        <div class="card col-12 bg-roxo-2 shadow border-0">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <h2 class="text-white">'.$dataFormatada.'</h2>
+                <ion-icon name="chevron-down-outline" class="icone-detalha-consultas" estado="fechado"
+                  data-consultas="'.$dataFormatada.'">
+                </ion-icon>
+              </div>
             </div>
-        ';
+          </div>';
         // echo($linhaDatas['data_consulta']."<br>");
 
         if ($busca != '' AND $filtro != '' AND $pesquisa != '') {
@@ -234,35 +237,151 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
         while ($linhaConsultas = $stmtConsultas->fetch(PDO::FETCH_ASSOC)) {
             // echo($linhaConsultas['id_paciente']."<br>");
             // ------- ABRE CARD "CONSULTA" --------
-            $dados .= '<div class="evento" onclick="ajaxDiv(';
-            $dados .= "'detalheConsulta.php?id=";
-            $dados .= $linhaConsultas['id_consulta'];
-            $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
-            $dados .= '"';
-            $dados .= '>
-                <div class="dados-paciente">
-                    <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
-                    <div class="medico-paciente">
-                        <span class="paciente">';
+            $dados .= '<div class="card consulta col-11 mt-3 bg-white shadow border-0 d-none" id-consulta="'.$linhaConsultas['id_consulta'].'" data-toggle="modal"
+            data-target="#detalhamento">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="d-flex flex-column">
+                  <h2>';
                         $dados .= $linhaConsultas['paciente'];
-                        $dados .= '</span>
-                        <span class="medico">';
-                        $dados .= $linhaConsultas['medico'];
-                        $dados .= '</span>
-                    </div>
-                </div>
-            <span class="horario">';
+                        $dados .= '</h2>
+                        <span>'.$linhaConsultas['medico'].'</span>
+                      </div>
+                      <h2 class="ml-auto">';
             $dados .= formataHora($linhaConsultas['hora_inicio']);
             $dados .= ' - ';
             $dados .= formataHora($linhaConsultas['hora_fim']);
-            $dados .= '</span>
-            </div>';
+            $dados .= '</h2>
+            </div>
+          </div>
+        </div>';
             // ------- FECHA CARD "CONSULTA" --------
         }
         // ------- FECHA CARD "DATA" --------
         $dados .= '</div>';
         // $dados .= date('Y-m-d H:i:s');
     }
+    // while ($linhaDatas = $stmtDatas->fetch(PDO::FETCH_ASSOC)) {
+    //     $count++;
+    //     // ------- ABRE CARD "DATA" --------
+    //     $dados .= '
+    //     <div class="eventos-data">
+    //         <div class="card-data">
+    //             <span class="data">';
+
+    //             $dataCard = explode("-", $linhaDatas['data_consulta']);
+    //             $vetDataHoje = explode("-", $dataHoje);
+                
+    //             if ($dataCard[0] == $vetDataHoje[0]) {
+    //                 if ($dataCard[1] == $vetDataHoje[1]) {
+    //                     if ($dataCard[2] == $vetDataHoje[2]) {
+    //                         $dados .= "Hoje";
+    //                     }elseif ($dataCard[2] == ($vetDataHoje[2]+1)) {
+    //                         $dados .= "Amanhã";
+    //                     }else {
+    //                         $dados .= formataData($linhaDatas['data_consulta']);
+    //                     }
+    //                 }else {
+    //                     $dados .= formataData($linhaDatas['data_consulta']);
+    //                 }
+    //             }else {
+    //                 $dados .= formataData($linhaDatas['data_consulta']);
+    //             }
+    //             $dados .= '</span>
+    //             <img src="../assets/img/setaBaixo.svg" alt="">
+    //         </div>
+    //     ';
+    //     // echo($linhaDatas['data_consulta']."<br>");
+
+    //     if ($busca != '' AND $filtro != '' AND $pesquisa != '') {
+    //         switch ($filtro) {
+    //             // case 'T':
+    //             //     $sqlConsultas = "SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta = :data_consulta AND (M.nome LIKE :busca OR P.nome LIKE :busca) ORDER BY hora_inicio";
+    //             //     $stmtConsultas = preparaComando($sqlConsultas);
+    //             //     $bindConsultas = array(
+    //             //         ':id_user' => $id,
+    //             //         ':data_consulta' => $linhaDatas['data_consulta'],
+    //             //         ':busca' => '%'.$busca.'%'
+    //             //     );
+    //             // break;
+    //             case 'P':
+    //                 $sqlConsultas = "SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta = :data_consulta AND P.nome LIKE :busca ORDER BY C.hora_inicio";
+    //                 $stmtConsultas = preparaComando($sqlConsultas);
+    //                 $bindConsultas = array(
+    //                     ':id_user' => $id,
+    //                     ':data_consulta' => $linhaDatas['data_consulta'],
+    //                     ':busca' => '%'.$busca.'%'
+    //                 );
+    //             break;
+    //             case 'M':
+    //                 $sqlConsultas = "SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta = :data_consulta AND M.nome LIKE :busca ORDER BY C.hora_inicio";
+    //                 $stmtConsultas = preparaComando($sqlConsultas);
+    //                 $bindConsultas = array(
+    //                     ':id_user' => $id,
+    //                     ':data_consulta' => $linhaDatas['data_consulta'],
+    //                     ':busca' => '%'.$busca.'%'
+    //                 );
+    //             break;
+    //             case 'D':
+    //                 $sqlConsultas = 'SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta = :data_consulta ORDER BY C.hora_inicio';
+    //                 $stmtConsultas = preparaComando($sqlConsultas);
+    //                 $bindConsultas = array(
+    //                     ':id_user' => $id,
+    //                     ':data_consulta' => $linhaDatas['data_consulta']
+    //                 );
+    //             break;  
+    //             default:
+    //                 $sqlConsultas = 'SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND data_consulta = :data_consulta ORDER BY hora_inicio';
+    //                 $stmtConsultas = preparaComando($sqlConsultas);
+    //                 $bindConsultas = array(
+    //                     ':id_user' => $id,
+    //                     ':data_consulta' => $linhaDatas['data_consulta']
+    //                 );
+    //             break;
+    //         }
+    //     }else {
+    //         $sqlConsultas = 'SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND data_consulta = :data_consulta ORDER BY hora_inicio';
+    //         $stmtConsultas = preparaComando($sqlConsultas);
+    //         $bindConsultas = array(
+    //             ':id_user' => $id,
+    //             ':data_consulta' => $linhaDatas['data_consulta']
+    //         );
+    //     }
+
+
+    //     $stmtConsultas = bindExecute($stmtConsultas, $bindConsultas);
+    //     while ($linhaConsultas = $stmtConsultas->fetch(PDO::FETCH_ASSOC)) {
+    //         // echo($linhaConsultas['id_paciente']."<br>");
+    //         // ------- ABRE CARD "CONSULTA" --------
+    //         $dados .= '<div class="evento" onclick="ajaxDiv(';
+    //         $dados .= "'detalheConsulta.php?id=";
+    //         $dados .= $linhaConsultas['id_consulta'];
+    //         $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
+    //         $dados .= '"';
+    //         $dados .= '>
+    //             <div class="dados-paciente">
+    //                 <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
+    //                 <div class="medico-paciente">
+    //                     <span class="paciente">';
+    //                     $dados .= $linhaConsultas['paciente'];
+    //                     $dados .= '</span>
+    //                     <span class="medico">';
+    //                     $dados .= $linhaConsultas['medico'];
+    //                     $dados .= '</span>
+    //                 </div>
+    //             </div>
+    //         <span class="horario">';
+    //         $dados .= formataHora($linhaConsultas['hora_inicio']);
+    //         $dados .= ' - ';
+    //         $dados .= formataHora($linhaConsultas['hora_fim']);
+    //         $dados .= '</span>
+    //         </div>';
+    //         // ------- FECHA CARD "CONSULTA" --------
+    //     }
+    //     // ------- FECHA CARD "DATA" --------
+    //     $dados .= '</div>';
+    //     // $dados .= date('Y-m-d H:i:s');
+    // }
     if ($count==0) {
         $dados = "<div style='font-size: 2.4rem;padding-top: 2.4rem;text-align: center;'>Não existem consultas a partir da data de hoje!</div>";
     }
@@ -510,27 +629,41 @@ function apresentaMedico($busca, $filtro){
             $count++;
             // echo($linhaConsultas['id_paciente']."<br>");
             // ------- ABRE CARD "CONSULTA" --------
-            $dados .= '<div class="evento" onclick="ajaxDiv(';
-            $dados .= "'detalheMedico.php?id=";
-            $dados .= $linhaConsultas['id_medico'];
-            $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
-            $dados .= '"';
-            $dados .= '>
-                <div class="dados-paciente">
-                    <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
-                    <div class="medico-paciente">
-                        <span class="paciente">';
-                        $dados .= $linhaConsultas['nome'];
-                        $dados .= '</span>
-                        <span class="medico">';
-                        $dados .= $linhaConsultas['especializacao'];
-                        $dados .= '</span>
-                    </div>
+            $dados .= '
+            <div class="card medico col-12 mt-3 bg-white shadow border-0" id-medico="'.$linhaConsultas['id_medico'].'" data-toggle="modal"
+              data-target="#detalhamento">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="d-flex flex-column">
+                    <h2>'.$linhaConsultas['nome'].'</h2>
+                    <span>'.$linhaConsultas['especializacao'].'</span>
+                  </div>
+                  <h2 class="ml-auto">'.$linhaConsultas['CRM'].'</h2>
                 </div>
-            <span class="horario">';
-            $dados .= $linhaConsultas['CRM'];
-            $dados .= '</span>
-            </div>';
+              </div>
+            </div>
+            ';
+            // $dados .= '<div class="evento" onclick="ajaxDiv(';
+            // $dados .= "'detalheMedico.php?id=";
+            // $dados .= $linhaConsultas['id_medico'];
+            // $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
+            // $dados .= '"';
+            // $dados .= '>
+            //     <div class="dados-paciente">
+            //         <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
+            //         <div class="medico-paciente">
+            //             <span class="paciente">';
+            //             $dados .= $linhaConsultas['nome'];
+            //             $dados .= '</span>
+            //             <span class="medico">';
+            //             $dados .= $linhaConsultas['especializacao'];
+            //             $dados .= '</span>
+            //         </div>
+            //     </div>
+            // <span class="horario">';
+            // $dados .= $linhaConsultas['CRM'];
+            // $dados .= '</span>
+            // </div>';
             // ------- FECHA CARD "CONSULTA" --------
         }
 
@@ -573,29 +706,43 @@ function apresentaPaciente($busca, $filtro){
         $stmtConsultas = bindExecute($stmtConsultas, $bindConsultas);
         while ($linhaConsultas = $stmtConsultas->fetch(PDO::FETCH_ASSOC)) {
             $count++;
+            $dados .= '
+            <div class="card paciente col-12 mt-3 bg-white shadow border-0" id-paciente="'.$linhaConsultas['id_paciente'].'" data-toggle="modal"
+              data-target="#detalhamento">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="d-flex flex-column">
+                    <h2>'.$linhaConsultas['nome'].'</h2>
+                    <span>'.$linhaConsultas['cidade'].'</span>
+                  </div>
+                  <h2 class="ml-auto">'.$linhaConsultas['CPF'].'</h2>
+                </div>
+              </div>
+            </div>
+            ';
             // echo($linhaConsultas['id_paciente']."<br>");
             // ------- ABRE CARD "CONSULTA" --------
-            $dados .= '<div class="evento" onclick="ajaxDiv(';
-            $dados .= "'detalhePaciente.php?id=";
-            $dados .= $linhaConsultas['id_paciente'];
-            $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
-            $dados .= '"';
-            $dados .= '>
-                <div class="dados-paciente">
-                    <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
-                    <div class="medico-paciente">
-                        <span class="paciente">';
-                        $dados .= $linhaConsultas['nome'];
-                        $dados .= '</span>
-                        <span class="medico">';
-                        $dados .= $linhaConsultas['cidade'];
-                        $dados .= '</span>
-                    </div>
-                </div>
-            <span class="horario">';
-            $dados .= $linhaConsultas['CPF'];
-            $dados .= '</span>
-            </div>';
+            // $dados .= '<div class="evento" onclick="ajaxDiv(';
+            // $dados .= "'detalhePaciente.php?id=";
+            // $dados .= $linhaConsultas['id_paciente'];
+            // $dados .= "&acao=detalhe', 'espaco-formulario'); mostraFormulario();";
+            // $dados .= '"';
+            // $dados .= '>
+            //     <div class="dados-paciente">
+            //         <div class="imagem" style="background-image: url(../assets/img/pacientes/);"></div>
+            //         <div class="medico-paciente">
+            //             <span class="paciente">';
+            //             $dados .= $linhaConsultas['nome'];
+            //             $dados .= '</span>
+            //             <span class="medico">';
+            //             $dados .= $linhaConsultas['cidade'];
+            //             $dados .= '</span>
+            //         </div>
+            //     </div>
+            // <span class="horario">';
+            // $dados .= $linhaConsultas['CPF'];
+            // $dados .= '</span>
+            // </div>';
             // ------- FECHA CARD "CONSULTA" --------
         }
 
@@ -603,6 +750,31 @@ function apresentaPaciente($busca, $filtro){
         $dados = "<div style='font-size: 2.4rem;padding-top: 2.4rem;text-align: center;'>Nenhum paciente encontrado!</div>";
     }
     return $dados;
+}
+
+function apresentaRelatorio($ano) {
+    $ano = $ano != '' ? $ano : '2021';
+    $relatorios = array();
+    for ($mes=1; $mes <= 12; $mes++) { 
+        array_push($relatorios, relatorioMes($ano, $mes));
+    }
+    
+    $relatoriosString = "";
+    foreach ($relatorios as $relatorio) {
+        $relatoriosString .= '
+        <div class="card mes col-12 mt-3 bg-white shadow border-0">
+            <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="d-flex flex-column">
+                <h2>'.$relatorio['mes'].'</h2>
+                </div>
+                <h5 class="ml-auto">Valor Arrecadado: R$ '.$relatorio['valorTotal'].'</h5>
+            </div>
+            </div>
+        </div>
+        ';
+    }
+    return $relatoriosString;
 }
 
 function adicionaMedico($usuario, $link){
@@ -652,5 +824,82 @@ function adicionaConsulta($usuario, $link){
     $consulta->setAddPaciente($paciente);
     
     $consulta->setAddConsulta($link);
+}
+
+function rescreveStrReplace($dados, $arquivoVazio) {
+    $arquivoPreenchido = file_get_contents($arquivoVazio);
+    foreach ($dados as $nomeDado => $dado) {
+        $arquivoPreenchido = str_replace('{'.$nomeDado.'}', $dado, $arquivoPreenchido);
+    }
+    return $arquivoPreenchido;
+}
+
+function relatorioMes($ano, $mes) {
+    $id = $_SESSION['id'];
+
+    $data = '';
+    if ($mes < 10)
+        $data = $ano . '-0' . $mes . '-%';
+    else 
+        $data = $ano . '-' . $mes . '-%';
+
+    $sqlRelatorio = 'SELECT SUM(valor) AS valor_total FROM consultas WHERE data_consulta LIKE :ano_mes AND id_user = :id_user AND estado = true';
+    $stmtRelatorio = preparaComando($sqlRelatorio);
+    $bindRelatorio = [
+        ':ano_mes' => $data,
+        ':id_user' => $id
+    ];
+    $relatorio = bindExecute($stmtRelatorio, $bindRelatorio)->fetch(PDO::FETCH_ASSOC);
+    
+    $nomeDoMes = retornaMesPorExtenso($mes);
+    $valorTotal = $relatorio['valor_total'] != null ? $relatorio['valor_total'] : 0;
+
+    return [
+        'mes' => $nomeDoMes,
+        'valorTotal' => $valorTotal
+    ];
+}
+
+function retornaMesPorExtenso($numeroMes) {
+    $mes = '';
+    switch ($numeroMes) {
+        case 1:
+            $mes = 'Janeiro';
+            break;
+        case 2:
+            $mes = 'Fevereiro';
+            break;
+        case 3:
+            $mes = 'Março';
+            break;
+        case 4:
+            $mes = 'Abril';
+            break;
+        case 5:
+            $mes = 'Maio';
+            break;
+        case 6:
+            $mes = 'Junho';
+            break;
+        case 7:
+            $mes = 'Julho';
+            break;
+        case 8:
+            $mes = 'Agosto';
+            break;
+        case 9:
+            $mes = 'Setembro';
+            break;
+        case 10:
+            $mes = 'Outubro';
+            break;
+        case 11:
+            $mes = 'Novembro';
+            break;
+        case 12:
+            $mes = 'Dezembro';
+            break;
+    } 
+    return $mes;
 }
 ?>
