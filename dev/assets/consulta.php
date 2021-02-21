@@ -1,6 +1,11 @@
 <?php
 namespace App;
 
+use App\Usuario;
+use App\Medico;
+use App\Paciente;
+use PDO;
+
 require_once('funcoes.php');
 iniciaSession();
 

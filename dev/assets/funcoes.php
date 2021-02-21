@@ -1,11 +1,12 @@
 <?php
-use Classes\Consulta\Consulta;
-use Classes\Contato\Contato;
-use Classes\Medico\Medico;
-use Classes\Paciente\Paciente;
-use Classes\Pessoa\Pessoa;
-use Classes\Relatorio\Relatorio;
-use Classes\Usuario\Usuario;
+use App\Consulta;
+use App\Contato;
+use App\Medico;
+use App\Paciente;
+use App\Pessoa;
+use App\Relatorio;
+use App\Usuario;
+// use PDO;
 
 require_once('../../vendor/autoload.php');
 

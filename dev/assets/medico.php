@@ -1,7 +1,11 @@
 <?php
 namespace App;
 
-require_once('pessoa.class.php');
+use App\Pessoa;
+use App\Usuario;
+use PDO;
+
+require_once('../../vendor/autoload.php');
 require_once('funcoes.php');
 iniciaSession();
 

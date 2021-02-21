@@ -1,5 +1,7 @@
 <?php
 namespace App;
+
+use PDO;
 class Contato 
 {
     private $tipo;

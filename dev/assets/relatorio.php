@@ -1,6 +1,9 @@
 <?php
 namespace App;
 
+use PDO;
+use App\Usuario;
+
 require_once('funcoes.php');
 iniciaSession();
 

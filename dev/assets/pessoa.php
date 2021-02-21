@@ -1,6 +1,10 @@
 <?php
 namespace App;
 
+use PDO;
+use App\Usuario;
+use App\Contato;
+
 abstract class Pessoa  
 {
     protected $user;
