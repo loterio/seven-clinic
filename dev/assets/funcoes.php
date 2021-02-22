@@ -97,22 +97,20 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
             // break;
             case 'P':
                 // $buscar = '%'.$busca.'%';
-                $sqlDatas = "SELECT DISTINCT C.data_consulta FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente WHERE C.id_user = :id_user AND C.data_consulta >= :data_hoje AND P.nome LIKE :busca ORDER BY C.data_consulta";
+                $sqlDatas = "SELECT DISTINCT C.data_consulta FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente WHERE C.id_user = :id_user AND P.nome LIKE :busca ORDER BY C.data_consulta";
                 $stmtDatas = preparaComando($sqlDatas);
                 $bindDatas = array(
                     ':id_user' => $id,
-                    ':data_hoje' => $dataHoje,
                     ':busca' => '%'.$busca.'%'
                 );
                 // var_dump($sqlDatas);
                 // var_dump($bindDatas);
             break;
             case 'M':
-                $sqlDatas = 'SELECT DISTINCT C.data_consulta FROM consultas C INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta >= :data_hoje AND M.nome LIKE :busca ORDER BY C.data_consulta';
+                $sqlDatas = 'SELECT DISTINCT C.data_consulta FROM consultas C INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND M.nome LIKE :busca ORDER BY C.data_consulta';
                 $stmtDatas = preparaComando($sqlDatas);
                 $bindDatas = array(
                     ':id_user' => $id,
-                    ':data_hoje' => $dataHoje,
                     ':busca' => '%'.$busca.'%'
                 );
             break;
@@ -179,7 +177,7 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
           </div>';
         // echo($linhaDatas['data_consulta']."<br>");
 
-        if ($busca != '' AND $filtro != '' AND $pesquisa != '') {
+        if ((($busca != '' AND $filtro != '') OR $filtro == 'T') AND $pesquisa != '') {
             switch ($filtro) {
                 // case 'T':
                 //     $sqlConsultas = "SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND C.data_consulta = :data_consulta AND (M.nome LIKE :busca OR P.nome LIKE :busca) ORDER BY hora_inicio";
@@ -226,7 +224,7 @@ function apresentaAgenda($busca, $data, $filtro, $pesquisa){
                 break;
             }
         }else {
-            $sqlConsultas = 'SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND data_consulta = :data_consulta ORDER BY hora_inicio';
+            $sqlConsultas = 'SELECT C.*, P.nome AS paciente, M.nome AS medico FROM consultas C INNER JOIN pacientes P ON C.id_paciente = P.id_paciente INNER JOIN medicos M ON C.id_medico = M.id_medico WHERE C.id_user = :id_user AND data_consulta = :data_consulta AND estado != 1 ORDER BY hora_inicio';
             $stmtConsultas = preparaComando($sqlConsultas);
             $bindConsultas = array(
                 ':id_user' => $id,

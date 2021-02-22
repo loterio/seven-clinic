@@ -1,4 +1,5 @@
 <?php
+namespace App;
   include_once "conf.inc.php";
 
   class Conexao {  
