@@ -1,6 +1,17 @@
 <?php
+namespace App;
 
-require_once('relatorio.class.php');
+use App\Consulta;
+use App\Contato;
+use App\Medico;
+use App\Paciente;
+use App\Pessoa;
+use App\Relatorio;
+use App\RelatorioMedico;
+use App\RelatorioPaciente;
+use App\Usuario;
+use PDO;
+
 require_once('funcoes.php');
 iniciaSession();
 

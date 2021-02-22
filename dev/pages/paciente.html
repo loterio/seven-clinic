@@ -21,6 +21,19 @@
     <a class="navbar-brand" href="#">
       <img src="../assets/img/logoBranca.png" width="200" alt="">
     </a>
+    
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Novo
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <button class="dropdown-item" type="button" data-toggle="modal"
+          data-target="#novoAgendamento">Agendamento</button>
+        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#novoPaciente">Paciente</button>
+        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#novoMedico">Médico</button>
+      </div>
+    </div>
     <div class="btn-group">
       <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
@@ -39,7 +52,7 @@
       <a href="#" class="btn btn-primary btn-block">Pacientes</a>
       <a href="relatorio.php" class="btn btn-light btn-block">Relatório</a>
 
-      <div class="btn-group dropright mt-2">
+      <!-- <div class="btn-group dropright mt-2">
         <button type="button" class="btn btn-outline-primary btn dropdown-toggle" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Novo
@@ -50,7 +63,7 @@
           <button class="dropdown-item" type="button" data-toggle="modal" data-target="#novoPaciente">Paciente</button>
           <button class="dropdown-item" type="button" data-toggle="modal" data-target="#novoMedico">Médico</button>
         </div>
-      </div>
+      </div> -->
     </nav>
     <section class="bg-light w-100 overflow-auto">
       <div class="container">
@@ -107,34 +120,33 @@
             <input type="hidden" name="id_consulta" value="{id}" readonly>
             <div class="form-group">
               <label for="novo-agendamento-paciente">Paciente</label>
-              <select name="paciente" class="form-control" id="novo-agendamento-paciente">
+              <select name="paciente" class="form-control" id="novo-agendamento-paciente"  required>
                 <option value="NULL" disabled selected>Selecione o paciente</option>
                 {op-pacientes}
               </select>
             </div>
             <div class="form-group">
               <label for="novo-agendamento-medico">Médico</label>
-              <select name="medico" class="form-control" id="novo-agendamento-medico">
+              <select name="medico" class="form-control" id="novo-agendamento-medico" required>
                 <option vlue="NULL" disabled selected>Selecione o médico</option>
                 {op-medicos}
               </select>
             </div>
             <div class="form-group">
               <label for="novo-agendamento-descricao">Descrição</label>
-              <textarea class="form-control" name="descricao" id="novo-agendamento-descricao" rows="3"></textarea>
+              <textarea class="form-control" name="descricao"  id="novo-agendamento-descricao" rows="3" required></textarea>
             </div>
             <div class="row">
               <div class="col">
                 <div class="form-group">
                   <label for="novo-agendamento-valor">Valor R$</label>
-                  <input type="number" name="valor" class="form-control" id="novo-agendamento-valor"
-                    placeholder="Valor da consulta">
+                  <input type="number" name="valor" class="form-control" id="novo-agendamento-valor" placeholder="Valor da consulta" required>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label for="novo-agendamento-data">Data da Consulta</label>
-                  <input type="date" name="data" class="form-control" id="novo-agendamento-data" placeholder="">
+                  <input type="date" name="data" class="form-control" id="novo-agendamento-data" placeholder="" required>
                 </div>
               </div>
             </div>
@@ -142,15 +154,13 @@
               <div class="col">
                 <div class="form-group">
                   <label for="novo-agendamento-hora-inicio">Ínicio da Consulta</label>
-                  <input type="time" name="hora_inicio" class="form-control" id="novo-agendamento-hora-inicio"
-                    placeholder="">
+                  <input type="time" name="hora_inicio" class="form-control" id="novo-agendamento-hora-inicio" placeholder="" required>
                 </div>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label for="novo-agendamento-hora-fim">Fim da Consulta</label>
-                  <input type="time" name="hora_final" class="form-control" id="novo-agendamento-hora-fim"
-                    placeholder="">
+                  <input type="time" name="hora_final" class="form-control" id="novo-agendamento-hora-fim" placeholder="" required>
                 </div>
               </div>
             </div>
@@ -185,7 +195,7 @@
               <div class="col">
                 <div class="form-group">
                   <label for="novo-paciente-cpf">CPF</label>
-                  <input type="text" class="form-control" id="novo-paciente-cpf" placeholder="Informe o CPF do Paciente"
+                  <input type="number" class="form-control" id="novo-paciente-cpf" placeholder="Informe o CPF do Paciente"
                     name="cpf" maxlength="14" required>
                 </div>
               </div>
@@ -294,7 +304,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="novo-medico-especialização">Expecialização</label>
+              <label for="novo-medico-especialização">Especialização</label>
               <input type="text" class="form-control" id="novo-medico-especialização"
                 placeholder="Informe a Especialização do Médico" name="especializacao" maxlength="45" required>
             </div>
@@ -321,7 +331,7 @@
             <input type="hidden" name="link" value="agendamento">
             <div class="form-group">
               <label for="nome">Nome</label>
-              <input type="text" class="form-control" id="nome" placeholder="Informe seu Email" name="nome" onkeypress="return ApenasLetras(event,this);" title="Não é permitido números e/ou caracteres especiais." pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{nome}" required>
+              <input type="text" class="form-control" id="nome" placeholder="Informe seu Nome" name="nome" onkeypress="return ApenasLetras(event,this);" title="Não é permitido números e/ou caracteres especiais." pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{nome}" required>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
@@ -350,7 +360,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Novo Agendamento</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Paciente</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

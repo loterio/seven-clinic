@@ -29,6 +29,10 @@ body {
   transform: rotate(180deg);
 }
 
+.card .consulta, .card .medico, .card .paciente{
+  cursor: pointer;
+}
+
 @media (max-width: 575.98px) {
   #menu {
     display: none;
