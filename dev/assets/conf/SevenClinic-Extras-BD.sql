@@ -56,10 +56,12 @@ BEGIN
 	VALUES (data_consulta,id_medico,id_paciente);
 END $
 
+# index na tabela médicos sobre a coluna especialização
 CREATE INDEX med_especializacao
 ON medicos(especializacao);
 SHOW INDEX FROM medicos;
 
+# index na tabela pacientes sobre as colunas endereço e cidade
 CREATE INDEX pac_localizacao
 ON pacientes(endereco,cidade);
 SHOW INDEX FROM pacientes;
