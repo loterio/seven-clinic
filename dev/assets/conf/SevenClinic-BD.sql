@@ -1,6 +1,6 @@
 DROP DATABASE equipe1;
 CREATE DATABASE equipe1;
-use equipe1;
+USE equipe1;
  
 CREATE TABLE usuarios (
 id INT NOT NULL AUTO_INCREMENT,
@@ -54,6 +54,17 @@ PRIMARY KEY (id_consulta),
 FOREIGN KEY (id_user) REFERENCES usuarios(id),
 FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente) ON DELETE CASCADE,
 FOREIGN KEY (id_medico) REFERENCES medicos(id_medico) ON DELETE CASCADE
+);
+
+CREATE TABLE historico_consultas (
+id_consulta_hist INT NOT NULL AUTO_INCREMENT,
+id_cons INT NOT NULL,
+id_med INT NOT NULL,
+id_pac INT NOT NULL,
+PRIMARY KEY(id_consulta_hist),
+FOREIGN KEY (id_cons) REFERENCES consultas(id_consulta) ON DELETE CASCADE,
+FOREIGN KEY (id_med) REFERENCES medicos(id_medico) ON DELETE CASCADE,
+FOREIGN KEY (id_pac) REFERENCES pacientes(id_paciente) ON DELETE CASCADE
 );
 
 -- select SUM(valor) as valorTotal from consultas where id_medico = 1 AND id_user = 1 AND estado = 0 AND data_consulta >= '2020-10-14' AND data_consulta <= '2020-11-13';
