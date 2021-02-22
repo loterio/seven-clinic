@@ -12,8 +12,8 @@ INSERT INTO consultas(id_user, data_consulta, hora_inicio, hora_fim, valor, desc
 
 # DROP VIEW consultas_medico;
 
-CREATE VIEW consultas_medico # a view mostra o número de consultas para cada médico que for colocado o código na cláusula WHERE 
-AS SELECT nome AS "MÉDICO", COUNT(*) as "Nº CONSULTAS"
+CREATE VIEW consultas_medico  
+WHERE AS SELECT nome AS "MÉDICO", COUNT(*) as "Nº CONSULTAS"
 FROM medicos M
 	INNER JOIN consultas CS
     ON id_medico = CS.id_med
