@@ -11,10 +11,10 @@ INSERT INTO consultas(id_user, data_consulta, hora_inicio, hora_fim, valor, desc
 (1,'2021-03-08',"08:00","09:00",200,"laser",3,1,true),
 (1,'2021-02-28',"07:30","11:15",4000,"rinoplastia",4,1,false);
 
-DROP VIEW consultas_medico;
+# DROP VIEW consultas_medico;
 
-CREATE VIEW consultas_medico # a view mostra o número de consultas para cada médico que for colocado o código na cláusula WHERE 
-AS SELECT nome AS "MÉDICO", COUNT(*) as "Nº CONSULTAS"
+CREATE VIEW consultas_medico  
+WHERE AS SELECT nome AS "MÉDICO", COUNT(*) as "Nº CONSULTAS"
 FROM medicos M
 	INNER JOIN consultas CS
     ON M.id_medico = CS.id_medico
@@ -22,7 +22,7 @@ WHERE CS.id_medico = 2; # Médicos 1 e 2
 
 SELECT * FROM consultas_medico;
 
-DROP PROCEDURE relatorio;
+# DROP PROCEDURE relatorio;
 
 DELIMITER $$
 	CREATE PROCEDURE relatorio(IN data_inicial DATE, IN data_final DATE, IN id_user INT)
@@ -60,12 +60,22 @@ END $
 
 DELIMITER ;
 
-CREATE INDEX med_esp
+DELIMITER $
+CREATE TRIGGER hist_cons
+AFTER INSERT ON consultas FOR EACH ROW
+BEGIN
+	INSERT INTO historico_consultas(data_cons,id_med,id_pac)
+	VALUES (data_consulta,id_medico,id_paciente);
+END $
+
+# index na tabela médicos sobre a coluna especialização
+CREATE INDEX med_especializacao
 ON medicos(especializacao);
 SHOW INDEX FROM medicos;
 
-CREATE INDEX pac_cid
-ON pacientes(cidade);
+# index na tabela pacientes sobre as colunas endereço e cidade
+CREATE INDEX pac_localizacao
+ON pacientes(endereco,cidade);
 SHOW INDEX FROM pacientes;
 
 
