@@ -52,8 +52,8 @@ DELIMITER $
 CREATE TRIGGER hist_cons
 AFTER INSERT ON consultas FOR EACH ROW
 BEGIN
-	INSERT INTO historico_consultas(id_cons,id_med,id_pac) 
-	VALUES (id_consulta,id_med,id_paciente);    
+	INSERT INTO historico_consultas(data_cons,id_med,id_pac)
+	VALUES (data_consulta,id_medico,id_paciente);
 END $
 
 CREATE INDEX med_especializacao
