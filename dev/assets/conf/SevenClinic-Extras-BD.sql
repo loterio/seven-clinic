@@ -56,12 +56,12 @@ BEGIN
 	VALUES (id_consulta,id_med,id_paciente);    
 END $
 
-CREATE INDEX med_esp
+CREATE INDEX med_especializacao
 ON medicos(especializacao);
 SHOW INDEX FROM medicos;
 
-CREATE INDEX pac_cid
-ON pacientes(cidade);
+CREATE INDEX pac_localizacao
+ON pacientes(endereco,cidade);
 SHOW INDEX FROM pacientes;
 
 
