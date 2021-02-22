@@ -46,13 +46,6 @@ DELIMITER ;
 
 CALL relatorio('2021-02-01', '2021-02-01', 1);
 
-# a ideia de gatilho é fazer para que se tentasse marcar uma consulta com hora final maior que 18h 
-# não fizesse o insert ou mantesse o valor anterior de hora
-CREATE TRIGGER verifica_data
-BEFORE INSERT ON consultas FOR EACH ROW
-BEGIN
-	IF(NEW.hora_fim > OLD.hora_fim)
-    
 END;
 
 DELIMITER $
