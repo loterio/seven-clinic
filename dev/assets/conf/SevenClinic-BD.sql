@@ -58,11 +58,11 @@ FOREIGN KEY (id_medico) REFERENCES medicos(id_medico) ON DELETE CASCADE
 
 CREATE TABLE historico_consultas (
 id_consulta_hist INT NOT NULL AUTO_INCREMENT,
-id_cons INT NOT NULL,
+data_cons DATE NOT NULL,
 id_med INT NOT NULL,
 id_pac INT NOT NULL,
 PRIMARY KEY(id_consulta_hist),
-FOREIGN KEY (id_cons) REFERENCES consultas(id_consulta) ON DELETE CASCADE,
+FOREIGN KEY (data_cons) REFERENCES consultas(data_consulta) ON DELETE CASCADE,
 FOREIGN KEY (id_med) REFERENCES medicos(id_medico) ON DELETE CASCADE,
 FOREIGN KEY (id_pac) REFERENCES pacientes(id_paciente) ON DELETE CASCADE
 );
