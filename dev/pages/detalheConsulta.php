@@ -19,7 +19,7 @@ if (isset($_SESSION['status']) and $_SESSION['status'] == 'LOGADO') {
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // $pagina = file_get_contents('detalheConsulta.html');
         if (isset($_SESSION['id'])) {
-            $consulta = isset($_GET['id_consulta']) ? $_GET['id_consulta'] : '';
+            $consulta = isset($_GET['id']) ? $_GET['id'] : '';
             $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
             // echo "ação: " . $acao;
             if ($consulta != '' AND $acao != '') {
